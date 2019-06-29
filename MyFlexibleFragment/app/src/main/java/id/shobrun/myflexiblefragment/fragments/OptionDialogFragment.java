@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import id.shobrun.myflexiblefragment.R;
 import id.shobrun.myflexiblefragment.tools.OnOptionDialogListener;
@@ -36,7 +37,12 @@ public class OptionDialogFragment extends DialogFragment implements View.OnClick
         Fragment fragment = getParentFragment();
         if (fragment instanceof DetailCategoryFragment){
             DetailCategoryFragment detailCategoryFragment = (DetailCategoryFragment) fragment;
-            this.optionDialogListener = detailCategoryFragment.optioDialogListener;
+            this.optionDialogListener = new OnOptionDialogListener() {
+                @Override
+                public void onOptionChosen(String text) {
+                    Toast.makeText(getContext(),"From Dialog : "+text,Toast.LENGTH_SHORT).show();
+                }
+            };
         }
     }
 
