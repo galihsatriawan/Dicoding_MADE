@@ -1,6 +1,7 @@
 package id.shobrun.myflexiblefragment.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import id.shobrun.myflexiblefragment.ProfileActivity;
 import id.shobrun.myflexiblefragment.R;
 import id.shobrun.myflexiblefragment.tools.OnOptionDialogListener;
 
@@ -85,6 +87,8 @@ public class DetailCategoryFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_profile:{
+                Intent mIntentProfile = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(mIntentProfile);
                 break;
             }
             case R.id.btn_show_dialog:{
