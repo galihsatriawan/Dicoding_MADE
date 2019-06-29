@@ -2,10 +2,12 @@ package id.shobrun.myintent;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import id.shobrun.myintent.pojo.Person;
 
@@ -13,21 +15,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnMoveActivity,
             btnMoveWithDataActivity,
             btnMoveWithObject,
-            btnDialPhone;
+            btnDialPhone,
+            btnMoveForResult;
+    TextView tvResult;
+    private int REQUEST_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        /*
+            Button
+         */
         btnMoveActivity = findViewById(R.id.btn_move_activity);
         btnMoveWithDataActivity = findViewById(R.id.btn_move_activity_data);
         btnMoveWithObject = findViewById(R.id.btn_move_activity_object);
         btnDialPhone = findViewById(R.id.btn_dial_number);
+        btnMoveForResult = findViewById(R.id.btn_move_for_result);
 
         btnMoveActivity.setOnClickListener(this);
         btnMoveWithDataActivity.setOnClickListener(this);
         btnMoveWithObject.setOnClickListener(this);
         btnDialPhone.setOnClickListener(this);
+        btnMoveForResult.setOnClickListener(this);
+
+        /*
+            TextView
+         */
+        tvResult = findViewById(R.id.tv_result);
     }
 
     @Override
@@ -62,6 +76,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent dialPhoneIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+phoneNumber));
                 startActivity(dialPhoneIntent);
                 break;
+            }
+            case R.id.btn_move_for_result :{
+                Intent moveForResultIntent = new Intent(MainActivity.this,MoveForResultActivity.class);
+                startActivityForResult(moveForResultIntent,REQUEST_CODE);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == MoveForResultActivity.RESULT_CODE){
+                int selectedValue = data.getIntExtra(MoveForResultActivity.EXTRA_SELECTED_VALUE,0);
+                tvResult.setText(String.format("Hasil : %s",selectedValue));
             }
         }
     }
