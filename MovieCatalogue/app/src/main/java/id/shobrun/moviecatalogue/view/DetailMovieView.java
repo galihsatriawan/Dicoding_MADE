@@ -1,4 +1,4 @@
 package id.shobrun.moviecatalogue.view;
 
-public interface DetailMovieView {
+public interface DetailMovieView extends RootView {
 }
