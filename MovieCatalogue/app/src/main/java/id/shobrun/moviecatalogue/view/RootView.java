@@ -1,4 +1,5 @@
 package id.shobrun.moviecatalogue.view;
 
-public class RootView {
+public interface RootView {
+    void showActionBar();
 }
