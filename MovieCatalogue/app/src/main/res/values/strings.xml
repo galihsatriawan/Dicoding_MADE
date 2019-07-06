@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">MovieCatalogue</string>
+    <string-array name="movies_name">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_description">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_genre">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_production_company">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_rating">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_poster">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_duration">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_release">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_languages">
+        <item>test</item>
+    </string-array>
+    <string-array name="movies_keywords">
+        <item>test</item>
+    </string-array>
 </resources>
