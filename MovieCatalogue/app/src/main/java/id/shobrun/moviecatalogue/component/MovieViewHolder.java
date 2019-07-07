@@ -28,18 +28,18 @@ public class MovieViewHolder {
     }
     void bind(Movie movie){
         tvTitle.setText(movie.getName());
-        tvExcerpt.setText(movie.getDescription().substring(0,20)+" ...");
+        tvExcerpt.setText(movie.getDescription().substring(0,25)+" ...");
         tvRating.setText(movie.getRating()+"");
         Glide.with(context).load(movie.getPoster()).into(imgPoster);
         btnAddToWishlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(imgWishlistOn.getVisibility()==View.VISIBLE){
-                    imgWishlistOn.setVisibility(View.GONE);
-                    imgWishlistOff.setVisibility(View.VISIBLE);
-                }else{
+                if(imgWishlistOff.getVisibility()==View.VISIBLE){
                     imgWishlistOn.setVisibility(View.VISIBLE);
                     imgWishlistOff.setVisibility(View.GONE);
+                }else{
+                    imgWishlistOn.setVisibility(View.GONE);
+                    imgWishlistOff.setVisibility(View.VISIBLE);
                 }
             }
         });

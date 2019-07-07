@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         lvMovie.setAdapter(movieAdapter);
         final MainPresenter presenter = new MainPresenter(getApplicationContext(),this);
         presenter.loadMovie();
-
     }
 
     @Override

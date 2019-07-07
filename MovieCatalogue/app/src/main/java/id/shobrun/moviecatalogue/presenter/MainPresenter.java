@@ -1,10 +1,10 @@
 package id.shobrun.moviecatalogue.presenter;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -30,12 +30,12 @@ public class MainPresenter {
         moviesData.setDescription(this.<String>getData(R.array.movies_description, "string"));
         moviesData.setGenre(getDataMultiDimens(R.array.movies_genre, "#"));
         moviesData.setProductionCompany(this.<String>getData(R.array.movies_production_company, "string"));
-        moviesData.setPoster(this.<Integer>getData(R.array.movies_poster, "int"));
+        moviesData.setPoster(this.getDrawable(R.array.movies_poster));
         moviesData.setRating(this.<Double>getData(R.array.movies_rating, "double"));
         moviesData.setLanguages(getDataMultiDimens(R.array.movies_languages, "#"));
-        moviesData.setDuration(this.<Integer>getData(R.array.movies_duration, "double"));
+        moviesData.setDuration(this.<Integer>getData(R.array.movies_duration, "int"));
         moviesData.setReleaseDate(this.<Date>getData(R.array.movies_release, "date"));
-        moviesData.setKeywords(getDataMultiDimens(R.array.movies_keywords, "#"));
+        moviesData.setKeywords(getDataMultiDimens(R.array.movies_keywords, "|"));
     }
 
     public ArrayList<Movie> movies() {
@@ -83,6 +83,7 @@ public class MainPresenter {
                 case "int": {
                     Integer temp = Integer.parseInt(data);
                     result.add((T) temp);
+                    break;
                 }
                 case "date": {
                     SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
@@ -93,6 +94,7 @@ public class MainPresenter {
                         e.toString();
                     }
                     result.add((T) temp);
+                    break;
                 }
                 default: {
                     String temp = data;
@@ -103,7 +105,15 @@ public class MainPresenter {
         }
         return result;
     }
-
+    public ArrayList<Integer> getDrawable(int resource_id){
+        ArrayList<Integer> result = new ArrayList<>();
+        TypedArray datas = ctx.getResources().obtainTypedArray(resource_id);
+        for(int i = 0;i<datas.length();i++){
+            int data = datas.getResourceId(i,-1);
+            result.add(data);
+        }
+        return  result;
+    }
     public ArrayList<ArrayList<String>> getDataMultiDimens(int resource_id, String splitter) {
         ArrayList<String> datas = getData(resource_id, "string");
         ArrayList<ArrayList<String>> result = new ArrayList<>();
