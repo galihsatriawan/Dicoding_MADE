@@ -13,21 +13,21 @@ import id.shobrun.moviecatalogue.data.Movie;
 
 public class MovieAdapter extends BaseAdapter {
     Context context;
-    private ArrayList<Movie> mMovies;
+    private ArrayList<Movie> movies;
 
     public MovieAdapter(Context context) {
         this.context = context;
-        this.mMovies = new ArrayList<>();
+        this.movies = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
-        return this.mMovies.size();
+        return this.movies.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mMovies.get(position);
+        return movies.get(position);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MovieAdapter extends BaseAdapter {
         return view;
     }
 
-    public void setmMovies(ArrayList<Movie> mMovies) {
-        this.mMovies = mMovies;
+    public void setMovies(ArrayList<Movie> movies) {
+        this.movies = movies;
     }
 }

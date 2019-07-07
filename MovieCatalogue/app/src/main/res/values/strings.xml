@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MovieCatalogue</string>
+    <string name="title_movie">Judul</string>
+    <string name="excerpt_movie">Excerpt</string>
+    <string name="rating_movie">4.9</string>
     <string-array name="movies_name">
         <item>test</item>
     </string-array>
