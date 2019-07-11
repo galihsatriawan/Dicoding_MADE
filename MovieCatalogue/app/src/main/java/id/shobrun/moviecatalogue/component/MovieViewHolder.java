@@ -1,10 +1,12 @@
 package id.shobrun.moviecatalogue.component;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -26,20 +28,23 @@ public class MovieViewHolder {
         imgWishlistOn = view.findViewById(R.id.image_wishlist_on);
         btnAddToWishlist = view.findViewById(R.id.button_add_wishlist);
     }
-    void bind(Movie movie){
+    void bind(final Movie movie){
         tvTitle.setText(movie.getName());
-        tvExcerpt.setText(movie.getDescription().substring(0,25)+" ...");
+        tvExcerpt.setText(movie.getDescription().substring(0,17)+" [...]");
         tvRating.setText(movie.getRating()+"");
         Glide.with(context).load(movie.getPoster()).into(imgPoster);
         btnAddToWishlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(imgWishlistOff.getVisibility()==View.VISIBLE){
                     imgWishlistOn.setVisibility(View.VISIBLE);
                     imgWishlistOff.setVisibility(View.GONE);
+                    Toast.makeText(v.getContext(),movie.getName()+" has added",Toast.LENGTH_SHORT).show();
                 }else{
                     imgWishlistOn.setVisibility(View.GONE);
                     imgWishlistOff.setVisibility(View.VISIBLE);
+                    Toast.makeText(v.getContext(),movie.getName()+" has removed",Toast.LENGTH_SHORT).show();
                 }
             }
         });

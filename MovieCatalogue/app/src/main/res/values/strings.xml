@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">MovieCatalogue</string>
+    <string name="app_name">Movie Catalogue</string>
     <string name="title_movie">Title</string>
     <string name="excerpt_movie">Excerpt</string>
     <string name="rating_movie">4.9</string>
+    <string name="my_name">Galih Anggi Satriawan</string>
+    <string name="author">Author</string>
+    <string name="description">Description</string>
+    <string name="dummy_title">Title</string>
+    <string name="dummy_content_text">Content</string>
+    <string name="dummy_story">Story</string>
+    <string name="documentation">Subtitle</string>
     <string-array name="movies_name">
         <item>Aquaman</item>
         <item>Avenger Infinity War</item>

@@ -1,9 +1,12 @@
 package id.shobrun.moviecatalogue.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Movie {
+public class Movie implements Parcelable {
     private String name;
     private String description;
     private ArrayList<String> genre;
@@ -108,4 +111,49 @@ public class Movie {
     public void setKeywords(ArrayList<String> keywords) {
         this.keywords = keywords;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeStringList(this.genre);
+        dest.writeString(this.productionCompany);
+        dest.writeInt(this.poster);
+        dest.writeDouble(this.rating);
+        dest.writeStringList(this.languages);
+        dest.writeInt(this.duration);
+        dest.writeLong(this.releaseDate != null ? this.releaseDate.getTime() : -1);
+        dest.writeStringList(this.keywords);
+    }
+
+    protected Movie(Parcel in) {
+        this.name = in.readString();
+        this.description = in.readString();
+        this.genre = in.createStringArrayList();
+        this.productionCompany = in.readString();
+        this.poster = in.readInt();
+        this.rating = in.readDouble();
+        this.languages = in.createStringArrayList();
+        this.duration = in.readInt();
+        long tmpReleaseDate = in.readLong();
+        this.releaseDate = tmpReleaseDate == -1 ? null : new Date(tmpReleaseDate);
+        this.keywords = in.createStringArrayList();
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
