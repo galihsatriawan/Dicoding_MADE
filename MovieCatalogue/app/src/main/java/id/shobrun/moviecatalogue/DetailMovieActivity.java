@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.model.DetailMovieModel;
@@ -57,7 +58,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         tvTitle.setText(movie.getName());
         tvRating.setText(movie.getRating()+"");
         tvProduction.setText(movie.getProductionCompany());
-        SimpleDateFormat dtf = new SimpleDateFormat("dd MMM yyy");
+        SimpleDateFormat dtf = new SimpleDateFormat("EEE MMM dd, yyy", Locale.getDefault());
         tvRelease.setText(dtf.format(movie.getReleaseDate()));
         tvContent.setText(movie.getDescription());
         tvDuration.setText(getDuration(movie.getDuration()));

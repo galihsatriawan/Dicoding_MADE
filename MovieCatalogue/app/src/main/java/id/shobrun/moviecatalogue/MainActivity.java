@@ -1,17 +1,14 @@
 package id.shobrun.moviecatalogue;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import id.shobrun.moviecatalogue.component.MovieAdapter;
 import id.shobrun.moviecatalogue.model.MainModel;
-import id.shobrun.moviecatalogue.presenter.DetailMoviePresenter;
 import id.shobrun.moviecatalogue.presenter.MainPresenter;
 import id.shobrun.moviecatalogue.view.MainView;
 

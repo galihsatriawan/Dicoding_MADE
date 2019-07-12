@@ -7,10 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
+
     <style name="TextTitle" parent="@style/TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -33,8 +30,5 @@
     <style name="TextContent.Subtitle">
         <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:textSize">12sp</item>
-    </style>
-    <style name="TextContent.Black">
-        <item name="android:textColor">@android:color/black</item>
     </style>
 </resources>
