@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyRecyclerView</string>
+    <string name="heroes_name">Hero</string>
+    <string name="from">From</string>
+    <string name="list">List</string>
+    <string name="grid">Grid</string>
+    <string name="with_cardview">With CardView</string>
 </resources>
