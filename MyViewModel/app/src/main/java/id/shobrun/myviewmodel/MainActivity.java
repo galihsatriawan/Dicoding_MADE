@@ -9,10 +9,12 @@ import android.widget.Toast;
 
 import id.shobrun.myviewmodel.custom.MyButton;
 import id.shobrun.myviewmodel.custom.MyEditText;
+import id.shobrun.myviewmodel.custom.MySearchView;
 
 public class MainActivity extends AppCompatActivity {
     MyButton myButton;
     MyEditText myEditText;
+    MySearchView mySearchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +22,23 @@ public class MainActivity extends AppCompatActivity {
 
         myButton = findViewById(R.id.my_button);
         myEditText = findViewById(R.id.my_edit_text);
+        mySearchView = findViewById(R.id.my_search_view);
+        mySearchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         myEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
