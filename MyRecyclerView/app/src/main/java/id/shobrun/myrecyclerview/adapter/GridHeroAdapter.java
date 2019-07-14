@@ -13,11 +13,17 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 import id.shobrun.myrecyclerview.R;
+import id.shobrun.myrecyclerview.helper.OnItemClickCallback;
 import id.shobrun.myrecyclerview.pojo.Hero;
 
 public class GridHeroAdapter extends RecyclerView.Adapter<GridHeroAdapter.GridViewHolder> {
     public GridHeroAdapter(ArrayList<Hero> heroes) {
         this.heroes = heroes;
+    }
+    private OnItemClickCallback onItemClickCallback;
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
     }
 
     private ArrayList<Hero> heroes;
@@ -30,12 +36,18 @@ public class GridHeroAdapter extends RecyclerView.Adapter<GridHeroAdapter.GridVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GridViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull final GridViewHolder holder, int i) {
         Hero hero = heroes.get(i);
         Glide.with(holder.itemView.getContext())
                 .load(hero.getPhoto())
                 .apply(new RequestOptions().override(350,550))
                 .into(holder.imgPhoto);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(heroes.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override

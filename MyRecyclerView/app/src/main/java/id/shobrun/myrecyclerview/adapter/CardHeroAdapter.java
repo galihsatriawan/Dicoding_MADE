@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 import id.shobrun.myrecyclerview.R;
+import id.shobrun.myrecyclerview.helper.OnItemClickCallback;
 import id.shobrun.myrecyclerview.pojo.Hero;
 
 public class CardHeroAdapter extends RecyclerView.Adapter<CardHeroAdapter.CardViewHolder> {
@@ -23,6 +24,11 @@ public class CardHeroAdapter extends RecyclerView.Adapter<CardHeroAdapter.CardVi
 
     public CardHeroAdapter(ArrayList<Hero> heroes) {
         this.heroes = heroes;
+    }
+
+    private OnItemClickCallback onItemClickCallback;
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
     }
 
     @NonNull
@@ -34,8 +40,8 @@ public class CardHeroAdapter extends RecyclerView.Adapter<CardHeroAdapter.CardVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardViewHolder holder, int i) {
-        final Hero hero = heroes.get(i);
+    public void onBindViewHolder(@NonNull final CardViewHolder holder, int i) {
+        Hero hero = heroes.get(i);
         Glide.with(holder.itemView.getContext())
                 .load(hero.getPhoto())
                 .apply(new RequestOptions().override(350,550))
@@ -46,13 +52,19 @@ public class CardHeroAdapter extends RecyclerView.Adapter<CardHeroAdapter.CardVi
         holder.btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Share "+hero.getName(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(),"Share "+heroes.get(holder.getAdapterPosition()).getName(),Toast.LENGTH_SHORT).show();
             }
         });
         holder.btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Favorite "+hero.getName(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(),"Favorite "+heroes.get(holder.getAdapterPosition()).getName(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(heroes.get(holder.getAdapterPosition()));
             }
         });
     }

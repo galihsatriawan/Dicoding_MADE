@@ -18,10 +18,16 @@ import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import id.shobrun.myrecyclerview.R;
+import id.shobrun.myrecyclerview.helper.OnItemClickCallback;
 import id.shobrun.myrecyclerview.pojo.Hero;
 
 public class ListHeroAdapter extends RecyclerView.Adapter<ListHeroAdapter.ListViewHolder> {
     private ArrayList<Hero> listHeroes;
+    private OnItemClickCallback onItemClickCallback;
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
 
     public ListHeroAdapter(Context context) {
         this.context = context;
@@ -39,14 +45,20 @@ public class ListHeroAdapter extends RecyclerView.Adapter<ListHeroAdapter.ListVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        Hero hero = listHeroes.get(position);
+    public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
+        final Hero hero = listHeroes.get(position);
         Glide.with(holder.itemView.getContext())
                 .load(hero.getPhoto())
                 .apply(new RequestOptions().override(55,55))
                 .into(holder.imgPhoto);
         holder.tvNames.setText(hero.getName());
         holder.tvFrom.setText(hero.getFrom());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(listHeroes.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override

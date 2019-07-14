@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import id.shobrun.myrecyclerview.adapter.CardHeroAdapter;
 import id.shobrun.myrecyclerview.adapter.GridHeroAdapter;
 import id.shobrun.myrecyclerview.adapter.ListHeroAdapter;
 import id.shobrun.myrecyclerview.data.HeroesData;
+import id.shobrun.myrecyclerview.helper.OnItemClickCallback;
 import id.shobrun.myrecyclerview.pojo.Hero;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,16 +58,35 @@ public class MainActivity extends AppCompatActivity {
         rvHeroes.setLayoutManager(new LinearLayoutManager(this));
         ListHeroAdapter adapter =new ListHeroAdapter(datas);
         rvHeroes.setAdapter(adapter);
+        adapter.setOnItemClickCallback(new OnItemClickCallback() {
+            @Override
+            public void onItemClicked(Hero hero) {
+                showSelectedHero(hero);
+            }
+        });
+
     }
     public void showRecyclerGrid(){
         rvHeroes.setLayoutManager(new GridLayoutManager(this,2));
         GridHeroAdapter adapter = new GridHeroAdapter(datas);
         rvHeroes.setAdapter(adapter);
+        adapter.setOnItemClickCallback(new OnItemClickCallback() {
+            @Override
+            public void onItemClicked(Hero hero) {
+                showSelectedHero(hero);
+            }
+        });
     }
     public void showRecylcerCard(){
         rvHeroes.setLayoutManager(new LinearLayoutManager(this));
         CardHeroAdapter adapter = new CardHeroAdapter(datas);
         rvHeroes.setAdapter(adapter);
+        adapter.setOnItemClickCallback(new OnItemClickCallback() {
+            @Override
+            public void onItemClicked(Hero hero) {
+                showSelectedHero(hero);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,5 +132,8 @@ public class MainActivity extends AppCompatActivity {
         outState.putString(EXTRA_TITLE,title);
         outState.putParcelableArrayList(EXTRA_LIST,datas);
         outState.putInt(EXTRA_MODE,mode);
+    }
+    public void showSelectedHero(Hero hero){
+        Toast.makeText(getApplicationContext(),"Kamu Memilih "+hero.getName(),Toast.LENGTH_SHORT).show();
     }
 }
