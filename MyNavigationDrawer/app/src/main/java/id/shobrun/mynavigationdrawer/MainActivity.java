@@ -3,6 +3,9 @@ package id.shobrun.mynavigationdrawer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -57,6 +60,15 @@ public class MainActivity extends AppCompatActivity
         Glide.with(MainActivity.this)
                 .load(profileImageUrl)
                 .into(profileCircleImageView);
+        // First Run
+        if(savedInstanceState == null){
+            Fragment currentFragment = new HomeFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction mFragmentTransaction = fragmentManager.beginTransaction();
+                    mFragmentTransaction.add(R.id.content_main,currentFragment)
+                                        .commit();
+
+        }
     }
 
     @Override
@@ -112,14 +124,25 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Bundle bundle = new Bundle();
+        Fragment fragment = null;
+        String title = "";
         switch (id){
             case R.id.nav_home:
-
+                title = "Home";
+                fragment = new HomeFragment();
                 break;
             case R.id.nav_camera :
-
+                title = "Camera";
+                fragment = new PageFragment();
+                bundle.putString(PageFragment.EXTRAS,"Camera");
+                fragment.setArguments(bundle);
                 break;
             case R.id.nav_gallery :
+                title = "Gallery";
+                fragment = new PageFragment();
+                bundle.putString(PageFragment.EXTRAS,"Gallery");
+                fragment.setArguments(bundle);
                 break;
             case R.id.nav_slideshow:
 
@@ -141,6 +164,14 @@ public class MainActivity extends AppCompatActivity
                 break;
 
         }
+        if(fragment!= null){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_main,fragment)
+                    .commit();
+        }
+        if(getSupportActionBar()!= null)
+            getSupportActionBar().setTitle(title);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
