@@ -13,4 +13,23 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="lorem">Lorem Ipsum</string>
+    <string name="galih_anggi_satriawan">Galih Anggi Satriawan</string>
+    <string name="galih_email">satriawan.galih99@gmail.com</string>
+
+    <string name="click_me_to_see_the_awesomeness">Click me to see the Awesomeness!</string>
+    <string name="narenda_wicaksono">Narenda Wicaksono</string>
+    <string name="narenda_dicoding_com">narenda@dicoding.com</string>
+    <string name="camera_photo">Foto Kamera</string>
+    <string name="gallery">Galleri</string>
+    <string name="play_slideshow">Mainkan Slideshow</string>
+    <string name="configuration">Konfigurasi</string>
+    <string name="cart">Keranjang Belanja</string>
+    <string name="communication">Komunikasi</string>
+    <string name="share">Bagikan</string>
+    <string name="send_message">Kirim Pesan</string>
+    <string name="map">Peta</string>
+    <string name="hotel">Hotel</string>
+    <string name="subway">Subway</string>
+    <string name="home">Home</string>
 </resources>

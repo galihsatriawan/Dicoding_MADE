@@ -14,30 +14,65 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.bumptech.glide.Glide;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    CircleImageView profileCircleImageView;
+    String profileImageUrl = "https://media.licdn.com/dms/image/C5103AQG2S9vQSMNIOg/profile-displayphoto-shrink_200_200/0?e=1568851200&v=beta&t=DZkY7Vtkh9Q1I0FKZg5nC1a0Fyv3eEuq99QcRLPPh1Q";
 
+    DrawerLayout drawer;
+    Toolbar toolbar;
+    ActionBarDrawerToggle toggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle("Home");
+        }
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Halo ini Action dari snackbar", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        profileCircleImageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        Glide.with(MainActivity.this)
+                .load(profileImageUrl)
+                .into(profileCircleImageView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toggle = new ActionBarDrawerToggle(
+                this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close
+        );
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        drawer.removeDrawerListener(toggle);
     }
 
     @Override
@@ -77,18 +112,33 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        switch (id){
+            case R.id.nav_home:
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+                break;
+            case R.id.nav_camera :
 
-        } else if (id == R.id.nav_slideshow) {
+                break;
+            case R.id.nav_gallery :
+                break;
+            case R.id.nav_slideshow:
 
-        } else if (id == R.id.nav_tools) {
+                break;
+            case R.id.nav_tools:
+                break;
+            case R.id.nav_cart :
+                break;
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+            case R.id.nav_share:
+                break;
+            case R.id.nav_send:
+                break;
+            case R.id.nav_map:
+                break;
+            case R.id.nav_hotel:
+                break;
+            case R.id.nav_subway:
+                break;
 
         }
 
