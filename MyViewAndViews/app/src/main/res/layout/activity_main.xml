@@ -20,7 +20,7 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/pixel_google"
                 android:scaleType="fitXY"
-                android:contentDescription="TODO" />
+                android:contentDescription="FotoGoogle Pixel" />
             <TextView
                 style="@style/TextContent.Small.White"
                 android:padding="8dp"
