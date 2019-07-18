@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">LearnEspresso</string>
+    <string name="output_text">Hello World</string>
+    <string name="edit_text">Get Edit Text</string>
+    <string name="move_activity">Move Activity</string>
 </resources>
