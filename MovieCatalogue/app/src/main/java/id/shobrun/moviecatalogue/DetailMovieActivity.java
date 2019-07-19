@@ -58,7 +58,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         tvTitle.setText(movie.getName());
         tvRating.setText(movie.getRating()+"");
         tvProduction.setText(movie.getProductionCompany());
-        SimpleDateFormat dtf = new SimpleDateFormat("EEE MMM dd, yyy", Locale.getDefault());
+        SimpleDateFormat dtf = new SimpleDateFormat("EEEE MMM dd, yyy", Locale.getDefault());
         tvRelease.setText(dtf.format(movie.getReleaseDate()));
         tvContent.setText(movie.getDescription());
         tvDuration.setText(getDuration(movie.getDuration()));

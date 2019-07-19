@@ -171,4 +171,10 @@ After Venom appeared in Spider-Man 3 (2007), Sony attempted to develop a spin-of
         <item>singing in a car | drug cartel | old man</item>
         <item>marvel comics | anti hero | british actor playing american character</item>
     </string-array>
+    <string name="title_activity_main_movie">MainMovieActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
