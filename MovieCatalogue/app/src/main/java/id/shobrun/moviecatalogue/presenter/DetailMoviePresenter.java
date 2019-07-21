@@ -3,7 +3,8 @@ package id.shobrun.moviecatalogue.presenter;
 import android.content.Context;
 
 import id.shobrun.moviecatalogue.data.Movie;
-import id.shobrun.moviecatalogue.model.DetailMovieModel;
+
+import id.shobrun.moviecatalogue.model.MovieModel;
 import id.shobrun.moviecatalogue.view.DetailMovieView;
 
 public class DetailMoviePresenter {
@@ -14,8 +15,9 @@ public class DetailMoviePresenter {
         this.mDetailMovieView = mDetailMovieView;
         this.ctx = ctx;
     }
-    public void loadDetailMovie(Movie movie){
-        DetailMovieModel model = new DetailMovieModel(movie);
-        mDetailMovieView.showDetailMovie(model);
+    public void loadDetailMovie(int id){
+        MovieModel model = new MovieModel(ctx);
+        int position = model.getMovieById(id);
+        mDetailMovieView.showDetailMovie(model,position);
     }
 }

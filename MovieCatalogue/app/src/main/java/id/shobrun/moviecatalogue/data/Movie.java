@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Movie implements Parcelable {
+
+    private int id;
     private String name;
     private String description;
     private ArrayList<String> genre;
@@ -18,6 +20,19 @@ public class Movie implements Parcelable {
     private Date releaseDate;
     private ArrayList<String> keywords;
 
+    public Movie(int id,String name, String description, ArrayList<String> genre, String productionCompany, int poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.genre = genre;
+        this.productionCompany = productionCompany;
+        this.poster = poster;
+        this.rating = rating;
+        this.languages = languages;
+        this.duration = duration;
+        this.releaseDate = releaseDate;
+        this.keywords = keywords;
+    }
     public Movie(String name, String description, ArrayList<String> genre, String productionCompany, int poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
         this.name = name;
         this.description = description;
@@ -30,6 +45,14 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
         this.keywords = keywords;
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public String getName() {
         return name;
@@ -112,6 +135,7 @@ public class Movie implements Parcelable {
         this.keywords = keywords;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -119,6 +143,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.name);
         dest.writeString(this.description);
         dest.writeStringList(this.genre);
@@ -132,6 +157,7 @@ public class Movie implements Parcelable {
     }
 
     protected Movie(Parcel in) {
+        this.id = in.readInt();
         this.name = in.readString();
         this.description = in.readString();
         this.genre = in.createStringArrayList();
@@ -145,7 +171,7 @@ public class Movie implements Parcelable {
         this.keywords = in.createStringArrayList();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);

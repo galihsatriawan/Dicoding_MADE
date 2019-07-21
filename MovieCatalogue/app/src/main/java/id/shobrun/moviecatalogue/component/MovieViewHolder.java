@@ -1,6 +1,8 @@
 package id.shobrun.moviecatalogue.component;
 
 import android.content.Context;
+import android.support.annotation.IntegerRes;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,14 +13,14 @@ import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.data.Movie;
+import id.shobrun.moviecatalogue.view.MovieItemView;
 
-public class MovieViewHolder {
-    private Context context;
+public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieItemView {
     private TextView tvTitle,tvExcerpt,tvRating;
     private ImageView imgPoster,imgWishlistOff,imgWishlistOn;
     private Button btnAddToWishlist;
-    MovieViewHolder(View view){
-        context = view.getContext();
+    public MovieViewHolder(View view){
+        super(view);
         tvTitle = view.findViewById(R.id.text_title);
         tvExcerpt = view.findViewById(R.id.text_excerpt);
         tvRating = view.findViewById(R.id.text_rating);
@@ -28,10 +30,7 @@ public class MovieViewHolder {
         btnAddToWishlist = view.findViewById(R.id.button_add_wishlist);
     }
     void bind(final Movie movie){
-        tvTitle.setText(movie.getName());
-        tvExcerpt.setText(movie.getDescription().substring(0,17)+" [...]");
-        tvRating.setText(movie.getRating()+"");
-        Glide.with(context).load(movie.getPoster()).into(imgPoster);
+
         btnAddToWishlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,5 +46,25 @@ public class MovieViewHolder {
                 }
             }
         });
+    }
+
+    @Override
+    public void setTitle(String title) {
+        tvTitle.setText(title);
+    }
+
+    @Override
+    public void setExcerpt(String excerpt) {
+        tvExcerpt.setText(excerpt.substring(0,17)+" [...]");
+    }
+
+    @Override
+    public void setRating(double rating) {
+        tvRating.setText(rating+"");
+    }
+
+    @Override
+    public void setPoster(int poster) {
+        Glide.with(this.itemView.getContext()).load(poster).into(imgPoster);
     }
 }

@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import id.shobrun.moviecatalogue.data.Movie;
-import id.shobrun.moviecatalogue.model.DetailMovieModel;
+import id.shobrun.moviecatalogue.model.MovieModel;
 import id.shobrun.moviecatalogue.presenter.DetailMoviePresenter;
 import id.shobrun.moviecatalogue.view.DetailMovieView;
 
@@ -30,8 +30,9 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
 
         if(getIntent() != null){
             mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+
             DetailMoviePresenter presenter = new DetailMoviePresenter(getApplicationContext(),this);
-            presenter.loadDetailMovie(mMovie);
+            presenter.loadDetailMovie(mMovie.getId());
 
 
         }
@@ -53,8 +54,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         showActionBar();
     }
     @Override
-    public void showDetailMovie(DetailMovieModel model) {
-        Movie movie = model.getMovie();
+    public void showDetailMovie(MovieModel movieModel, int position) {
+        Movie movie = movieModel.getMovie(position);
         tvTitle.setText(movie.getName());
         tvRating.setText(movie.getRating()+"");
         tvProduction.setText(movie.getProductionCompany());

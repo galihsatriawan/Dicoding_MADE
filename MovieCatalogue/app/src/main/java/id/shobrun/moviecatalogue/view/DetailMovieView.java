@@ -1,7 +1,7 @@
 package id.shobrun.moviecatalogue.view;
 
-import id.shobrun.moviecatalogue.model.DetailMovieModel;
+import id.shobrun.moviecatalogue.model.MovieModel;
 
 public interface DetailMovieView extends RootView {
-    void showDetailMovie(DetailMovieModel model);
+    void showDetailMovie(MovieModel model,int position);
 }

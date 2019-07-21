@@ -1,52 +1,36 @@
 package id.shobrun.moviecatalogue.component;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
-import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.data.Movie;
+import id.shobrun.moviecatalogue.presenter.MovieRecyclerPresenter;
 
-public class MovieAdapter extends BaseAdapter {
-    Context context;
-    private ArrayList<Movie> movies;
+public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
+    MovieRecyclerPresenter mPresenter;
 
-    public MovieAdapter(Context context) {
-        this.context = context;
-        this.movies = new ArrayList<>();
+    public MovieAdapter(MovieRecyclerPresenter mPresenter) {
+        this.mPresenter = mPresenter;
+    }
+
+    @NonNull
+    @Override
+    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        return new MovieViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_movie,parent,false));
     }
 
     @Override
-    public int getCount() {
-        return this.movies.size();
+    public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+        mPresenter.onBindItemViewHolder(movieViewHolder,i);
     }
 
     @Override
-    public Object getItem(int position) {
-        return movies.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        if(view == null ){
-            view = LayoutInflater.from(context).inflate(R.layout.item_movie,parent,false);
-        }
-        MovieViewHolder viewHolder = new MovieViewHolder(view);
-        Movie movie = (Movie)getItem(position);
-        viewHolder.bind(movie);
-        return view;
-    }
-
-    public void setMovies(ArrayList<Movie> movies) {
-        this.movies = movies;
+    public int getItemCount() {
+        return mPresenter.getMoviesCount();
     }
 }
