@@ -26,7 +26,7 @@ import id.shobrun.moviecatalogue.view.MovieCatalogueView;
 public class MovieCatalogueFragment extends Fragment implements MovieCatalogueView {
     RecyclerView mRecyclerView;
     MovieCataloguePresenter mMovieCataloguePresenter;
-    MovieRecyclerPresenter mMovieRecylerPresenter;
+    MovieRecyclerPresenter mMovieRecyclerPresenter;
     private static MovieCatalogueFragment instance;
     public static MovieCatalogueFragment getMovieCatalogueInstance(){
         if(instance == null){
@@ -58,13 +58,13 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueVi
     public void initPresenter(){
         mMovieCataloguePresenter = new MovieCataloguePresenter(this,getContext());
         //Create Recycler Presenter
-        mMovieRecylerPresenter = new MovieRecyclerPresenter(mRecyclerView);
+        mMovieRecyclerPresenter = new MovieRecyclerPresenter(mRecyclerView);
     }
 
     @Override
     public void showListMovieCatalogue(MovieModel model) {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mMovieRecylerPresenter.loadRecyclerView(model);
+        mMovieRecyclerPresenter.loadRecyclerView(model);
     }
 }

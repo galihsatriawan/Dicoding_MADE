@@ -1,25 +1,19 @@
 package id.shobrun.moviecatalogue.model;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.data.MoviesData;
 
 public class MovieModel implements InterfaceMovieModel {
     private ArrayList<Movie> movies;
-    private MoviesData moviesData;
-    private Context ctx;
+
     public MovieModel(Context ctx) {
-        this.ctx = ctx;
-        this.moviesData = new MoviesData(ctx);
-        movies = this.moviesData.getMovies();
+        Context ctx1 = ctx;
+        MoviesData moviesData = new MoviesData(ctx);
+        movies = moviesData.getMovies();
     }
 
     @Override

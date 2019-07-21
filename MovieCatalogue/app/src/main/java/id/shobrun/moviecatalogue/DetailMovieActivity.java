@@ -17,11 +17,16 @@ import id.shobrun.moviecatalogue.presenter.DetailMoviePresenter;
 import id.shobrun.moviecatalogue.view.DetailMovieView;
 
 public class DetailMovieActivity extends AppCompatActivity implements DetailMovieView {
-    public static final String EXTRA_MOVIE = "extra_movie";
-    private Movie mMovie;
-    ImageView imgPoster,imgBanner;
-    TextView tvRating,tvContent,tvProduction,tvTitle,tvDuration,tvRelease;
-    AppCompatRatingBar ratingBar;
+    private static final String EXTRA_MOVIE = "extra_movie";
+    private ImageView imgPoster;
+    private ImageView imgBanner;
+    private TextView tvRating;
+    private TextView tvContent;
+    private TextView tvProduction;
+    private TextView tvTitle;
+    private TextView tvDuration;
+    private TextView tvRelease;
+    private AppCompatRatingBar ratingBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +34,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         initContent();
 
         if(getIntent() != null){
-            mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+            Movie mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
 
             DetailMoviePresenter presenter = new DetailMoviePresenter(getApplicationContext(),this);
             presenter.loadDetailMovie(mMovie.getId());
@@ -38,7 +43,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         }
 
     }
-    public void initContent(){
+    private void initContent(){
         tvTitle = findViewById(R.id.text_title_movie);
         tvRating = findViewById(R.id.text_rating);
         tvProduction = findViewById(R.id.text_production);
@@ -57,9 +62,9 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     public void showDetailMovie(MovieModel movieModel, int position) {
         Movie movie = movieModel.getMovie(position);
         tvTitle.setText(movie.getName());
-        tvRating.setText(movie.getRating()+"");
+        tvRating.setText(String.valueOf(movie.getRating()));
         tvProduction.setText(movie.getProductionCompany());
-        SimpleDateFormat dtf = new SimpleDateFormat("EEEE MMM dd, yyy", Locale.getDefault());
+        SimpleDateFormat dtf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
         tvRelease.setText(dtf.format(movie.getReleaseDate()));
         tvContent.setText(movie.getDescription());
         tvDuration.setText(getDuration(movie.getDuration()));
@@ -68,8 +73,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         Glide.with(getApplicationContext()).load(movie.getPoster()).into(imgPoster);
         Glide.with(getApplicationContext()).load(movie.getPoster()).into(imgBanner);
     }
-    public String getDuration(int duration){
-        String result = "";
+    private String getDuration(int duration){
+        String result;
         int hours = duration/60;
         int minutes = duration%60;
         result = hours +" Hours " +minutes +" Minutes";

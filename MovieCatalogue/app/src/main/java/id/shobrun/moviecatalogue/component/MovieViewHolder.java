@@ -55,12 +55,13 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieIte
 
     @Override
     public void setExcerpt(String excerpt) {
-        tvExcerpt.setText(excerpt.substring(0,17)+" [...]");
+        String ex = excerpt.substring(0,17)+" [...]";
+        tvExcerpt.setText(ex);
     }
 
     @Override
     public void setRating(double rating) {
-        tvRating.setText(rating+"");
+        tvRating.setText(String.valueOf(rating));
     }
 
     @Override

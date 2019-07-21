@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import id.shobrun.moviecatalogue.R;
 
@@ -15,6 +16,7 @@ public class MoviesData {
     private Context ctx;
     public MoviesData(Context ctx){
         this.ctx = ctx;
+        moviesData = this;
         prepare();
     }
 
@@ -174,7 +176,7 @@ public class MoviesData {
                     break;
                 }
                 case "date": {
-                    SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     Date temp = new Date();
                     try {
                         temp = dtf.parse(data);
@@ -185,8 +187,7 @@ public class MoviesData {
                     break;
                 }
                 default: {
-                    String temp = data;
-                    result.add((T) temp);
+                    result.add((T) data);
                     break;
                 }
             }
