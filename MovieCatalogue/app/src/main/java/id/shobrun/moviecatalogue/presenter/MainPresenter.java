@@ -7,13 +7,11 @@ import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.view.MainView;
 
 public class MainPresenter {
-
-
     private MainView mView;
-
+    private Context ctx;
     public MainPresenter(Context ctx, MainView mView) {
         this.mView = mView;
-        Context ctx1 = ctx;
+        this.ctx = ctx;
     }
     public void onLoad() {
         mView.showTabLayout();

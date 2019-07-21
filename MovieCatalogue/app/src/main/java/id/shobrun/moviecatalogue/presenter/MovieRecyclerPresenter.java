@@ -16,14 +16,11 @@ public class MovieRecyclerPresenter {
     private ArrayList<Movie> movies = new ArrayList<>();
     private MovieModel mMovieModel;
     private RecyclerView mMovieCatalogueView;
-    public MovieRecyclerPresenter(RecyclerView mMovieCatalogueView, MovieModel mMovieModel) {
-        this.mMovieCatalogueView = mMovieCatalogueView;
-        this.mMovieModel =mMovieModel;
-        movies.addAll(mMovieModel.getAllMovies());
-    }
+    private Context ctx;
     public MovieRecyclerPresenter(RecyclerView mMovieCatalogueView, Context ctx) {
         this.mMovieCatalogueView = mMovieCatalogueView;
         mMovieModel = new MovieModel(ctx);
+        this.ctx = ctx;
         movies.addAll(mMovieModel.getAllMovies());
     }
 

@@ -31,33 +31,27 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
-        initContent();
+        initComponent();
 
         if(getIntent() != null){
             Movie mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
-
             DetailMoviePresenter presenter = new DetailMoviePresenter(getApplicationContext(),this);
             presenter.loadDetailMovie(mMovie.getId());
-
-
         }
 
     }
-    private void initContent(){
+    private void initComponent(){
         tvTitle = findViewById(R.id.text_title_movie);
         tvRating = findViewById(R.id.text_rating);
         tvProduction = findViewById(R.id.text_production);
         tvContent = findViewById(R.id.text_content);
         tvDuration = findViewById(R.id.text_duration);
         tvRelease = findViewById(R.id.text_release_date);
-
         imgPoster = findViewById(R.id.image_poster);
         imgBanner = findViewById(R.id.img_banner_poster);
-
         ratingBar = findViewById(R.id.rb_rating);
-
-        showActionBar();
     }
+
     @Override
     public void showDetailMovie(MovieModel movieModel, int position) {
         Movie movie = movieModel.getMovie(position);
@@ -68,7 +62,6 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         tvRelease.setText(dtf.format(movie.getReleaseDate()));
         tvContent.setText(movie.getDescription());
         tvDuration.setText(getDuration(movie.getDuration()));
-
         ratingBar.setRating((float)movie.getRating());
         Glide.with(getApplicationContext()).load(movie.getPoster()).into(imgPoster);
         Glide.with(getApplicationContext()).load(movie.getPoster()).into(imgBanner);
