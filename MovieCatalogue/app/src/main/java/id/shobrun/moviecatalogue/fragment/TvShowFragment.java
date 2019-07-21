@@ -2,17 +2,29 @@ package id.shobrun.moviecatalogue.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import id.shobrun.moviecatalogue.R;
+import id.shobrun.moviecatalogue.model.MovieModel;
+import id.shobrun.moviecatalogue.presenter.MovieRecyclerPresenter;
+import id.shobrun.moviecatalogue.presenter.TvShowPresenter;
+import id.shobrun.moviecatalogue.view.TvShowView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TvShowFragment extends Fragment {
+public class TvShowFragment extends Fragment implements TvShowView {
+    private RecyclerView mRecycler;
+    private TvShowPresenter mPresenter;
+    private MovieRecyclerPresenter mRecyclerPresenter;
     private static TvShowFragment instance ;
     public static TvShowFragment getTvShowInstance(){
         if(instance == null){
@@ -32,4 +44,24 @@ public class TvShowFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_tv_show, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initComponent(view);
+        initPresenter();
+        mPresenter.loadTVShow();
+    }
+    private void initComponent(View view){
+        mRecycler = view.findViewById(R.id.recycler_tv_show);
+    }
+    private void initPresenter(){
+        mPresenter = new TvShowPresenter(this,getContext());
+        mRecyclerPresenter = new MovieRecyclerPresenter(mRecycler,getContext());
+    }
+    @Override
+    public void showListTvShow(MovieModel model) {
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setLayoutManager(new GridLayoutManager(getContext(),2));
+        mRecyclerPresenter.loadRecyclerView(model);
+    }
 }

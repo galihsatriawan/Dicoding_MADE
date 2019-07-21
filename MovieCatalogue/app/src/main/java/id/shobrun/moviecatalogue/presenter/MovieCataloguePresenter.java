@@ -8,10 +8,10 @@ import id.shobrun.moviecatalogue.view.MovieCatalogueView;
 public class MovieCataloguePresenter {
     private MovieCatalogueView mMovieCatalogueView;
     private MovieModel mMovieModel;
-
+    private Context ctx;
     public MovieCataloguePresenter(MovieCatalogueView mMovieCatalogueView,Context ctx) {
         this.mMovieCatalogueView = mMovieCatalogueView;
-        Context ctx1 = ctx;
+        this.ctx = ctx;
         mMovieModel = new MovieModel(ctx);
     }
     public void loadMovieCatalogue(){

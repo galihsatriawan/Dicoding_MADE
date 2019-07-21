@@ -13,7 +13,7 @@ import id.shobrun.moviecatalogue.model.MovieModel;
 import id.shobrun.moviecatalogue.view.MovieCatalogueView;
 
 public class MovieRecyclerPresenter {
-    private ArrayList<Movie> movies;
+    private ArrayList<Movie> movies = new ArrayList<>();
     private MovieModel mMovieModel;
     private RecyclerView mMovieCatalogueView;
     public MovieRecyclerPresenter(RecyclerView mMovieCatalogueView, MovieModel mMovieModel) {

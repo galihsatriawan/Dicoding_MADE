@@ -9,9 +9,9 @@ import id.shobrun.moviecatalogue.data.MoviesData;
 
 public class MovieModel implements InterfaceMovieModel {
     private ArrayList<Movie> movies;
-
+    private Context ctx;
     public MovieModel(Context ctx) {
-        Context ctx1 = ctx;
+        this.ctx = ctx;
         MoviesData moviesData = new MoviesData(ctx);
         movies = moviesData.getMovies();
     }
