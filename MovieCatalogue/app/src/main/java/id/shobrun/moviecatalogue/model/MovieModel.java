@@ -1,6 +1,7 @@
 package id.shobrun.moviecatalogue.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -23,14 +24,26 @@ public class MovieModel implements InterfaceMovieModel {
 
     @Override
     public Movie getMovie(int position) {
-        return movies.get(position);
+        Movie movie = null;
+        try{
+             movie =movies.get(position);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return movie;
     }
 
     @Override
     public int getMovieById(int id) {
         int position =-1 ;
+        int index = 0;
         for(Movie movie : movies){
-            if(movie.getId()==id) return position;
+            if(movie.getId()==id) {
+                position = index;
+                return position;
+            }
+            index++;
         }
         return position;
     }

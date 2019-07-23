@@ -1,16 +1,18 @@
 package id.shobrun.moviecatalogue.presenter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.component.MovieAdapter;
-import id.shobrun.moviecatalogue.component.MovieViewHolder;
+import id.shobrun.moviecatalogue.DetailMovieActivity;
+import id.shobrun.moviecatalogue.component.adapter.MovieAdapter;
+import id.shobrun.moviecatalogue.component.adapter.MovieViewHolder;
+import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.model.MovieModel;
-import id.shobrun.moviecatalogue.view.MovieCatalogueView;
 
 public class MovieRecyclerPresenter {
     private ArrayList<Movie> movies = new ArrayList<>();
@@ -42,6 +44,17 @@ public class MovieRecyclerPresenter {
     public void loadRecyclerView(MovieModel model){
         mMovieModel = model;
         movies = mMovieModel.getAllMovies();
-        mMovieCatalogueView.setAdapter(new MovieAdapter(this));
+        MovieAdapter movieAdapter = new MovieAdapter(this);
+        movieAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClicked(View v, int position) {
+                Intent detail = new Intent(v.getContext(), DetailMovieActivity.class);
+                detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movies.get(position));
+                v.getContext().startActivity(detail);
+            }
+        });
+        mMovieCatalogueView.setAdapter(movieAdapter);
     }
+
+
 }

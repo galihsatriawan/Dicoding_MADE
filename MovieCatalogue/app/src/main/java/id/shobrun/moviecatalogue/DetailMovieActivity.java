@@ -3,6 +3,7 @@ package id.shobrun.moviecatalogue;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatRatingBar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import id.shobrun.moviecatalogue.presenter.DetailMoviePresenter;
 import id.shobrun.moviecatalogue.view.DetailMovieView;
 
 public class DetailMovieActivity extends AppCompatActivity implements DetailMovieView {
-    private static final String EXTRA_MOVIE = "extra_movie";
+    public static final String EXTRA_MOVIE = "extra_movie";
     private ImageView imgPoster;
     private ImageView imgBanner;
     private TextView tvRating;

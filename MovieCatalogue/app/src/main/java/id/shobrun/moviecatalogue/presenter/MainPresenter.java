@@ -1,9 +1,6 @@
 package id.shobrun.moviecatalogue.presenter;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
-
-import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.view.MainView;
 
 public class MainPresenter {

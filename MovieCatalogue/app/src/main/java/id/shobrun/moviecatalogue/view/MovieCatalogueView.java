@@ -4,4 +4,7 @@ import id.shobrun.moviecatalogue.model.MovieModel;
 
 public interface MovieCatalogueView {
     void showListMovieCatalogue(MovieModel model);
+    void showDetailMovie();
+    void showColorStar();
+    void showUnColorStar();
 }

@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue.component;
+package id.shobrun.moviecatalogue.component.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
