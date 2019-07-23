@@ -21,7 +21,6 @@ public class MovieRecyclerPresenter {
     private MovieModel mMovieModel;
     private RecyclerView mMovieCatalogueView;
     private Context ctx;
-    private MovieViewHolder movieViewHolder;
     public MovieRecyclerPresenter(RecyclerView mMovieCatalogueView, Context ctx) {
         this.mMovieCatalogueView = mMovieCatalogueView;
         mMovieModel = new MovieModel(ctx);
