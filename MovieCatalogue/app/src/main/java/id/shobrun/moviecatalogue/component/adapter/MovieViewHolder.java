@@ -12,13 +12,20 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
+import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.view.MovieItemView;
 
-public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieItemView {
+public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieItemView{
     private TextView tvTitle,tvExcerpt,tvRating;
     private ImageView imgPoster,imgWishlistOff,imgWishlistOn;
     private Button btnAddToWishlist;
+    OnViewClickListener onViewClickListener;
+
+    public void setOnViewClickListener(OnViewClickListener onViewClickListener) {
+        this.onViewClickListener = onViewClickListener;
+    }
+
     public MovieViewHolder(View view){
         super(view);
         tvTitle = view.findViewById(R.id.text_title);
@@ -28,6 +35,12 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieIte
         imgWishlistOff = view.findViewById(R.id.image_wishlist_off);
         imgWishlistOn = view.findViewById(R.id.image_wishlist_on);
         btnAddToWishlist = view.findViewById(R.id.button_add_wishlist);
+        btnAddToWishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onViewClickListener.onViewClicked(imgWishlistOn,imgWishlistOff);
+            }
+        });
     }
     void bind(final Movie movie){
 
@@ -67,5 +80,15 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieIte
     @Override
     public void setPoster(int poster) {
         Glide.with(this.itemView.getContext()).load(poster).into(imgPoster);
+    }
+
+    @Override
+    public void showView(View v) {
+        v.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideView(View v) {
+        v.setVisibility(View.GONE);
     }
 }

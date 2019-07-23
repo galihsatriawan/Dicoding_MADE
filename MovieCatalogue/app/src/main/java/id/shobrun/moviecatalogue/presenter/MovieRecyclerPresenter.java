@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import id.shobrun.moviecatalogue.DetailMovieActivity;
 import id.shobrun.moviecatalogue.component.adapter.MovieAdapter;
 import id.shobrun.moviecatalogue.component.adapter.MovieViewHolder;
 import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
+import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.model.MovieModel;
 
@@ -19,6 +21,7 @@ public class MovieRecyclerPresenter {
     private MovieModel mMovieModel;
     private RecyclerView mMovieCatalogueView;
     private Context ctx;
+    private MovieViewHolder movieViewHolder;
     public MovieRecyclerPresenter(RecyclerView mMovieCatalogueView, Context ctx) {
         this.mMovieCatalogueView = mMovieCatalogueView;
         mMovieModel = new MovieModel(ctx);
@@ -30,12 +33,31 @@ public class MovieRecyclerPresenter {
         this.mMovieCatalogueView = mMovieCatalogueView;
     }
 
-    public void onBindItemViewHolder(MovieViewHolder viewHolder, int position){
-        Movie movie = movies.get(position);
+    public void onBindItemViewHolder(final MovieViewHolder viewHolder, int position){
+        final Movie movie = movies.get(position);
         viewHolder.setTitle(movie.getName());
         viewHolder.setExcerpt(movie.getDescription());
         viewHolder.setRating(movie.getRating());
         viewHolder.setPoster(movie.getPoster());
+        viewHolder.setOnViewClickListener(new OnViewClickListener() {
+            @Override
+            public void onViewClicked(View view) {
+
+            }
+
+            @Override
+            public void onViewClicked(View v1, View v2) {
+                if(v1.getVisibility()==View.VISIBLE){
+                    viewHolder.showView(v2);
+                    viewHolder.hideView(v1);
+                    Toast.makeText(viewHolder.itemView.getContext(),movie.getName()+" has removed",Toast.LENGTH_SHORT).show();
+                }else{
+                    viewHolder.showView(v1);
+                    viewHolder.hideView(v2);
+                    Toast.makeText(viewHolder.itemView.getContext(),movie.getName()+" has added",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public int  getMoviesCount(){
