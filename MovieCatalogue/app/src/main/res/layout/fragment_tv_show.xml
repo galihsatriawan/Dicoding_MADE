@@ -4,7 +4,7 @@
     android:id="@+id/fragment_tv_show"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragment.TvShowFragment">
+    tools:context=".ui.fragment.TvShowFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView

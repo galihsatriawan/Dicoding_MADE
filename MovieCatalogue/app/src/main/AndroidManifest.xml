@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailMovieActivity" />
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.DetailMovieActivity" />
+        <activity android:name=".ui.MainActivity"
             android:label="@string/title_activity_main_movie"
             android:theme="@style/AppTheme.NoActionBar"
             >

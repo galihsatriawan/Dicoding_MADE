@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue.fragment;
+package id.shobrun.moviecatalogue.ui.fragment;
 
 
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.model.MovieModel;
 import id.shobrun.moviecatalogue.presenter.MovieCataloguePresenter;
 import id.shobrun.moviecatalogue.presenter.MovieRecyclerPresenter;

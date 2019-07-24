@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.DetailMovieActivity;
+import id.shobrun.moviecatalogue.ui.DetailMovieActivity;
 import id.shobrun.moviecatalogue.component.adapter.MovieAdapter;
 import id.shobrun.moviecatalogue.component.adapter.MovieViewHolder;
 import id.shobrun.moviecatalogue.component.common.OnItemClickListener;

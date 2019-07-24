@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue;
+package id.shobrun.moviecatalogue.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

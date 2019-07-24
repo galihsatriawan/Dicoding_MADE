@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue;
+package id.shobrun.moviecatalogue.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.model.MovieModel;
 import id.shobrun.moviecatalogue.presenter.DetailMoviePresenter;
