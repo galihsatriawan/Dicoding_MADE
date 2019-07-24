@@ -42,24 +42,6 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieIte
             }
         });
     }
-    void bind(final Movie movie){
-
-        btnAddToWishlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(imgWishlistOff.getVisibility()==View.VISIBLE){
-                    imgWishlistOn.setVisibility(View.VISIBLE);
-                    imgWishlistOff.setVisibility(View.GONE);
-                    Toast.makeText(v.getContext(),movie.getName()+" has added",Toast.LENGTH_SHORT).show();
-                }else{
-                    imgWishlistOn.setVisibility(View.GONE);
-                    imgWishlistOff.setVisibility(View.VISIBLE);
-                    Toast.makeText(v.getContext(),movie.getName()+" has removed",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
     @Override
     public void setTitle(String title) {

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.model.MovieModel;
 import id.shobrun.moviecatalogue.presenter.MovieRecyclerPresenter;
+import id.shobrun.moviecatalogue.presenter.TVShowRecyclerPresenter;
 import id.shobrun.moviecatalogue.presenter.TvShowPresenter;
 import id.shobrun.moviecatalogue.view.TvShowView;
 
@@ -23,7 +25,7 @@ import id.shobrun.moviecatalogue.view.TvShowView;
 public class TvShowFragment extends Fragment implements TvShowView {
     private RecyclerView mRecycler;
     private TvShowPresenter mPresenter;
-    private MovieRecyclerPresenter mRecyclerPresenter;
+    private TVShowRecyclerPresenter mRecyclerPresenter;
     private static TvShowFragment instance ;
     public static TvShowFragment getTvShowInstance(){
         if(instance == null){
@@ -55,12 +57,12 @@ public class TvShowFragment extends Fragment implements TvShowView {
     }
     private void initPresenter(){
         mPresenter = new TvShowPresenter(this,getContext());
-        mRecyclerPresenter = new MovieRecyclerPresenter(mRecycler,getContext());
+        mRecyclerPresenter = new TVShowRecyclerPresenter(mRecycler,getContext());
     }
     @Override
     public void showListTvShow(MovieModel model) {
         mRecycler.setHasFixedSize(true);
-        mRecycler.setLayoutManager(new GridLayoutManager(getContext(),2));
+        mRecycler.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
         mRecyclerPresenter.loadRecyclerView(model);
     }
 }

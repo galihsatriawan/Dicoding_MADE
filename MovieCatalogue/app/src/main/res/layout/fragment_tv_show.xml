@@ -1,16 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_tv_show"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.fragment.TvShowFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_tv_show"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_movie"/>
+        android:orientation="vertical">
+        <!-- TODO: Update blank fragment layout -->
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/TextTitle"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
+                    android:layout_width="match_parent"
+                    android:fontFamily="cursive"
+                    android:text="@string/popular_on_movies"
+
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_tv_show_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/item_tv_show"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <!-- TODO: Update blank fragment layout -->
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/TextTitle"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
+                    android:layout_width="match_parent"
+                    android:fontFamily="cursive"
+                    tools:text="Trending Now"
+
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_tv_show_trending_now"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/item_tv_show"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
 
 </ScrollView>

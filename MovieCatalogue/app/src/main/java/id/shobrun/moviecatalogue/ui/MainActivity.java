@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.adapter.SectionsPagerAdapter;
 import id.shobrun.moviecatalogue.presenter.MainPresenter;
 import id.shobrun.moviecatalogue.view.MainView;
