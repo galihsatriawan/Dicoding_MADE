@@ -4,47 +4,71 @@ package id.shobrun.moviecatalogue.presenter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.adapter.TVShowAdapter;
 import id.shobrun.moviecatalogue.component.adapter.TVShowViewHolder;
+import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.model.MovieModel;
 
 public class TVShowRecyclerPresenter {
     private MovieModel movieModel;
     private ArrayList<Movie> movies = new ArrayList<>();
-    private RecyclerView mRecyclerView;
+    private HashMap<String,RecyclerView> mRecyclerViews;
     private Context ctx;
     private int[] notifications = {R.drawable.ic_notifications_white_24dp,R.drawable.ic_notifications_active_white_24dp};
-    public TVShowRecyclerPresenter(RecyclerView mRecyclerView, Context ctx) {
+    public TVShowRecyclerPresenter(HashMap<String,RecyclerView> mRecyclerViews, Context ctx) {
         this.ctx = ctx;
         this.movieModel = new MovieModel(ctx);
         this.movies.addAll(movieModel.getAllMovies());
-        this.mRecyclerView = mRecyclerView;
+        this.mRecyclerViews = mRecyclerViews;
     }
 
-    public TVShowRecyclerPresenter(RecyclerView mRecyclerView) {
-        this.mRecyclerView = mRecyclerView;
+    public TVShowRecyclerPresenter(HashMap<String,RecyclerView> mRecyclerViews) {
+        this.mRecyclerViews = mRecyclerViews;
     }
 
-    public void onBindItemViewHolder(TVShowViewHolder view, int position){
-        Movie movie = movies.get(position);
+    public void onBindItemViewHolder(final TVShowViewHolder view, int position){
+        final Movie movie = movies.get(position);
         view.setPoster(movie.getPoster());
         view.setNotification(notifications[0]);
+        view.setOnViewClickListener(new OnViewClickListener() {
+            @Override
+            public void onViewClicked(View v) {
+                int imgNotif = (int)view.getImgNotification().getTag();
+
+                if(imgNotif == notifications[0]){
+                    view.setNotification(notifications[1]);
+                    Toast.makeText(view.itemView.getContext(),"Notification for "+movie.getName()+" has on",Toast.LENGTH_SHORT).show();
+                }else{
+                    view.setNotification(notifications[0]);
+                    Toast.makeText(view.itemView.getContext(),"Notification for "+movie.getName()+" has off",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onViewClicked(View v1, View v2) {
+
+            }
+        });
     }
 
     public int getMovieCount(){
         return movies.size();
     }
 
-    public void loadRecyclerView(MovieModel model){
+    public void loadRecyclerView(String id,MovieModel model){
         movieModel = model;
         movies = model.getAllMovies();
         TVShowAdapter tvShowAdapter = new TVShowAdapter(this);
-        mRecyclerView.setAdapter(tvShowAdapter);
+        mRecyclerViews.get(id).setAdapter(tvShowAdapter);
     }
 
 }

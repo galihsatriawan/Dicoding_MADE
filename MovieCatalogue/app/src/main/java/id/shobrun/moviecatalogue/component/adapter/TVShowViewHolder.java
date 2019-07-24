@@ -14,6 +14,9 @@ import id.shobrun.moviecatalogue.view.TVShowItemView;
 public class TVShowViewHolder extends RecyclerView.ViewHolder implements TVShowItemView {
     ImageView imgPoster,imgNotification;
     OnViewClickListener onViewClickListener;
+    public void setOnViewClickListener(OnViewClickListener onViewClickListener) {
+        this.onViewClickListener = onViewClickListener;
+    }
     public TVShowViewHolder(@NonNull View itemView) {
         super(itemView);
         imgPoster = itemView.findViewById(R.id.image_poster);
@@ -33,6 +36,12 @@ public class TVShowViewHolder extends RecyclerView.ViewHolder implements TVShowI
 
     @Override
     public void setNotification(int notif) {
+        imgNotification.setTag(null);
         Glide.with(this.itemView.getContext()).load(notif).into(imgNotification);
+        imgNotification.setTag(notif);
+    }
+
+    public ImageView getImgNotification() {
+        return imgNotification;
     }
 }
