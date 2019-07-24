@@ -1,9 +1,12 @@
 package id.shobrun.moviecatalogue.ui;
 
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatRatingBar;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +32,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     private TextView tvDuration;
     private TextView tvRelease;
     private AppCompatRatingBar ratingBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,23 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
             presenter.loadDetailMovie(mMovie.getId());
         }
 
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_change_settings:
+                Intent setting = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(setting);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     private void initComponent(){
         tvTitle = findViewById(R.id.text_title_movie);
@@ -52,6 +73,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         imgPoster = findViewById(R.id.image_poster);
         imgBanner = findViewById(R.id.img_banner_poster);
         ratingBar = findViewById(R.id.rb_rating);
+
     }
 
     @Override

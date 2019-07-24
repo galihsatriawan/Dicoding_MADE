@@ -181,7 +181,7 @@ public class MoviesData {
                     try {
                         temp = dtf.parse(data);
                     } catch (ParseException e) {
-                        e.toString();
+                        e.printStackTrace();
                     }
                     result.add((T) temp);
                     break;

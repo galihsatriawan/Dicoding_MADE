@@ -1,19 +1,15 @@
 package id.shobrun.moviecatalogue.component.adapter;
 
-import android.content.Context;
-import android.support.annotation.IntegerRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.view.MovieItemView;
 
 public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieItemView{
