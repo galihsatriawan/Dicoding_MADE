@@ -2,6 +2,7 @@ package id.shobrun.moviecatalogue.presenter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -14,9 +15,11 @@ import java.util.Map;
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.adapter.TVShowAdapter;
 import id.shobrun.moviecatalogue.component.adapter.TVShowViewHolder;
+import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.data.Movie;
 import id.shobrun.moviecatalogue.model.MovieModel;
+import id.shobrun.moviecatalogue.ui.DetailMovieActivity;
 
 public class TVShowRecyclerPresenter {
     private MovieModel movieModel;
@@ -68,6 +71,14 @@ public class TVShowRecyclerPresenter {
         movieModel = model;
         movies = model.getAllMovies();
         TVShowAdapter tvShowAdapter = new TVShowAdapter(this);
+        tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClicked(View v, int position) {
+                Intent detail = new Intent(v.getContext(), DetailMovieActivity.class);
+                detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movies.get(position));
+                v.getContext().startActivity(detail);
+            }
+        });
         mRecyclerViews.get(id).setAdapter(tvShowAdapter);
     }
 

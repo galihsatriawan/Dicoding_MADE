@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
+import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.view.TVShowItemView;
 
