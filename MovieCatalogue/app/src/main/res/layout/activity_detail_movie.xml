@@ -168,9 +168,9 @@
         <TextView
 
             android:id="@+id/text_content"
+            style="@style/TextContent.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextContent.Small"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -180,8 +180,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_sub_content" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_author"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/galih"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_line" />
+
+        <TextView
+            android:id="@+id/text_author"
+            style="@style/TextContent"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/my_name"
+            app:layout_constraintEnd_toStartOf="@+id/image_author"
+            app:layout_constraintTop_toTopOf="@+id/linear_line" />
+
+        <TextView
+            style="@style/TextContent.Subtitle"
+            android:layout_marginEnd="8dp"
+            android:text="@string/author"
+            app:layout_constraintEnd_toEndOf="@+id/text_author"
+            app:layout_constraintStart_toStartOf="@+id/text_author"
+            app:layout_constraintTop_toBottomOf="@id/text_author" />
+
+
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/linear_line"
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_marginTop="16dp"
@@ -190,40 +222,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_content" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            android:src="@drawable/galih"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-        <LinearLayout
-            android:id="@+id/cont_author_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/circleImageView"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <TextView
-                style="@style/TextContent"
-                android:layout_centerVertical="true"
-                android:text="@string/my_name" />
-
-            <TextView
-                style="@style/TextContent.Subtitle"
-                android:layout_marginBottom="8dp"
-                android:text="@string/author" />
-        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -184,8 +184,8 @@ Setelah Venom muncul di Spider-Man 3 (2007), Sony berusaha mengembangkan film sp
         <item>marvel comics | anti hero | british actor playing american character</item>
     </string-array>
     <string name="title_activity_main_movie">MainMovieActivity</string>
-    <string name="tab_text_1">Movie Catalogue</string>
-    <string name="tab_text_2">TV Shows</string>
+    <string name="tab_text_1">Katalog Film</string>
+    <string name="tab_text_2">Acara TV</string>
     <string name="trending_now">Tren Sekarang</string>
     <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
 
