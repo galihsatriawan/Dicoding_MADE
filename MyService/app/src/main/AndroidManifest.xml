@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
+            android:name=".DicodingIntentService"
+            android:exported="false"></service>
+        <service
             android:name=".OriginService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.btn_start_intent_service:
-
+                Intent mStartIntentService = new Intent(MainActivity.this,DicodingIntentService.class);
+                mStartIntentService.putExtra(DicodingIntentService.EXTRA_DURATION,5000);
+                startService(mStartIntentService);
                 break;
             case R.id.btn_stop_bound_service:
 
