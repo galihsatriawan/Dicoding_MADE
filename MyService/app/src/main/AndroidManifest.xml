@@ -10,8 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
+            android:name=".BoundService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
             android:name=".DicodingIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
         <service
             android:name=".OriginService"
             android:enabled="true"
