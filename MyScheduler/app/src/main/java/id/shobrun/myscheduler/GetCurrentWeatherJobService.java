@@ -1,8 +1,16 @@
 package id.shobrun.myscheduler;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -73,6 +81,32 @@ public class GetCurrentWeatherJobService extends JobService {
         });
     }
     private void showNotification(Context context,String title, String description , int notifId){
+        String CHANNEL_ID = "Channel 1";
+        String CHANNEL_NAME ="Job Scheduler Channel";
+        NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Uri alarmSound  = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                .setContentTitle(title)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentText(description)
+                .setColor(ContextCompat.getColor(context,android.R.color.black))
+                .setVibrate(new long[]{1000,1000,1000,1000})
+                .setSound(alarmSound);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{1000,1000,1000,1000});
+            if(notificationManagerCompat != null){
+                notificationManagerCompat.createNotificationChannel(channel);
+            }
+        }
 
+        Notification notification = builder.build();
+        
+        if(notificationManagerCompat != null){
+            notificationManagerCompat.notify(notifId,notification);
+        }
     }
 }
