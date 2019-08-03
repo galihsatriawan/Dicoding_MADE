@@ -32,13 +32,14 @@ public class GetCurrentWeatherJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         Log.d(TAG, "onStartJob: Executed");
-        return false;
+        getCurrentWeather(params);
+        return true;
     }
 
     @Override
     public boolean onStopJob(JobParameters params) {
         Log.d(TAG, "onStopJob: Executed");
-        return false;
+        return true;
     }
 
     private void getCurrentWeather(final JobParameters job){
@@ -87,7 +88,7 @@ public class GetCurrentWeatherJobService extends JobService {
         Uri alarmSound  = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                 .setContentTitle(title)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_replay_black_24dp)
                 .setContentText(description)
                 .setColor(ContextCompat.getColor(context,android.R.color.black))
                 .setVibrate(new long[]{1000,1000,1000,1000})
@@ -104,7 +105,7 @@ public class GetCurrentWeatherJobService extends JobService {
         }
 
         Notification notification = builder.build();
-        
+
         if(notificationManagerCompat != null){
             notificationManagerCompat.notify(notifId,notification);
         }
