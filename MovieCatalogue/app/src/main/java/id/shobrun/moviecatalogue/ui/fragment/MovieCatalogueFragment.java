@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.model.MovieModel;
-import id.shobrun.moviecatalogue.presenter.MovieCataloguePresenter;
-import id.shobrun.moviecatalogue.presenter.MovieRecyclerPresenter;
-import id.shobrun.moviecatalogue.view.MovieCatalogueView;
+import id.shobrun.moviecatalogue.models.MovieModel;
+import id.shobrun.moviecatalogue.presenters.MovieCataloguePresenter;
+import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;
+import id.shobrun.moviecatalogue.views.MovieCatalogueView;
 
 /**
  * A simple {@link Fragment} subclass.

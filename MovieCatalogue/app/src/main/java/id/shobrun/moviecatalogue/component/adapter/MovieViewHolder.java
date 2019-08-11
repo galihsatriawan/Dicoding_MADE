@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.view.MovieItemView;
+import id.shobrun.moviecatalogue.views.MovieItemView;
 
 public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieItemView{
     private TextView tvTitle,tvExcerpt,tvRating;

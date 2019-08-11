@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
-import id.shobrun.moviecatalogue.presenter.MovieRecyclerPresenter;
+import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     MovieRecyclerPresenter mPresenter;

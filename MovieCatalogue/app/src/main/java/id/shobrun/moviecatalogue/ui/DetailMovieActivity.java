@@ -16,10 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.data.Movie;
-import id.shobrun.moviecatalogue.model.MovieModel;
-import id.shobrun.moviecatalogue.presenter.DetailMoviePresenter;
-import id.shobrun.moviecatalogue.view.DetailMovieView;
+import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.models.MovieModel;
+import id.shobrun.moviecatalogue.presenters.DetailMoviePresenter;
+import id.shobrun.moviecatalogue.views.DetailMovieView;
 
 public class DetailMovieActivity extends AppCompatActivity implements DetailMovieView {
     public static final String EXTRA_MOVIE = "extra_movie";

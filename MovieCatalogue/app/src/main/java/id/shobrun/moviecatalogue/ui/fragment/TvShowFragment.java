@@ -14,10 +14,10 @@ import android.view.ViewGroup;
 import java.util.HashMap;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.model.MovieModel;
-import id.shobrun.moviecatalogue.presenter.TVShowRecyclerPresenter;
-import id.shobrun.moviecatalogue.presenter.TvShowPresenter;
-import id.shobrun.moviecatalogue.view.TvShowView;
+import id.shobrun.moviecatalogue.models.MovieModel;
+import id.shobrun.moviecatalogue.presenters.TVShowRecyclerPresenter;
+import id.shobrun.moviecatalogue.presenters.TvShowPresenter;
+import id.shobrun.moviecatalogue.views.TvShowView;
 
 /**
  * A simple {@link Fragment} subclass.
