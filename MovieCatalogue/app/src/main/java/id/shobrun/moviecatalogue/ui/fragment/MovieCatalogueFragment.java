@@ -11,16 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import id.shobrun.moviecatalogue.R;
+import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
 import id.shobrun.moviecatalogue.models.MovieModel;
 import id.shobrun.moviecatalogue.presenters.MovieCataloguePresenter;
 import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;
-import id.shobrun.moviecatalogue.views.MovieCatalogueView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieCatalogueFragment extends Fragment implements MovieCatalogueView {
+public class MovieCatalogueFragment extends Fragment implements MovieCatalogueContract.View {
     RecyclerView mRecyclerView;
     MovieCataloguePresenter mMovieCataloguePresenter;
     MovieRecyclerPresenter mMovieRecyclerPresenter;
@@ -46,7 +49,6 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueVi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = view.findViewById(R.id.recycler_movie_catalogue);
         initPresenter();
         mMovieCataloguePresenter.loadMovieCatalogue();
 
@@ -58,16 +60,36 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueVi
         mMovieRecyclerPresenter = new MovieRecyclerPresenter(mRecyclerView);
     }
 
+
     @Override
-    public void showListMovieCatalogue(MovieModel model) {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void initUI() {
+        mRecyclerView = this.getView().findViewById(R.id.recycler_movie_catalogue);
+    }
+
+    @Override
+    public void showListMovieCatalogue(ArrayList<Movie> movies) {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mMovieRecyclerPresenter.loadRecyclerView(model);
+        mMovieRecyclerPresenter.loadRecyclerView(movies);
     }
 
     @Override
-    public void showDetailMovie() {
+    public void showDetailMovie(Movie movie) {
 
     }
 
+    @Override
+    public void onResponseFailure() {
+
+    }
 }

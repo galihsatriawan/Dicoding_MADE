@@ -5,18 +5,22 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
 
-public class MovieModel implements InterfaceMovieModel {
+public class MovieModel implements MovieCatalogueContract.Model {
     private ArrayList<Movie> movies;
     private Context ctx;
     public MovieModel(Context ctx) {
         this.ctx = ctx;
-        MoviesData moviesData = new MoviesData(ctx);
-        movies = moviesData.getMovies();
+//        MoviesData moviesData = new MoviesData(ctx);
+//        movies = moviesData.getMovies();
     }
 
     @Override
-    public ArrayList<Movie> getAllMovies() {
+    public ArrayList<Movie> getAllMovies(OnFinishedListener onFinishedListener) {
+        /*
+            Get Data With Retrofit
+         */
         return movies;
     }
 

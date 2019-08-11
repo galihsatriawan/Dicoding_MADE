@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import id.shobrun.moviecatalogue.contracts.MovieCatalogueRecyclerContract;
 import id.shobrun.moviecatalogue.ui.DetailMovieActivity;
 import id.shobrun.moviecatalogue.component.adapter.MovieAdapter;
 import id.shobrun.moviecatalogue.component.adapter.MovieViewHolder;
@@ -16,22 +17,14 @@ import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.models.MovieModel;
 
-public class MovieRecyclerPresenter {
+public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.RecyclerPresenter {
     private ArrayList<Movie> movies = new ArrayList<>();
-    private MovieModel mMovieModel;
     private RecyclerView mMovieCatalogueView;
-    private Context ctx;
-    public MovieRecyclerPresenter(RecyclerView mMovieCatalogueView, Context ctx) {
-        this.mMovieCatalogueView = mMovieCatalogueView;
-        mMovieModel = new MovieModel(ctx);
-        this.ctx = ctx;
-        movies.addAll(mMovieModel.getAllMovies());
-    }
 
     public MovieRecyclerPresenter(RecyclerView mMovieCatalogueView) {
         this.mMovieCatalogueView = mMovieCatalogueView;
     }
-
+    @Override
     public void onBindItemViewHolder(final MovieViewHolder viewHolder, int position){
         final Movie movie = movies.get(position);
         viewHolder.setTitle(movie.getName());
@@ -58,13 +51,15 @@ public class MovieRecyclerPresenter {
             }
         });
     }
-
+    @Override
     public int  getMoviesCount(){
         return movies.size();
     }
-    public void loadRecyclerView(MovieModel model){
-        mMovieModel = model;
-        movies = mMovieModel.getAllMovies();
+
+
+    @Override
+    public void loadRecyclerView(final ArrayList<Movie> movies){
+        this.movies = movies;
         MovieAdapter movieAdapter = new MovieAdapter(this);
         movieAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -75,6 +70,10 @@ public class MovieRecyclerPresenter {
             }
         });
         mMovieCatalogueView.setAdapter(movieAdapter);
+    }
+    @Override
+    public void updateRecycler() {
+        mMovieCatalogueView.getAdapter().notifyDataSetChanged();
     }
 
 

@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.views.MovieItemView;
+import id.shobrun.moviecatalogue.contracts.MovieCatalogueRecyclerContract;
 
-public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieItemView{
+public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieCatalogueRecyclerContract.MovieItemView {
     private TextView tvTitle,tvExcerpt,tvRating;
     private ImageView imgPoster,imgWishlistOff,imgWishlistOn;
     private Button btnAddToWishlist;
@@ -56,7 +56,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieIte
     }
 
     @Override
-    public void setPoster(int poster) {
+    public void setPoster(String poster) {
         Glide.with(this.itemView.getContext()).load(poster).into(imgPoster);
     }
 
