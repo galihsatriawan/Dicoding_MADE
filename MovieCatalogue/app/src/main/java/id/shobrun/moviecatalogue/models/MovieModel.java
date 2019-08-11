@@ -5,7 +5,6 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.component.data.Movie;
-import id.shobrun.moviecatalogue.component.data.MoviesData;
 
 public class MovieModel implements InterfaceMovieModel {
     private ArrayList<Movie> movies;

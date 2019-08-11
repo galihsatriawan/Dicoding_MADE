@@ -8,10 +8,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Movie implements Parcelable {
+public class TvMovie implements Parcelable {
 
     private int id;
-    @SerializedName("title")
     private String name;
     @SerializedName("overview")
     private String description;
@@ -26,11 +25,11 @@ public class Movie implements Parcelable {
     private double rating;
     private ArrayList<String> languages;
     private int duration;
-    @SerializedName("release_date")
+    @SerializedName("first_air_date")
     private Date releaseDate;
     private ArrayList<String> keywords;
 
-    public Movie(int id,String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
+    public TvMovie(int id,String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -43,7 +42,7 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
         this.keywords = keywords;
     }
-    public Movie(String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
+    public TvMovie(String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
         this.name = name;
         this.description = description;
         this.genre = genre;
@@ -155,6 +154,7 @@ public class Movie implements Parcelable {
         this.backdrop = backdrop;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -176,7 +176,7 @@ public class Movie implements Parcelable {
         dest.writeStringList(this.keywords);
     }
 
-    protected Movie(Parcel in) {
+    protected TvMovie(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.description = in.readString();
@@ -193,15 +193,15 @@ public class Movie implements Parcelable {
         this.keywords = in.createStringArrayList();
     }
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+    public static final Creator<TvMovie> CREATOR = new Creator<TvMovie>() {
         @Override
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
+        public TvMovie createFromParcel(Parcel source) {
+            return new TvMovie(source);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public TvMovie[] newArray(int size) {
+            return new TvMovie[size];
         }
     };
 }
