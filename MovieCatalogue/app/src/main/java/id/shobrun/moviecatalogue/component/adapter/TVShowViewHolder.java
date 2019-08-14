@@ -2,6 +2,7 @@ package id.shobrun.moviecatalogue.component.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -31,6 +32,7 @@ public class TVShowViewHolder extends RecyclerView.ViewHolder implements TvShowR
 
     @Override
     public void setPoster(String poster) {
+        Log.d(this.getClass().getSimpleName(), "setPoster: "+poster);
         Glide.with(this.itemView.getContext()).load(poster).into(imgPoster);
     }
 

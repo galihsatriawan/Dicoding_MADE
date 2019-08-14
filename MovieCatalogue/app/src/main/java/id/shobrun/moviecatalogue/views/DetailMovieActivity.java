@@ -19,6 +19,7 @@ import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.contracts.DetailMovieContract;
 import id.shobrun.moviecatalogue.presenters.DetailMoviePresenter;
+import id.shobrun.moviecatalogue.utils.Constants;
 
 
 public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View{
@@ -84,8 +85,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         tvContent.setText(movie.getDescription());
         tvDuration.setText(getDuration(movie.getDuration()));
         ratingBar.setRating((float)movie.getRating());
-        Glide.with(getApplicationContext()).load(movie.getPoster()).into(imgPoster);
-        Glide.with(getApplicationContext()).load(movie.getPoster()).into(imgBanner);
+        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_URL+movie.getPoster()).into(imgPoster);
+        Glide.with(getApplicationContext()).load(Constants.BACKDROP_BASE_URL+movie.getBackdrop()).into(imgBanner);
     }
     private String getDuration(int duration){
         String result;

@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
+import id.shobrun.moviecatalogue.utils.Constants;
+
 public class Movie implements Parcelable {
 
     private int id;
@@ -144,7 +146,7 @@ public class Movie implements Parcelable {
     }
 
     public void setPoster(String poster) {
-        this.poster = poster;
+        this.poster = Constants.IMAGE_BASE_URL+poster;
     }
 
     public String getBackdrop() {
@@ -152,7 +154,7 @@ public class Movie implements Parcelable {
     }
 
     public void setBackdrop(String backdrop) {
-        this.backdrop = backdrop;
+        this.backdrop = Constants.BACKDROP_BASE_URL+backdrop;
     }
 
     @Override

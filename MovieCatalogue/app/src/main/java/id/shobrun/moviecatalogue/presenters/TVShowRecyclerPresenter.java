@@ -19,6 +19,7 @@ import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.component.data.TvShow;
 import id.shobrun.moviecatalogue.contracts.TvShowRecyclerContract;
 import id.shobrun.moviecatalogue.models.TvShowModel;
+import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 
 public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerPresenter {
@@ -39,7 +40,7 @@ public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerP
     @Override
     public void onBindItemViewHolder(final TVShowViewHolder view, int position){
         final TvShow tvShow= tvShows.get(position);
-        view.setPoster(tvShow.getPoster());
+        view.setPoster(Constants.IMAGE_BASE_URL +tvShow.getPoster());
         view.setNotification(notifications[0]);
         view.setOnViewClickListener(new OnViewClickListener() {
             @Override
@@ -72,9 +73,7 @@ public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerP
         tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(View v, int position) {
-                Intent detail = new Intent(v.getContext(), DetailMovieActivity.class);
-                detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,tvShows.get(position));
-                v.getContext().startActivity(detail);
+
             }
         });
         mRecyclerViews.get(id).setAdapter(tvShowAdapter);

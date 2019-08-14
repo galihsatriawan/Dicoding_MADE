@@ -8,6 +8,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueRecyclerContract;
+import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 import id.shobrun.moviecatalogue.component.adapter.MovieAdapter;
 import id.shobrun.moviecatalogue.component.adapter.MovieViewHolder;
@@ -25,10 +26,11 @@ public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.Re
     @Override
     public void onBindItemViewHolder(final MovieViewHolder viewHolder, int position){
         final Movie movie = movies.get(position);
-        viewHolder.setTitle(movie.getName());
+        int len = (movie.getName().length()<20)?movie.getName().length():20;
+        viewHolder.setTitle(movie.getName().substring(0,len-1));
         viewHolder.setExcerpt(movie.getDescription());
         viewHolder.setRating(movie.getRating());
-        viewHolder.setPoster(movie.getPoster());
+        viewHolder.setPoster(Constants.BACKDROP_BASE_URL+movie.getBackdrop());
         viewHolder.setOnViewClickListener(new OnViewClickListener() {
             @Override
             public void onViewClicked(View view) {
