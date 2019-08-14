@@ -9,6 +9,9 @@
     <string name="dummy_title">Title</string>
     <string name="dummy_content_text">Content</string>
     <string name="popular_on_movies">Popular on Movie Catalogue</string>
+    <string name="communication_error">Failed to get data from server</string>
+    <string name="error">Error Occured</string>
+    <string name="api_key">f46dc5d10e95dbdaa00fb0a4b6bdb83a</string>
 
 
     <string name="add_to_wishlist">Add to Wishlist</string>

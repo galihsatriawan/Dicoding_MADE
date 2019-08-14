@@ -1,6 +1,7 @@
 package id.shobrun.moviecatalogue.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,14 +22,17 @@ import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
 import id.shobrun.moviecatalogue.models.MovieModel;
 import id.shobrun.moviecatalogue.presenters.MovieCataloguePresenter;
 import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;
+import id.shobrun.moviecatalogue.ui.DetailMovieActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MovieCatalogueFragment extends Fragment implements MovieCatalogueContract.View {
+    private final String TAG = this.getClass().getSimpleName();
     RecyclerView mRecyclerView;
     MovieCataloguePresenter mMovieCataloguePresenter;
     MovieRecyclerPresenter mMovieRecyclerPresenter;
+    ProgressBar progressBar;
     private static MovieCatalogueFragment instance;
     public static MovieCatalogueFragment getMovieCatalogueInstance(){
         if(instance == null){
@@ -63,17 +69,23 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
 
     @Override
     public void showProgress() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void initUI() {
         mRecyclerView = this.getView().findViewById(R.id.recycler_movie_catalogue);
+        progressBar = this.getView().findViewById(R.id.progressBar);
+    }
+
+    @Override
+    public void showMessage(String str) {
+        Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -85,11 +97,15 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
 
     @Override
     public void showDetailMovie(Movie movie) {
-
+        Intent detail = new Intent(getContext(), DetailMovieActivity.class);
+        detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movie);
+        startActivity(detail);
     }
 
-    @Override
-    public void onResponseFailure() {
 
+    @Override
+    public void onResponseFailure(Throwable t) {
+        t.printStackTrace();
+        showMessage(getString(R.string.communication_error));
     }
 }

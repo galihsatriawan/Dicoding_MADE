@@ -9,7 +9,9 @@
     <string name="dummy_title">Title</string>
     <string name="dummy_content_text">Konten</string>
     <string name="popular_on_movies">Populer di Movie Catalogue</string>
-
+    <string name="communication_error">Permintaan data ke server gagal</string>
+    <string name="error">Terjadi Kesalahan</string>
+    <string name="api_key">f46dc5d10e95dbdaa00fb0a4b6bdb83a</string>
     <string name="add_to_wishlist">Tambah ke Wishlist</string>
     <string-array name="movies_id">
         <item>1</item>
