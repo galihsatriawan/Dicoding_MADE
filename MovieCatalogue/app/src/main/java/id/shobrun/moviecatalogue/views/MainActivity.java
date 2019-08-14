@@ -12,10 +12,11 @@ import android.view.MenuItem;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.adapter.SectionsPagerAdapter;
+import id.shobrun.moviecatalogue.contracts.MainContract;
 import id.shobrun.moviecatalogue.presenters.MainPresenter;
-import id.shobrun.moviecatalogue.contracts.MainView;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+
+public class MainActivity extends AppCompatActivity implements MainContract.View {
     private MainPresenter mPresenter;
     private ViewPager viewPager;
     private TabLayout tabs;
