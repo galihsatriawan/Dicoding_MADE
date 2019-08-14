@@ -11,6 +11,7 @@ import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.presenters.TVShowRecyclerPresenter;
 
 public class TVShowAdapter extends RecyclerView.Adapter<TVShowViewHolder> {
+
     TVShowRecyclerPresenter mPresenter;
     OnItemClickListener mOnItemClickListener;
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class TvShowFragment extends Fragment implements TvShowContract.View {
     private HashMap<String ,RecyclerView> mRecyclerViews = new HashMap<>();
     private TvShowPresenter mPresenter;
     private TVShowRecyclerPresenter mRecyclerPresenter;
+    private ProgressBar progressBar;
     private static TvShowFragment instance ;
     public static TvShowFragment getTvShowInstance(){
         if(instance == null){
@@ -60,6 +62,7 @@ public class TvShowFragment extends Fragment implements TvShowContract.View {
     }
     @Override
     public void initUI(){
+        progressBar = this.getView().findViewById(R.id.progressBar);
         mRecyclerMoviePopular = this.getView().findViewById(R.id.recycler_tv_show_popular);
         mRecyclerMovieTrending = this.getView().findViewById(R.id.recycler_tv_show_trending_now);
         mRecyclerViews.put(EXTRA_POPULAR,mRecyclerMoviePopular);
@@ -73,12 +76,12 @@ public class TvShowFragment extends Fragment implements TvShowContract.View {
 
     @Override
     public void showProgress() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        progressBar.setVisibility(View.GONE);
     }
 
 
