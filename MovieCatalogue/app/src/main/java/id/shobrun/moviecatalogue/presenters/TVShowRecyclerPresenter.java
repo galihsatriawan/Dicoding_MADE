@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,30 +16,30 @@ import id.shobrun.moviecatalogue.component.adapter.TVShowAdapter;
 import id.shobrun.moviecatalogue.component.adapter.TVShowViewHolder;
 import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.component.data.Movie;
-import id.shobrun.moviecatalogue.models.MovieModel;
+import id.shobrun.moviecatalogue.component.data.TvShow;
+import id.shobrun.moviecatalogue.contracts.TvShowRecyclerContract;
+import id.shobrun.moviecatalogue.models.TvShowModel;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 
-public class TVShowRecyclerPresenter {
-    private MovieModel movieModel;
-    private ArrayList<Movie> movies = new ArrayList<>();
+public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerPresenter {
+    private TvShowModel tvShowModel;
+    private ArrayList<TvShow> tvShows= new ArrayList<>();
     private HashMap<String,RecyclerView> mRecyclerViews;
     private Context ctx;
     private int[] notifications = {R.drawable.ic_notifications_white_24dp,R.drawable.ic_notifications_active_white_24dp};
     public TVShowRecyclerPresenter(HashMap<String,RecyclerView> mRecyclerViews, Context ctx) {
         this.ctx = ctx;
-        this.movieModel = new MovieModel(ctx);
-        this.movies.addAll(movieModel.getAllMovies());
+        this.tvShowModel= new TvShowModel(ctx);
         this.mRecyclerViews = mRecyclerViews;
     }
 
     public TVShowRecyclerPresenter(HashMap<String,RecyclerView> mRecyclerViews) {
         this.mRecyclerViews = mRecyclerViews;
     }
-
+    @Override
     public void onBindItemViewHolder(final TVShowViewHolder view, int position){
-        final Movie movie = movies.get(position);
-        view.setPoster(movie.getPoster());
+        final TvShow tvShow= tvShows.get(position);
+        view.setPoster(tvShow.getPoster());
         view.setNotification(notifications[0]);
         view.setOnViewClickListener(new OnViewClickListener() {
             @Override
@@ -47,10 +48,10 @@ public class TVShowRecyclerPresenter {
 
                 if(imgNotif == notifications[0]){
                     view.setNotification(notifications[1]);
-                    Toast.makeText(view.itemView.getContext(),"Notification for "+movie.getName()+" has on",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.itemView.getContext(),"Notification for "+tvShow.getName()+" has on",Toast.LENGTH_SHORT).show();
                 }else{
                     view.setNotification(notifications[0]);
-                    Toast.makeText(view.itemView.getContext(),"Notification for "+movie.getName()+" has off",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.itemView.getContext(),"Notification for "+tvShow.getName()+" has off",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -60,20 +61,19 @@ public class TVShowRecyclerPresenter {
             }
         });
     }
-
-    public int getMovieCount(){
-        return movies.size();
+    @Override
+    public int getTvShowCount(){
+        return tvShows.size();
     }
-
-    public void loadRecyclerView(String id,MovieModel model){
-        movieModel = model;
-        movies = model.getAllMovies();
+    @Override
+    public void loadRecyclerView(String id, final ArrayList<TvShow> tvShows){
+        this.tvShows= tvShows;
         TVShowAdapter tvShowAdapter = new TVShowAdapter(this);
         tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(View v, int position) {
                 Intent detail = new Intent(v.getContext(), DetailMovieActivity.class);
-                detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movies.get(position));
+                detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,tvShows.get(position));
                 v.getContext().startActivity(detail);
             }
         });

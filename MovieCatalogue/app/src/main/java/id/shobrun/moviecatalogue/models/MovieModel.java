@@ -20,8 +20,6 @@ public class MovieModel implements MovieCatalogueContract.Model {
     private Context ctx;
     public MovieModel(Context ctx) {
         this.ctx = ctx;
-//        MoviesData moviesData = new MoviesData(ctx);
-//        movies = moviesData.getMovies();
     }
 
     @Override
@@ -46,6 +44,7 @@ public class MovieModel implements MovieCatalogueContract.Model {
             public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
                 if(response.isSuccessful()){
                     onFinishedListener.onFinished(response);
+                    movies = response.body().getResults();
                 }else {
                     onFinishedListener.onError(response);
                 }

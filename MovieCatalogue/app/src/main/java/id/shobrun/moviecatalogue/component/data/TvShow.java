@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TvMovie implements Parcelable {
+public class TvShow implements Parcelable {
 
     private int id;
     private String name;
@@ -29,7 +29,7 @@ public class TvMovie implements Parcelable {
     private Date releaseDate;
     private ArrayList<String> keywords;
 
-    public TvMovie(int id,String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
+    public TvShow(int id, String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -42,7 +42,7 @@ public class TvMovie implements Parcelable {
         this.releaseDate = releaseDate;
         this.keywords = keywords;
     }
-    public TvMovie(String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
+    public TvShow(String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
         this.name = name;
         this.description = description;
         this.genre = genre;
@@ -176,7 +176,7 @@ public class TvMovie implements Parcelable {
         dest.writeStringList(this.keywords);
     }
 
-    protected TvMovie(Parcel in) {
+    protected TvShow(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.description = in.readString();
@@ -193,15 +193,15 @@ public class TvMovie implements Parcelable {
         this.keywords = in.createStringArrayList();
     }
 
-    public static final Creator<TvMovie> CREATOR = new Creator<TvMovie>() {
+    public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
         @Override
-        public TvMovie createFromParcel(Parcel source) {
-            return new TvMovie(source);
+        public TvShow createFromParcel(Parcel source) {
+            return new TvShow(source);
         }
 
         @Override
-        public TvMovie[] newArray(int size) {
-            return new TvMovie[size];
+        public TvShow[] newArray(int size) {
+            return new TvShow[size];
         }
     };
 }

@@ -9,9 +9,9 @@ import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.contracts.TVShowItemView;
+import id.shobrun.moviecatalogue.contracts.TvShowRecyclerContract;
 
-public class TVShowViewHolder extends RecyclerView.ViewHolder implements TVShowItemView {
+public class TVShowViewHolder extends RecyclerView.ViewHolder implements TvShowRecyclerContract.TVShowItemView {
     ImageView imgPoster,imgNotification;
     OnViewClickListener onViewClickListener;
     public void setOnViewClickListener(OnViewClickListener onViewClickListener) {
@@ -30,7 +30,7 @@ public class TVShowViewHolder extends RecyclerView.ViewHolder implements TVShowI
     }
 
     @Override
-    public void setPoster(int poster) {
+    public void setPoster(String poster) {
         Glide.with(this.itemView.getContext()).load(poster).into(imgPoster);
     }
 

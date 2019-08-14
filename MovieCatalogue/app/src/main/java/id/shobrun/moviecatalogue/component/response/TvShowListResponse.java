@@ -4,18 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.component.data.Movie;
-import id.shobrun.moviecatalogue.component.data.TvMovie;
+import id.shobrun.moviecatalogue.component.data.TvShow;
 
-public class TvMovieListResponse {
+public class TvShowListResponse {
     int page;
     @SerializedName("total_results")
     int totalResults ;
     @SerializedName("total_pages")
     int totalPages;
-    ArrayList<TvMovie> results;
+    ArrayList<TvShow> results;
 
-    public TvMovieListResponse(int page, int totalResults, int totalPages, ArrayList<TvMovie> results) {
+    public TvShowListResponse(int page, int totalResults, int totalPages, ArrayList<TvShow> results) {
         this.page = page;
         this.totalResults = totalResults;
         this.totalPages = totalPages;
@@ -46,11 +45,11 @@ public class TvMovieListResponse {
         this.totalPages = totalPages;
     }
 
-    public ArrayList<TvMovie> getResults() {
+    public ArrayList<TvShow> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<TvMovie> results) {
+    public void setResults(ArrayList<TvShow> results) {
         this.results = results;
     }
 }

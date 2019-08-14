@@ -10,19 +10,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.models.MovieModel;
+import id.shobrun.moviecatalogue.component.data.TvShow;
+import id.shobrun.moviecatalogue.contracts.TvShowContract;
 import id.shobrun.moviecatalogue.presenters.TVShowRecyclerPresenter;
 import id.shobrun.moviecatalogue.presenters.TvShowPresenter;
-import id.shobrun.moviecatalogue.contracts.TvShowView;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TvShowFragment extends Fragment implements TvShowView {
+public class TvShowFragment extends Fragment implements TvShowContract.View {
     public static final String EXTRA_POPULAR = "movie_popular";
     public static final String EXTRA_TRENDING = "movie_trending";
     private RecyclerView mRecyclerMoviePopular,mRecyclerMovieTrending;
@@ -51,13 +54,14 @@ public class TvShowFragment extends Fragment implements TvShowView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initComponent(view);
         initPresenter();
-        mPresenter.loadTVShow();
+        mPresenter.loadTvShowPopular();
+        mPresenter.loadTvShowTrending();
     }
-    private void initComponent(View view){
-        mRecyclerMoviePopular = view.findViewById(R.id.recycler_tv_show_popular);
-        mRecyclerMovieTrending = view.findViewById(R.id.recycler_tv_show_trending_now);
+    @Override
+    public void initUI(){
+        mRecyclerMoviePopular = this.getView().findViewById(R.id.recycler_tv_show_popular);
+        mRecyclerMovieTrending = this.getView().findViewById(R.id.recycler_tv_show_trending_now);
         mRecyclerViews.put(EXTRA_POPULAR,mRecyclerMoviePopular);
         mRecyclerViews.put(EXTRA_TRENDING,mRecyclerMovieTrending);
     }
@@ -65,15 +69,37 @@ public class TvShowFragment extends Fragment implements TvShowView {
         mPresenter = new TvShowPresenter(this,getContext());
         mRecyclerPresenter = new TVShowRecyclerPresenter(mRecyclerViews,getContext());
     }
+
+
     @Override
-    public void showListTvShow(MovieModel model) {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+
+    @Override
+    public void showListTvShowPopular(ArrayList<TvShow> tvShows) {
         mRecyclerMoviePopular.setHasFixedSize(true);
         mRecyclerMoviePopular.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
 
+        mRecyclerPresenter.loadRecyclerView(EXTRA_POPULAR,tvShows);
+    }
+
+    @Override
+    public void showListTvShowTrending(ArrayList<TvShow> tvShows) {
         mRecyclerMovieTrending.setHasFixedSize(true);
         mRecyclerMovieTrending.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
 
-        mRecyclerPresenter.loadRecyclerView(EXTRA_POPULAR,model);
-        mRecyclerPresenter.loadRecyclerView(EXTRA_TRENDING,model);
+        mRecyclerPresenter.loadRecyclerView(EXTRA_TRENDING,tvShows);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

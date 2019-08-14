@@ -42,6 +42,6 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mPresenter.getMovieCount();
+        return mPresenter.getTvShowCount();
     }
 }
