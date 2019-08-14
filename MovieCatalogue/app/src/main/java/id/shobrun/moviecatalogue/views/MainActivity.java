@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue.ui;
+package id.shobrun.moviecatalogue.views;
 
 import android.content.Intent;
 import android.os.Bundle;

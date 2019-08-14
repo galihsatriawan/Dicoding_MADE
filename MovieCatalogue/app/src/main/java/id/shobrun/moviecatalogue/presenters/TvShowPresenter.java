@@ -3,7 +3,7 @@ package id.shobrun.moviecatalogue.presenters;
 import android.content.Context;
 
 import id.shobrun.moviecatalogue.models.MovieModel;
-import id.shobrun.moviecatalogue.views.TvShowView;
+import id.shobrun.moviecatalogue.contracts.TvShowView;
 
 public class TvShowPresenter {
     private TvShowView mView;

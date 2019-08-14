@@ -17,7 +17,7 @@ import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.models.MovieModel;
-import id.shobrun.moviecatalogue.ui.DetailMovieActivity;
+import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 
 public class TVShowRecyclerPresenter {
     private MovieModel movieModel;

@@ -29,7 +29,6 @@ public interface MovieCatalogueContract {
         void initUI();
         void showMessage(String str);
         void showListMovieCatalogue(ArrayList<Movie> movies);
-        void showDetailMovie(Movie movie);
 
     }
     interface Presenter{

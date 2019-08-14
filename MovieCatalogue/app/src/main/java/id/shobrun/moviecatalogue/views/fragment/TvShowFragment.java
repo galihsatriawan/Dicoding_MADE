@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue.ui.fragment;
+package id.shobrun.moviecatalogue.views.fragment;
 
 
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.MovieModel;
 import id.shobrun.moviecatalogue.presenters.TVShowRecyclerPresenter;
 import id.shobrun.moviecatalogue.presenters.TvShowPresenter;
-import id.shobrun.moviecatalogue.views.TvShowView;
+import id.shobrun.moviecatalogue.contracts.TvShowView;
 
 /**
  * A simple {@link Fragment} subclass.

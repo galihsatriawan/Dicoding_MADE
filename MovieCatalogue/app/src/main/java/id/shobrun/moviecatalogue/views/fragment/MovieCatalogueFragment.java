@@ -1,7 +1,6 @@
-package id.shobrun.moviecatalogue.ui.fragment;
+package id.shobrun.moviecatalogue.views.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,10 +18,8 @@ import java.util.ArrayList;
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
-import id.shobrun.moviecatalogue.models.MovieModel;
 import id.shobrun.moviecatalogue.presenters.MovieCataloguePresenter;
 import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;
-import id.shobrun.moviecatalogue.ui.DetailMovieActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,17 +92,4 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
         mMovieRecyclerPresenter.loadRecyclerView(movies);
     }
 
-    @Override
-    public void showDetailMovie(Movie movie) {
-        Intent detail = new Intent(getContext(), DetailMovieActivity.class);
-        detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movie);
-        startActivity(detail);
-    }
-
-
-    @Override
-    public void onResponseFailure(Throwable t) {
-        t.printStackTrace();
-        showMessage(getString(R.string.communication_error));
-    }
 }

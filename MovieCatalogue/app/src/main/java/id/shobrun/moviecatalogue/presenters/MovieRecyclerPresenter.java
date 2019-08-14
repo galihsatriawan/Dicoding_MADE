@@ -1,6 +1,5 @@
 package id.shobrun.moviecatalogue.presenters;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,13 +8,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueRecyclerContract;
-import id.shobrun.moviecatalogue.ui.DetailMovieActivity;
+import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 import id.shobrun.moviecatalogue.component.adapter.MovieAdapter;
 import id.shobrun.moviecatalogue.component.adapter.MovieViewHolder;
 import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.component.data.Movie;
-import id.shobrun.moviecatalogue.models.MovieModel;
 
 public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.RecyclerPresenter {
     private ArrayList<Movie> movies = new ArrayList<>();

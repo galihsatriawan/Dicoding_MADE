@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue.ui;
+package id.shobrun.moviecatalogue.views;
 
 import android.content.Intent;
 import android.provider.Settings;
@@ -18,7 +18,6 @@ import java.util.Locale;
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.contracts.DetailMovieContract;
-import id.shobrun.moviecatalogue.models.MovieModel;
 import id.shobrun.moviecatalogue.presenters.DetailMoviePresenter;
 
 

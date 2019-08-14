@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.views.TVShowItemView;
+import id.shobrun.moviecatalogue.contracts.TVShowItemView;
 
 public class TVShowViewHolder extends RecyclerView.ViewHolder implements TVShowItemView {
     ImageView imgPoster,imgNotification;

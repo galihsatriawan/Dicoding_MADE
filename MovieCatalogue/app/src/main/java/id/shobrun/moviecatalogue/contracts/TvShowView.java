@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue.views;
+package id.shobrun.moviecatalogue.contracts;
 
 import id.shobrun.moviecatalogue.models.MovieModel;
 

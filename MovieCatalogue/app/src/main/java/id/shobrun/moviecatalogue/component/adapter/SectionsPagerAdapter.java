@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.ui.fragment.MovieCatalogueFragment;
-import id.shobrun.moviecatalogue.ui.fragment.TvShowFragment;
+import id.shobrun.moviecatalogue.views.fragment.MovieCatalogueFragment;
+import id.shobrun.moviecatalogue.views.fragment.TvShowFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
