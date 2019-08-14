@@ -17,11 +17,12 @@ import java.util.Locale;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.contracts.DetailMovieContract;
 import id.shobrun.moviecatalogue.models.MovieModel;
 import id.shobrun.moviecatalogue.presenters.DetailMoviePresenter;
-import id.shobrun.moviecatalogue.views.DetailMovieView;
 
-public class DetailMovieActivity extends AppCompatActivity implements DetailMovieView {
+
+public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View{
     public static final String EXTRA_MOVIE = "extra_movie";
     private ImageView imgPoster;
     private ImageView imgBanner;
@@ -37,15 +38,12 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
-        initComponent();
+        DetailMoviePresenter presenter = new DetailMoviePresenter(getApplicationContext(),this);
 
         if(getIntent() != null){
             Movie mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
-            DetailMoviePresenter presenter = new DetailMoviePresenter(getApplicationContext(),this);
-            presenter.loadDetailMovie(mMovie.getId());
+            presenter.loadDetailMovie(mMovie);
         }
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,7 +61,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         }
         return super.onOptionsItemSelected(item);
     }
-    private void initComponent(){
+    @Override
+    public void initUI(){
         tvTitle = findViewById(R.id.text_title_movie);
         tvRating = findViewById(R.id.text_rating);
         tvProduction = findViewById(R.id.text_production);
@@ -77,8 +76,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     }
 
     @Override
-    public void showDetailMovie(MovieModel movieModel, int position) {
-        Movie movie = movieModel.getMovie(position);
+    public void showDetailMovie(Movie movie) {
         tvTitle.setText(movie.getName());
         tvRating.setText(String.valueOf(movie.getRating()));
         tvProduction.setText(movie.getProductionCompany());

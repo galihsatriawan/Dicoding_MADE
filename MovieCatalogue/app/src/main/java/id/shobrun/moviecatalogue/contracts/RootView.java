@@ -1,4 +1,4 @@
-package id.shobrun.moviecatalogue.views;
+package id.shobrun.moviecatalogue.contracts;
 
 public interface RootView {
     void showActionBar();

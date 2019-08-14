@@ -1,7 +1,7 @@
 package id.shobrun.moviecatalogue.presenters;
 
 import android.content.Context;
-import id.shobrun.moviecatalogue.views.MainView;
+import id.shobrun.moviecatalogue.contracts.MainView;
 
 public class MainPresenter {
     private MainView mView;
