@@ -53,35 +53,25 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_movie_catalogue, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initPresenter();
         initViewModel();
     }
-
+    public void initPresenter(){
+        mMovieCataloguePresenter = new MovieCataloguePresenter(this,getContext());
+        mMovieRecyclerPresenter = new MovieRecyclerPresenter(mRecyclerView);
+        Log.e(TAG, "initPresenter: " );
+    }
     public void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(MovieCatalogueViewModel.class);
-        /**
-         * Movie Catalogue Presenter
-         */
-        if(viewModel.getMovieCataloguePresenter()==null){
-            viewModel.setMovieCataloguePresenter(new MovieCataloguePresenter(this,getContext()));
-        }
-        mMovieCataloguePresenter = viewModel.getMovieCataloguePresenter();
-        viewModel.getMovies().observe(this,this.getMovies);
-        /**
-         * Recycler Presenter
-         */
-        if(viewModel.getRecyclerPresenter()==null){
-            viewModel.setRecyclerPresenter(new MovieRecyclerPresenter(mRecyclerView));
-        }
-        mMovieRecyclerPresenter = viewModel.getRecyclerPresenter();
-
+        viewModel.getMovies().observe(this,getMovies);
         mMovieCataloguePresenter.loadMovieCatalogue(viewModel);
-
     }
 
 
@@ -108,21 +98,16 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
 
     @Override
     public void showListMovieCatalogue(ArrayList<Movie> movies) {
-
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mMovieRecyclerPresenter.loadRecyclerView(movies);
-
-
     }
+
     private Observer<ArrayList<Movie>> getMovies = new Observer<ArrayList<Movie>>() {
         @Override
         public void onChanged(ArrayList<Movie> movies) {
-            Log.d(TAG, "onChanged: "+movies.size());
             if(movies != null){
-
-                mMovieRecyclerPresenter.setMovies(movies);
-
+                mMovieCataloguePresenter.onRefresh(movies);
             }
 
         }

@@ -17,6 +17,7 @@ public interface MovieCatalogueContract {
     interface Model {
         interface OnFinishedListener{
             void onFinished(Response<MovieListResponse> response);
+            void onRefresh(ArrayList<Movie> movies);
             void onError(Response<MovieListResponse> response);
             void onFailure(Throwable t);
         }

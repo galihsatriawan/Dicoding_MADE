@@ -20,7 +20,7 @@ import id.shobrun.moviecatalogue.component.data.Movie;
 public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.RecyclerPresenter {
     private ArrayList<Movie> movies = new ArrayList<>();
     private RecyclerView mMovieCatalogueView;
-
+    private MovieAdapter movieAdapter;
     public MovieRecyclerPresenter(RecyclerView mMovieCatalogueView) {
         this.mMovieCatalogueView = mMovieCatalogueView;
     }
@@ -57,11 +57,17 @@ public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.Re
         return movies.size();
     }
 
+    @Override
+    public void setMovies(ArrayList<Movie> movies) {
+        this.movies = movies;
+        movieAdapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public void loadRecyclerView(final ArrayList<Movie> movies){
         this.movies = movies;
-        MovieAdapter movieAdapter = new MovieAdapter(this);
+        movieAdapter = new MovieAdapter(this);
         movieAdapter.notifyDataSetChanged();
         movieAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -74,16 +80,5 @@ public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.Re
         mMovieCatalogueView.setAdapter(movieAdapter);
     }
 
-    @Override
-    public void setMovies(ArrayList<Movie> movies){
-        ArrayList<Movie> temp = new ArrayList<>();
-        temp.addAll(movies);
-
-        this.movies.clear();
-        movies.addAll(temp);
-        Log.d(getClass().getSimpleName(), "setMovies: "+this.movies.size()+"-"+movies.size());
-        mMovieCatalogueView.getAdapter().notifyDataSetChanged();
-
-    }
 
 }

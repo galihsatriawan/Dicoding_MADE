@@ -1,6 +1,7 @@
 package id.shobrun.moviecatalogue.models;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,9 +25,8 @@ public class MovieModel implements MovieCatalogueContract.Model {
 
     @Override
     public ArrayList<Movie> getAllMovies(final OnFinishedListener onFinishedListener) {
+        Log.e(getClass().getSimpleName(), "getAllMovies: get" );
         try {
-
-
         /*
             Get Data With Retrofit
          */

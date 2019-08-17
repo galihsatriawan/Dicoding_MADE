@@ -37,15 +37,23 @@ public class MovieCataloguePresenter implements  MovieCatalogueContract.Presente
         Contact Model to load From Server
          */
         this.vm = vm;
-        mMovieCatalogueView.showProgress();
-        mMovieModel.getAllMovies(this );
+        if(this.vm.getMovies().getValue()==null){
+            mMovieCatalogueView.showProgress();
+            mMovieModel.getAllMovies(this );
+        }
+
     }
 
     @Override
     public void onFinished(Response<MovieListResponse> response) {
         mMovieCatalogueView.hideProgress();
-        vm.setMovies(response.body().getResults());
+        this.vm.setMovies(response.body().getResults());
         mMovieCatalogueView.showListMovieCatalogue(response.body().getResults());
+    }
+    @Override
+    public void onRefresh(ArrayList<Movie> movies) {
+        mMovieCatalogueView.hideProgress();
+        mMovieCatalogueView.showListMovieCatalogue(movies);
     }
 
     @Override
