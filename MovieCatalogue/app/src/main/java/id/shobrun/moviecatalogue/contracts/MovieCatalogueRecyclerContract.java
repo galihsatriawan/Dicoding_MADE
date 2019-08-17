@@ -21,6 +21,6 @@ public interface MovieCatalogueRecyclerContract {
         void loadRecyclerView(ArrayList<Movie> movies);
         void onBindItemViewHolder(final MovieViewHolder viewHolder, int position);
         int  getMoviesCount();
-        void updateRecycler();
+        void setMovies(ArrayList<Movie> movies);
     }
 }

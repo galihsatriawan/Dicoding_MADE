@@ -3,6 +3,7 @@ package id.shobrun.moviecatalogue.presenters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
@@ -45,9 +46,8 @@ public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerP
         view.setOnViewClickListener(new OnViewClickListener() {
             @Override
             public void onViewClicked(View v) {
-                int imgNotif = (int)view.getImgNotification().getTag();
-
-                if(imgNotif == notifications[0]){
+                Drawable imgNotif = view.itemView.getContext().getDrawable(notifications[0]);
+                if(view.getImgNotification().getDrawable() == imgNotif ){
                     view.setNotification(notifications[1]);
                     Toast.makeText(view.itemView.getContext(),"Notification for "+tvShow.getName()+" has on",Toast.LENGTH_SHORT).show();
                 }else{

@@ -38,9 +38,7 @@ public class TVShowViewHolder extends RecyclerView.ViewHolder implements TvShowR
 
     @Override
     public void setNotification(int notif) {
-        imgNotification.setTag(null);
         Glide.with(this.itemView.getContext()).load(notif).into(imgNotification);
-        imgNotification.setTag(notif);
     }
 
     public ImageView getImgNotification() {

@@ -2,6 +2,7 @@ package id.shobrun.moviecatalogue.presenters;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -61,6 +62,7 @@ public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.Re
     public void loadRecyclerView(final ArrayList<Movie> movies){
         this.movies = movies;
         MovieAdapter movieAdapter = new MovieAdapter(this);
+        movieAdapter.notifyDataSetChanged();
         movieAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(View v, int position) {
@@ -71,10 +73,17 @@ public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.Re
         });
         mMovieCatalogueView.setAdapter(movieAdapter);
     }
-    @Override
-    public void updateRecycler() {
-        mMovieCatalogueView.getAdapter().notifyDataSetChanged();
-    }
 
+    @Override
+    public void setMovies(ArrayList<Movie> movies){
+        ArrayList<Movie> temp = new ArrayList<>();
+        temp.addAll(movies);
+
+        this.movies.clear();
+        movies.addAll(temp);
+        Log.d(getClass().getSimpleName(), "setMovies: "+this.movies.size()+"-"+movies.size());
+        mMovieCatalogueView.getAdapter().notifyDataSetChanged();
+
+    }
 
 }

@@ -1,12 +1,16 @@
 package id.shobrun.moviecatalogue.views.fragment;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +18,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
+import id.shobrun.moviecatalogue.contracts.MovieCatalogueRecyclerContract;
 import id.shobrun.moviecatalogue.presenters.MovieCataloguePresenter;
 import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;
+import id.shobrun.moviecatalogue.viewmodels.MovieCatalogueViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +35,8 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
     MovieCataloguePresenter mMovieCataloguePresenter;
     MovieRecyclerPresenter mMovieRecyclerPresenter;
     ProgressBar progressBar;
+
+    MovieCatalogueViewModel viewModel;
     private static MovieCatalogueFragment instance;
     public static MovieCatalogueFragment getMovieCatalogueInstance(){
         if(instance == null){
@@ -52,15 +59,29 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initPresenter();
-        mMovieCataloguePresenter.loadMovieCatalogue();
-
-
+        initViewModel();
     }
-    public void initPresenter(){
-        mMovieCataloguePresenter = new MovieCataloguePresenter(this,getContext());
-        //Create Recycler Presenter
-        mMovieRecyclerPresenter = new MovieRecyclerPresenter(mRecyclerView);
+
+    public void initViewModel(){
+        viewModel = ViewModelProviders.of(this).get(MovieCatalogueViewModel.class);
+        /**
+         * Movie Catalogue Presenter
+         */
+        if(viewModel.getMovieCataloguePresenter()==null){
+            viewModel.setMovieCataloguePresenter(new MovieCataloguePresenter(this,getContext()));
+        }
+        mMovieCataloguePresenter = viewModel.getMovieCataloguePresenter();
+        viewModel.getMovies().observe(this,this.getMovies);
+        /**
+         * Recycler Presenter
+         */
+        if(viewModel.getRecyclerPresenter()==null){
+            viewModel.setRecyclerPresenter(new MovieRecyclerPresenter(mRecyclerView));
+        }
+        mMovieRecyclerPresenter = viewModel.getRecyclerPresenter();
+
+        mMovieCataloguePresenter.loadMovieCatalogue(viewModel);
+
     }
 
 
@@ -87,9 +108,23 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
 
     @Override
     public void showListMovieCatalogue(ArrayList<Movie> movies) {
+
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mMovieRecyclerPresenter.loadRecyclerView(movies);
-    }
 
+
+    }
+    private Observer<ArrayList<Movie>> getMovies = new Observer<ArrayList<Movie>>() {
+        @Override
+        public void onChanged(ArrayList<Movie> movies) {
+            Log.d(TAG, "onChanged: "+movies.size());
+            if(movies != null){
+
+                mMovieRecyclerPresenter.setMovies(movies);
+
+            }
+
+        }
+    };
 }
