@@ -26,7 +26,6 @@ public class TvShowModel implements TvShowContract.Model {
     @Override
     public ArrayList<TvShow> getAllTvShowPopular(final OnFinishedListener onFinishedListener) {
         try {
-
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
             HashMap<String,String> options = new HashMap<>();
             options.put("api_key",this.context.getString(R.string.api_key));

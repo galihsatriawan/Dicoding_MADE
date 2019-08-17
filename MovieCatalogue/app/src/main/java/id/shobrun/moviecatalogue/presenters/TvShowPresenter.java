@@ -3,10 +3,14 @@ package id.shobrun.moviecatalogue.presenters;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import id.shobrun.moviecatalogue.R;
+import id.shobrun.moviecatalogue.component.data.TvShow;
 import id.shobrun.moviecatalogue.component.response.TvShowListResponse;
 import id.shobrun.moviecatalogue.contracts.TvShowContract;
 import id.shobrun.moviecatalogue.models.TvShowModel;
+import id.shobrun.moviecatalogue.viewmodels.TvShowViewModel;
 import retrofit2.Response;
 
 
@@ -14,8 +18,8 @@ public class TvShowPresenter implements TvShowContract.Presenter {
     private final String TAG = this.getClass().getSimpleName();
     private TvShowContract.View mView;
     private TvShowContract.Model mTvModel;
-    private TvShowContract.Model.OnFinishedListener listenerPopular;
-    private TvShowContract.Model.OnFinishedListener listenerTrending;
+    public TvShowContract.Model.OnFinishedListener listenerPopular;
+    public TvShowContract.Model.OnFinishedListener listenerTrending;
     private Context ctx;
     public TvShowPresenter(TvShowContract.View mView, Context ctx) {
         this.mView = mView;
@@ -24,11 +28,18 @@ public class TvShowPresenter implements TvShowContract.Presenter {
         mView.initUI();
     }
     @Override
-    public void loadTvShowPopular() {
+    public void loadTvShowPopular(final TvShowViewModel vm) {
         listenerPopular = new TvShowContract.Model.OnFinishedListener() {
             @Override
             public void onSuccess(Response<TvShowListResponse> response) {
+                vm.setTvShowsPopular(response.body().getResults());
                 mView.showListTvShowPopular(response.body().getResults());
+                mView.hideProgress();
+            }
+
+            @Override
+            public void onRefresh(ArrayList<TvShow> tvShows) {
+                mView.showListTvShowPopular(tvShows);
                 mView.hideProgress();
             }
 
@@ -44,16 +55,26 @@ public class TvShowPresenter implements TvShowContract.Presenter {
                 mView.hideProgress();
             }
         };
-        mView.showProgress();
-        mTvModel.getAllTvShowPopular(listenerPopular);
+        if(vm.getTvShowsPopular().getValue()==null){
+            mView.showProgress();
+            mTvModel.getAllTvShowPopular(listenerPopular);
+        }
+
     }
 
     @Override
-    public void loadTvShowTrending() {
+    public void loadTvShowTrending(final TvShowViewModel vm) {
         listenerTrending = new TvShowContract.Model.OnFinishedListener() {
             @Override
             public void onSuccess(Response<TvShowListResponse> response) {
+                vm.setTvShowsTrending(response.body().getResults());
                 mView.showListTvShowTrending(response.body().getResults());
+                mView.hideProgress();
+            }
+
+            @Override
+            public void onRefresh(ArrayList<TvShow> tvShows) {
+                mView.showListTvShowTrending(tvShows);
                 mView.hideProgress();
             }
 
@@ -68,8 +89,9 @@ public class TvShowPresenter implements TvShowContract.Presenter {
                 mView.showMessage(TvShowPresenter.this.ctx.getString(R.string.communication_error));
             }
         };
-        mView.showProgress();
-        mTvModel.getAllTvShowTrending(listenerTrending);
-
+        if(vm.getTvShowsTrending().getValue()==null){
+            mView.showProgress();
+            mTvModel.getAllTvShowTrending(listenerTrending);
+        }
     }
 }

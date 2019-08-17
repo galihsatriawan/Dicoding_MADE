@@ -19,7 +19,7 @@ public class MovieCatalogueViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Movie>> movies;
 
     public LiveData<ArrayList<Movie>> getMovies(){
-        if(movies==null) return new MutableLiveData<>();
+        if(movies==null) return movies = new MutableLiveData<>();
         return movies;
     }
 

@@ -46,13 +46,13 @@ public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerP
         view.setOnViewClickListener(new OnViewClickListener() {
             @Override
             public void onViewClicked(View v) {
-                Drawable imgNotif = view.itemView.getContext().getDrawable(notifications[0]);
-                if(view.getImgNotification().getDrawable() == imgNotif ){
-                    view.setNotification(notifications[1]);
-                    Toast.makeText(view.itemView.getContext(),"Notification for "+tvShow.getName()+" has on",Toast.LENGTH_SHORT).show();
-                }else{
+                Drawable imgNotif = view.itemView.getContext().getDrawable(notifications[1]);
+                if(view.getImgNotification().getDrawable().equals(imgNotif) ){
                     view.setNotification(notifications[0]);
                     Toast.makeText(view.itemView.getContext(),"Notification for "+tvShow.getName()+" has off",Toast.LENGTH_SHORT).show();
+                }else{
+                    view.setNotification(notifications[1]);
+                    Toast.makeText(view.itemView.getContext(),"Notification for "+tvShow.getName()+" has on",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -70,6 +70,7 @@ public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerP
     public void loadRecyclerView(String id, final ArrayList<TvShow> tvShows){
         this.tvShows= tvShows;
         TVShowAdapter tvShowAdapter = new TVShowAdapter(this);
+        tvShowAdapter.notifyDataSetChanged();
         tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(View v, int position) {

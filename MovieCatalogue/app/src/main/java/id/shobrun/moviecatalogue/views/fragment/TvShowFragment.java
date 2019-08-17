@@ -1,6 +1,8 @@
 package id.shobrun.moviecatalogue.views.fragment;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +23,7 @@ import id.shobrun.moviecatalogue.component.data.TvShow;
 import id.shobrun.moviecatalogue.contracts.TvShowContract;
 import id.shobrun.moviecatalogue.presenters.TVShowRecyclerPresenter;
 import id.shobrun.moviecatalogue.presenters.TvShowPresenter;
+import id.shobrun.moviecatalogue.viewmodels.TvShowViewModel;
 
 
 /**
@@ -35,6 +38,8 @@ public class TvShowFragment extends Fragment implements TvShowContract.View {
     private TVShowRecyclerPresenter mRecyclerPresenter;
     private ProgressBar progressBar;
     private static TvShowFragment instance ;
+
+    private TvShowViewModel viewModel;
     public static TvShowFragment getTvShowInstance(){
         if(instance == null){
             instance = new TvShowFragment();
@@ -57,8 +62,9 @@ public class TvShowFragment extends Fragment implements TvShowContract.View {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initPresenter();
-        mPresenter.loadTvShowPopular();
-        mPresenter.loadTvShowTrending();
+        initViewModel();
+//        mPresenter.loadTvShowPopular();
+//        mPresenter.loadTvShowTrending();
     }
     @Override
     public void initUI(){
@@ -72,8 +78,30 @@ public class TvShowFragment extends Fragment implements TvShowContract.View {
         mPresenter = new TvShowPresenter(this,getContext());
         mRecyclerPresenter = new TVShowRecyclerPresenter(mRecyclerViews,getContext());
     }
+    private void initViewModel(){
+        viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        viewModel.getTvShowsPopular().observe(this,getTvShowsPopular);
+        viewModel.getTvShowsTrending().observe(this,getGetTvShowsTrending);
 
-
+        mPresenter.loadTvShowPopular(viewModel);
+        mPresenter.loadTvShowTrending(viewModel);
+    }
+    private Observer<ArrayList<TvShow>> getTvShowsPopular = new Observer<ArrayList<TvShow>>() {
+        @Override
+        public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
+            if(tvShows!=null){
+                mPresenter.listenerPopular.onRefresh(tvShows);
+            }
+        }
+    };
+    private Observer<ArrayList<TvShow>> getGetTvShowsTrending = new Observer<ArrayList<TvShow>>() {
+        @Override
+        public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
+            if(tvShows!=null){
+                mPresenter.listenerTrending.onRefresh(tvShows);
+            }
+        }
+    };
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
