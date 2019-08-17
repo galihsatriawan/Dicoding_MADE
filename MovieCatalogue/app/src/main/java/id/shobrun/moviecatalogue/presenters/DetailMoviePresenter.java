@@ -4,7 +4,6 @@ import android.content.Context;
 
 import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.contracts.DetailMovieContract;
-import id.shobrun.moviecatalogue.models.MovieModel;
 
 public class DetailMoviePresenter implements DetailMovieContract.Presenter {
     private DetailMovieContract.View mDetailMovieView;

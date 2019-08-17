@@ -8,7 +8,6 @@ import android.arch.lifecycle.ViewModel;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.component.data.Movie;
-import retrofit2.Response;
 
 
 public class MovieCatalogueViewModel extends ViewModel {

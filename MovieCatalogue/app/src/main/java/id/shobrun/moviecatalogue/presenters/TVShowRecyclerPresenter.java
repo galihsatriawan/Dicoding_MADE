@@ -2,13 +2,11 @@ package id.shobrun.moviecatalogue.presenters;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,7 +19,6 @@ import id.shobrun.moviecatalogue.component.data.TvShow;
 import id.shobrun.moviecatalogue.contracts.TvShowRecyclerContract;
 import id.shobrun.moviecatalogue.models.TvShowModel;
 import id.shobrun.moviecatalogue.utils.Constants;
-import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 
 public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerPresenter {
     private TvShowModel tvShowModel;

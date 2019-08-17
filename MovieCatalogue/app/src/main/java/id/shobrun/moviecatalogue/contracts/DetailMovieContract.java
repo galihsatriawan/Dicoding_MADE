@@ -1,7 +1,6 @@
 package id.shobrun.moviecatalogue.contracts;
 
 import id.shobrun.moviecatalogue.component.data.Movie;
-import id.shobrun.moviecatalogue.models.MovieModel;
 
 public interface DetailMovieContract {
 

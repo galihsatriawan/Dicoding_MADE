@@ -1,13 +1,9 @@
 package id.shobrun.moviecatalogue.contracts;
 
-import android.arch.lifecycle.ViewModel;
-
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.component.data.TvShow;
 import id.shobrun.moviecatalogue.component.response.TvShowListResponse;
-import id.shobrun.moviecatalogue.models.MovieModel;
 import id.shobrun.moviecatalogue.viewmodels.TvShowViewModel;
 import retrofit2.Response;
 

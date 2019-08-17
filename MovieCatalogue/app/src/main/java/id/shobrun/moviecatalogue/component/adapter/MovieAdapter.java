@@ -31,7 +31,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MovieViewHolder movieViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final MovieViewHolder movieViewHolder, int position) {
+        final int i = position;
         movieViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

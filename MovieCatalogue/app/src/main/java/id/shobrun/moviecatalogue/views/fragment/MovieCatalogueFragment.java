@@ -2,7 +2,6 @@ package id.shobrun.moviecatalogue.views.fragment;
 
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.component.data.Movie;
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
-import id.shobrun.moviecatalogue.contracts.MovieCatalogueRecyclerContract;
 import id.shobrun.moviecatalogue.presenters.MovieCataloguePresenter;
 import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;
 import id.shobrun.moviecatalogue.viewmodels.MovieCatalogueViewModel;

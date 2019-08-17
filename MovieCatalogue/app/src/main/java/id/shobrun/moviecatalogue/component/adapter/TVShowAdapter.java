@@ -31,7 +31,8 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TVShowViewHolder tvShowViewHolder,final int i) {
+    public void onBindViewHolder(@NonNull TVShowViewHolder tvShowViewHolder,int position) {
+        final int i = position;
         tvShowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

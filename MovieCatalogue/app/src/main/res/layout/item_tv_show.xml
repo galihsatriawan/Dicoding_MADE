@@ -6,7 +6,7 @@
     android:layout_width="167dp"
     android:layout_height="250dp"
     android:layout_marginTop="@dimen/activity_vertical_margin_small"
-    android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
     android:paddingLeft="@dimen/activity_horizontal_margin_small"
     android:paddingRight="@dimen/activity_horizontal_margin_small"
     android:paddingTop="@dimen/activity_vertical_margin_small"
@@ -20,7 +20,8 @@
             android:id="@+id/image_poster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tool:src="@drawable/poster_avengerinfinity" />
+            tool:src="@drawable/poster_avengerinfinity"
+            android:contentDescription="TODO" />
         <ImageView
             android:id="@+id/image_notification"
             android:layout_width="30dp"
