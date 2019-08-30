@@ -1,17 +1,17 @@
 package id.shobrun.moviecatalogue.models;
 
+
 import android.content.Context;
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.data.Movie;
-import id.shobrun.moviecatalogue.component.response.MovieListResponse;
+import id.shobrun.moviecatalogue.BuildConfig;
+import id.shobrun.moviecatalogue.models.data.Movie;
+import id.shobrun.moviecatalogue.api.response.MovieListResponse;
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
-import id.shobrun.moviecatalogue.network.ApiClient;
-import id.shobrun.moviecatalogue.network.ApiInterface;
+import id.shobrun.moviecatalogue.api.ApiClient;
+import id.shobrun.moviecatalogue.api.ApiInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +36,7 @@ public class MovieModel implements MovieCatalogueContract.Model {
          * Query Request
          */
         HashMap<String, String> options = new HashMap<>();
-        options.put("api_key",this.ctx.getString(R.string.api_key));
+        options.put("api_key", BuildConfig.ApiKey);
         options.put("language","en-US");
         Call<MovieListResponse> response = apiService.getMovie(options);
         response.enqueue(new Callback<MovieListResponse>() {

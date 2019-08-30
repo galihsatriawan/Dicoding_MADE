@@ -6,8 +6,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.data.Movie;
-import id.shobrun.moviecatalogue.component.response.MovieListResponse;
+import id.shobrun.moviecatalogue.models.data.Movie;
+import id.shobrun.moviecatalogue.api.response.MovieListResponse;
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
 import id.shobrun.moviecatalogue.models.MovieModel;
 import id.shobrun.moviecatalogue.viewmodels.MovieCatalogueViewModel;
@@ -56,6 +56,7 @@ public class MovieCataloguePresenter implements  MovieCatalogueContract.Presente
 
     @Override
     public void onError(Response<MovieListResponse> response) {
+        Log.e(TAG, "onError: "+response.message()+response.body()+response.toString() );
         Log.e(TAG, "onError: "+response.errorBody());
         mMovieCatalogueView.hideProgress();
         mMovieCatalogueView.showMessage(this.ctx.getString(R.string.communication_error));

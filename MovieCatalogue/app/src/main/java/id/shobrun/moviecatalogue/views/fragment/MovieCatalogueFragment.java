@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
 import id.shobrun.moviecatalogue.presenters.MovieCataloguePresenter;
 import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;

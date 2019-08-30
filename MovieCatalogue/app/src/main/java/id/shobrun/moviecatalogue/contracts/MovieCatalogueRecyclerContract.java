@@ -4,8 +4,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.component.adapter.MovieViewHolder;
-import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.views.adapter.MovieViewHolder;
+import id.shobrun.moviecatalogue.models.data.Movie;
 
 public interface MovieCatalogueRecyclerContract {
     interface MovieItemView {

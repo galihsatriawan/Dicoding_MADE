@@ -5,12 +5,12 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.data.TvShow;
-import id.shobrun.moviecatalogue.component.response.TvShowListResponse;
+import id.shobrun.moviecatalogue.BuildConfig;
+import id.shobrun.moviecatalogue.models.data.TvShow;
+import id.shobrun.moviecatalogue.api.response.TvShowListResponse;
 import id.shobrun.moviecatalogue.contracts.TvShowContract;
-import id.shobrun.moviecatalogue.network.ApiClient;
-import id.shobrun.moviecatalogue.network.ApiInterface;
+import id.shobrun.moviecatalogue.api.ApiClient;
+import id.shobrun.moviecatalogue.api.ApiInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +28,7 @@ public class TvShowModel implements TvShowContract.Model {
         try {
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
             HashMap<String,String> options = new HashMap<>();
-            options.put("api_key",this.context.getString(R.string.api_key));
+            options.put("api_key", BuildConfig.ApiKey);
             options.put("language","en-US");
 
             Call<TvShowListResponse> response = apiService.getTvMovie(options);
@@ -59,7 +59,7 @@ public class TvShowModel implements TvShowContract.Model {
         try{
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
             HashMap<String,String> options = new HashMap<>();
-            options.put("api_key",this.context.getString(R.string.api_key));
+            options.put("api_key", BuildConfig.ApiKey);
             options.put("language","en-US");
 
             Call<TvShowListResponse> response = apiService.getTvMovie(options);

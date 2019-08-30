@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.contracts.DetailMovieContract;
 import id.shobrun.moviecatalogue.presenters.DetailMoviePresenter;
 import id.shobrun.moviecatalogue.utils.Constants;

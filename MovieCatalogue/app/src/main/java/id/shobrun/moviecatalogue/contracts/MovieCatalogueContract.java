@@ -2,8 +2,8 @@ package id.shobrun.moviecatalogue.contracts;
 
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.component.data.Movie;
-import id.shobrun.moviecatalogue.component.response.MovieListResponse;
+import id.shobrun.moviecatalogue.models.data.Movie;
+import id.shobrun.moviecatalogue.api.response.MovieListResponse;
 import id.shobrun.moviecatalogue.viewmodels.MovieCatalogueViewModel;
 import retrofit2.Response;
 

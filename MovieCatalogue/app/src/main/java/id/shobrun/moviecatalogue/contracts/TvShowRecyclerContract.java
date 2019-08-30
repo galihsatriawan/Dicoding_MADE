@@ -2,8 +2,8 @@ package id.shobrun.moviecatalogue.contracts;
 
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.component.adapter.TVShowViewHolder;
-import id.shobrun.moviecatalogue.component.data.TvShow;
+import id.shobrun.moviecatalogue.views.adapter.TVShowViewHolder;
+import id.shobrun.moviecatalogue.models.data.TvShow;
 
 public interface TvShowRecyclerContract {
 

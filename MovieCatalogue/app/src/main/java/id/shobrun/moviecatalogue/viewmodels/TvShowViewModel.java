@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.component.data.TvShow;
+import id.shobrun.moviecatalogue.models.data.TvShow;
 
 public class TvShowViewModel extends ViewModel {
     private MutableLiveData<ArrayList<TvShow>> tvShowsPopular;

@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.adapter.SectionsPagerAdapter;
+import id.shobrun.moviecatalogue.views.adapter.SectionsPagerAdapter;
 import id.shobrun.moviecatalogue.contracts.MainContract;
 import id.shobrun.moviecatalogue.presenters.MainPresenter;
 

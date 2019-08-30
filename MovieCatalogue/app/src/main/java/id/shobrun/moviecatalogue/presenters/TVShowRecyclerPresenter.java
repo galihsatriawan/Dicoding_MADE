@@ -2,6 +2,7 @@ package id.shobrun.moviecatalogue.presenters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,14 +12,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.adapter.TVShowAdapter;
-import id.shobrun.moviecatalogue.component.adapter.TVShowViewHolder;
-import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
-import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.component.data.TvShow;
+import id.shobrun.moviecatalogue.views.adapter.TVShowAdapter;
+import id.shobrun.moviecatalogue.views.adapter.TVShowViewHolder;
+import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
+import id.shobrun.moviecatalogue.utils.common.OnViewClickListener;
+import id.shobrun.moviecatalogue.models.data.TvShow;
 import id.shobrun.moviecatalogue.contracts.TvShowRecyclerContract;
 import id.shobrun.moviecatalogue.models.TvShowModel;
 import id.shobrun.moviecatalogue.utils.Constants;
+import id.shobrun.moviecatalogue.views.DetailTvActivity;
 
 public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerPresenter {
     private TvShowModel tvShowModel;
@@ -71,7 +73,9 @@ public class TVShowRecyclerPresenter implements TvShowRecyclerContract.RecyclerP
         tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(View v, int position) {
-
+                Intent detailTv = new Intent(v.getContext(), DetailTvActivity.class);
+                detailTv.putExtra(DetailTvActivity.EXTRA_TV,tvShows.get(position));
+                v.getContext().startActivity(detailTv);
             }
         });
         mRecyclerViews.get(id).setAdapter(tvShowAdapter);

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import id.shobrun.moviecatalogue.contracts.MovieCatalogueRecyclerContract;
 import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
-import id.shobrun.moviecatalogue.component.adapter.MovieAdapter;
-import id.shobrun.moviecatalogue.component.adapter.MovieViewHolder;
-import id.shobrun.moviecatalogue.component.common.OnItemClickListener;
-import id.shobrun.moviecatalogue.component.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.views.adapter.MovieAdapter;
+import id.shobrun.moviecatalogue.views.adapter.MovieViewHolder;
+import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
+import id.shobrun.moviecatalogue.utils.common.OnViewClickListener;
+import id.shobrun.moviecatalogue.models.data.Movie;
 
 public class MovieRecyclerPresenter implements MovieCatalogueRecyclerContract.RecyclerPresenter {
     private ArrayList<Movie> movies = new ArrayList<>();

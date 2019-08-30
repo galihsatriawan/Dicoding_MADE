@@ -9,11 +9,18 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "ApiKey", 'movie_ApiKey'
+            manifestPlaceholders = [ApiKey: 'movie_ApiKey']
+        }
+        debug {
+            buildConfigField "String", "ApiKey", 'movie_ApiKey'
+            manifestPlaceholders = [ApiKey: 'movie_ApiKey']
         }
     }
 }
@@ -32,6 +39,9 @@ dependencies {
     // Network library
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+    // Room Library
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

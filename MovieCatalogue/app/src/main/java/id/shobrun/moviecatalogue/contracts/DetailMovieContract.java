@@ -1,6 +1,6 @@
 package id.shobrun.moviecatalogue.contracts;
 
-import id.shobrun.moviecatalogue.component.data.Movie;
+import id.shobrun.moviecatalogue.models.data.Movie;
 
 public interface DetailMovieContract {
 
@@ -12,7 +12,7 @@ public interface DetailMovieContract {
         void showDetailMovie(Movie movie);
     }
     interface Presenter{
-
+        void loadDetailMovie(Movie movie);
     }
 
 }

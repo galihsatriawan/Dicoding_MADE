@@ -6,8 +6,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.data.TvShow;
-import id.shobrun.moviecatalogue.component.response.TvShowListResponse;
+import id.shobrun.moviecatalogue.models.data.TvShow;
+import id.shobrun.moviecatalogue.api.response.TvShowListResponse;
 import id.shobrun.moviecatalogue.contracts.TvShowContract;
 import id.shobrun.moviecatalogue.models.TvShowModel;
 import id.shobrun.moviecatalogue.viewmodels.TvShowViewModel;

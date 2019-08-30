@@ -2,8 +2,8 @@ package id.shobrun.moviecatalogue.contracts;
 
 import java.util.ArrayList;
 
-import id.shobrun.moviecatalogue.component.data.TvShow;
-import id.shobrun.moviecatalogue.component.response.TvShowListResponse;
+import id.shobrun.moviecatalogue.models.data.TvShow;
+import id.shobrun.moviecatalogue.api.response.TvShowListResponse;
 import id.shobrun.moviecatalogue.viewmodels.TvShowViewModel;
 import retrofit2.Response;
 

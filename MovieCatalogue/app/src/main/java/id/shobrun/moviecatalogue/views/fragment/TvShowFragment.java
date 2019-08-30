@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.component.data.TvShow;
+import id.shobrun.moviecatalogue.models.data.TvShow;
 import id.shobrun.moviecatalogue.contracts.TvShowContract;
 import id.shobrun.moviecatalogue.presenters.TVShowRecyclerPresenter;
 import id.shobrun.moviecatalogue.presenters.TvShowPresenter;
