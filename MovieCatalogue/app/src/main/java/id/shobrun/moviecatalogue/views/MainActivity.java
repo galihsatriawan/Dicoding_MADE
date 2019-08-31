@@ -12,12 +12,9 @@ import android.view.MenuItem;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.views.adapter.SectionsPagerAdapter;
-import id.shobrun.moviecatalogue.contracts.MainContract;
-import id.shobrun.moviecatalogue.presenters.MainPresenter;
 
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
-    private MainPresenter mPresenter;
+public class MainActivity extends AppCompatActivity implements IMainView{
     private ViewPager viewPager;
     private TabLayout tabs;
     Toolbar toolbar;
@@ -26,16 +23,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponent();
-        initPresenter();
-        mPresenter.onLoad();
+        showTabLayout();
     }
     private void initComponent(){
         viewPager = findViewById(R.id.view_pager);
         tabs = findViewById(R.id.tabs);
         toolbar = findViewById(R.id.toolbar_main);
-    }
-    private void initPresenter(){
-        mPresenter = new MainPresenter(getApplicationContext(),this);
         setSupportActionBar(toolbar);
     }
     @Override

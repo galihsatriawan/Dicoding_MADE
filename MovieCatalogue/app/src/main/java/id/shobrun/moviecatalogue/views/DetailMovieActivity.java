@@ -1,7 +1,10 @@
 package id.shobrun.moviecatalogue.views;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -19,12 +22,11 @@ import java.util.Locale;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
-import id.shobrun.moviecatalogue.contracts.DetailMovieContract;
-import id.shobrun.moviecatalogue.presenters.DetailMoviePresenter;
 import id.shobrun.moviecatalogue.utils.Constants;
+import id.shobrun.moviecatalogue.viewmodels.DetailMovieViewModel;
 
 
-public class DetailMovieActivity extends AppCompatActivity implements DetailMovieContract.View{
+public class DetailMovieActivity extends AppCompatActivity implements IDetailMovieView{
     public static final String EXTRA_MOVIE = "extra_movie";
     private ImageView imgPoster;
     private ImageView imgBanner;
@@ -35,17 +37,29 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     private TextView tvDuration;
     private TextView tvRelease;
     private AppCompatRatingBar ratingBar;
-
+    private DetailMovieViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
-        DetailMoviePresenter presenter = new DetailMoviePresenter(getApplicationContext(),this);
-
+        initUI();
+        initViewModel();
         if(getIntent() != null){
+            showActionBar();
             Movie mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
-            presenter.loadDetailMovie(mMovie);
+            viewModel.setMovie(mMovie);
+            showDetailMovie(mMovie);
         }
+    }
+    @Override
+    public void initViewModel(){
+        viewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
+        viewModel.getMovie().observe(this, new Observer<Movie>() {
+            @Override
+            public void onChanged(@Nullable Movie movie) {
+                showDetailMovie(movie);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

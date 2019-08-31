@@ -1,12 +1,13 @@
 package id.shobrun.moviecatalogue.contracts;
 
 import id.shobrun.moviecatalogue.models.data.TvShow;
+import id.shobrun.moviecatalogue.views.IRootView;
 
 public interface DetailTvContract {
     interface Model{
 
     }
-    interface View extends RootView {
+    interface ViewI extends IRootView {
         void initUI();
         void showDetailTvShow(TvShow tvShow);
     }

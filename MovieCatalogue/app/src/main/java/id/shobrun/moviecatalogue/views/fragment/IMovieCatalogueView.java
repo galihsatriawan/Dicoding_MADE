@@ -3,8 +3,9 @@ package id.shobrun.moviecatalogue.views.fragment;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.models.data.Movie;
+import id.shobrun.moviecatalogue.views.IRootView;
 
-public interface IMovieCatalogueView {
+public interface IMovieCatalogueView extends IRootView {
     void showProgress();
     void hideProgress();
     void initUI();

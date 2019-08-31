@@ -122,4 +122,9 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
 
         }
     };
+
+    @Override
+    public void showActionBar() {
+
+    }
 }

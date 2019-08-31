@@ -21,7 +21,7 @@ import id.shobrun.moviecatalogue.contracts.DetailTvContract;
 import id.shobrun.moviecatalogue.presenters.DetailTvPresenter;
 import id.shobrun.moviecatalogue.utils.Constants;
 
-public class DetailTvActivity extends AppCompatActivity implements DetailTvContract.View {
+public class DetailTvActivity extends AppCompatActivity implements DetailTvContract.ViewI {
     public static final String EXTRA_TV = "extra_tv";
     private ImageView imgPoster;
     private ImageView imgBanner;
