@@ -13,7 +13,7 @@ import id.shobrun.moviecatalogue.repositories.MovieRepository;
 public class MovieCatalogueViewModel extends ViewModel {
     private  MovieRepository repository ;
     MovieCatalogueViewModel(Application application){
-        repository = new MovieRepository(application);
+        repository = MovieRepository.getInstance(application);
     }
 
     /**
