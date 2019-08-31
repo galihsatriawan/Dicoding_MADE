@@ -3,6 +3,7 @@ package id.shobrun.moviecatalogue.views.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,30 +20,29 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
-import id.shobrun.moviecatalogue.contracts.MovieCatalogueContract;
-import id.shobrun.moviecatalogue.presenters.MovieCataloguePresenter;
-import id.shobrun.moviecatalogue.presenters.MovieRecyclerPresenter;
+import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.viewmodels.MovieCatalogueViewModel;
+import id.shobrun.moviecatalogue.views.DetailMovieActivity;
+import id.shobrun.moviecatalogue.views.adapter.MovieAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieCatalogueFragment extends Fragment implements MovieCatalogueContract.View {
+public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalogueView {
     private final String TAG = this.getClass().getSimpleName();
-    RecyclerView mRecyclerView;
-    MovieCataloguePresenter mMovieCataloguePresenter;
-    MovieRecyclerPresenter mMovieRecyclerPresenter;
+    private RecyclerView mRecyclerView;
+    private MovieAdapter movieAdapter;
     ProgressBar progressBar;
 
     MovieCatalogueViewModel viewModel;
-    private static MovieCatalogueFragment instance;
-    public static MovieCatalogueFragment getMovieCatalogueInstance(){
+    private static MovieCatalogueViewFragment instance;
+    public static MovieCatalogueViewFragment getMovieCatalogueInstance(){
         if(instance == null){
-            instance = new MovieCatalogueFragment();
+            instance = new MovieCatalogueViewFragment();
         }
         return instance;
     }
-    public MovieCatalogueFragment() {
+    public MovieCatalogueViewFragment() {
         // Required empty public constructor
     }
 
@@ -58,18 +58,19 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initPresenter();
+        initUI();
+        initRecyclerView();
         initViewModel();
     }
-    public void initPresenter(){
-        mMovieCataloguePresenter = new MovieCataloguePresenter(this,getContext());
-        mMovieRecyclerPresenter = new MovieRecyclerPresenter(mRecyclerView);
+    public void initRecyclerView(){
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.e(TAG, "initPresenter: " );
     }
     public void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(MovieCatalogueViewModel.class);
         viewModel.getMovies().observe(this,getMovies);
-        mMovieCataloguePresenter.loadMovieCatalogue(viewModel);
+        viewModel.loadAllMovie();
     }
 
 
@@ -95,17 +96,28 @@ public class MovieCatalogueFragment extends Fragment implements MovieCatalogueCo
     }
 
     @Override
-    public void showListMovieCatalogue(ArrayList<Movie> movies) {
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mMovieRecyclerPresenter.loadRecyclerView(movies);
+    public void showListMovieCatalogue(final ArrayList<Movie> movies) {
+        if(movieAdapter == null){
+            movieAdapter = new MovieAdapter();
+            mRecyclerView.setAdapter(movieAdapter);
+        }
+        movieAdapter.setMovies(movies);
+        movieAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClicked(View v, int position) {
+                Intent detail = new Intent(v.getContext(), DetailMovieActivity.class);
+                detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movies.get(position));
+                v.getContext().startActivity(detail);
+            }
+        });
     }
 
     private Observer<ArrayList<Movie>> getMovies = new Observer<ArrayList<Movie>>() {
         @Override
         public void onChanged(ArrayList<Movie> movies) {
             if(movies != null){
-                mMovieCataloguePresenter.onRefresh(movies);
+                hideProgress();
+                showListMovieCatalogue(movies);
             }
 
         }

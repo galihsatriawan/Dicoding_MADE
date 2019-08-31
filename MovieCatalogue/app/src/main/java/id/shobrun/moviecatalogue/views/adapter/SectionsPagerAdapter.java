@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import id.shobrun.moviecatalogue.R;
-import id.shobrun.moviecatalogue.views.fragment.MovieCatalogueFragment;
+import id.shobrun.moviecatalogue.views.fragment.MovieCatalogueViewFragment;
 import id.shobrun.moviecatalogue.views.fragment.TvShowFragment;
 
 /**
@@ -31,7 +31,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position){
             case 0:
-                return MovieCatalogueFragment.getMovieCatalogueInstance();
+                return MovieCatalogueViewFragment.getMovieCatalogueInstance();
 
             default:
                 return TvShowFragment.getTvShowInstance();

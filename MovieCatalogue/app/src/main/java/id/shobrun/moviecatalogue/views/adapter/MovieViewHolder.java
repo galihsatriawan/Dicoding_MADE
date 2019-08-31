@@ -10,9 +10,8 @@ import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.utils.common.OnViewClickListener;
-import id.shobrun.moviecatalogue.contracts.MovieCatalogueRecyclerContract;
 
-public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieCatalogueRecyclerContract.MovieItemView {
+public class MovieViewHolder extends RecyclerView.ViewHolder implements IMovieItemView {
     private TextView tvTitle,tvExcerpt,tvRating;
     private ImageView imgPoster,imgWishlistOff,imgWishlistOn;
     private Button btnAddToWishlist;

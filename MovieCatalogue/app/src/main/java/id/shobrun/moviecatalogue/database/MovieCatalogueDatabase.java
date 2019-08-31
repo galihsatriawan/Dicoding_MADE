@@ -8,7 +8,7 @@ import android.content.Context;
 import id.shobrun.moviecatalogue.database.dao.MovieDao;
 import id.shobrun.moviecatalogue.models.data.Movie;
 
-@Database(entities = {Movie.class},version = 1)
+@Database(entities = {Movie.class},version = 1,exportSchema = false)
 public abstract class MovieCatalogueDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
     private static MovieCatalogueDatabase INSTANCE;

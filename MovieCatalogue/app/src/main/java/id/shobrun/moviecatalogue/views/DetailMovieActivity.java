@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import id.shobrun.moviecatalogue.R;
@@ -77,16 +79,23 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
 
     @Override
     public void showDetailMovie(Movie movie) {
-        tvTitle.setText(movie.getName());
-        tvRating.setText(String.valueOf(movie.getRating()));
+        tvTitle.setText(movie.getTitle());
+        tvRating.setText(String.valueOf(movie.getVote_average()));
         tvProduction.setText(movie.getProductionCompany());
         SimpleDateFormat dtf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
-        tvRelease.setText(dtf.format(movie.getReleaseDate()));
-        tvContent.setText(movie.getDescription());
+
+        try {
+            Date release_date = dtf.parse((movie.getRelease_date()));
+            tvRelease.setText(dtf.format(release_date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        tvContent.setText(movie.getOverview());
         tvDuration.setText(getDuration(movie.getDuration()));
-        ratingBar.setRating((float)movie.getRating());
-        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_URL+movie.getPoster()).into(imgPoster);
-        Glide.with(getApplicationContext()).load(Constants.BACKDROP_BASE_URL+movie.getBackdrop()).into(imgBanner);
+        ratingBar.setRating(movie.getVote_average().floatValue());
+        Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_URL+movie.getPoster_path()).into(imgPoster);
+        Glide.with(getApplicationContext()).load(Constants.BACKDROP_BASE_URL+movie.getBackdrop_path()).into(imgBanner);
     }
     private String getDuration(int duration){
         String result;

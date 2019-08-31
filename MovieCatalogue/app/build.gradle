@@ -15,11 +15,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "ApiKey", 'movie_ApiKey'
+            buildConfigField "String", "ApiKey", movie_ApiKey
             manifestPlaceholders = [ApiKey: 'movie_ApiKey']
         }
         debug {
-            buildConfigField "String", "ApiKey", 'movie_ApiKey'
+            buildConfigField "String", "ApiKey", movie_ApiKey
             manifestPlaceholders = [ApiKey: 'movie_ApiKey']
         }
     }
