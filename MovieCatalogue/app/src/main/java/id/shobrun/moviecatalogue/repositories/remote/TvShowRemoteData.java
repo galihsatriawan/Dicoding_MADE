@@ -4,16 +4,13 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import id.shobrun.moviecatalogue.api.ApiClient;
 import id.shobrun.moviecatalogue.api.ApiInterface;
-import id.shobrun.moviecatalogue.contracts.TvShowContract;
 import id.shobrun.moviecatalogue.repositories.ITvShowDataSource;
 import id.shobrun.moviecatalogue.BuildConfig;
 import id.shobrun.moviecatalogue.api.response.TvShowListResponse;
 import id.shobrun.moviecatalogue.models.data.TvShow;
-import id.shobrun.moviecatalogue.repositories.ITvShowDataSource;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
