@@ -22,10 +22,10 @@ public class TvShow implements Parcelable {
     private String poster_path;
     private String backdrop_path;
     private Double vote_average;
-    private Date first_air_date;
+    private String first_air_date;
     private String tags;
 
-    public TvShow(int id, String name, String overview, String poster_path, String backdrop_path, Double vote_average, Date first_air_date) {
+    public TvShow(int id, String name, String overview, String poster_path, String backdrop_path, Double vote_average, String first_air_date) {
         this.id = id;
         this.name = name;
         this.overview = overview;
@@ -98,11 +98,11 @@ public class TvShow implements Parcelable {
         this.vote_average = vote_average;
     }
 
-    public Date getFirst_air_date() {
+    public String getFirst_air_date() {
         return first_air_date;
     }
 
-    public void setFirst_air_date(Date first_air_date) {
+    public void setFirst_air_date(String first_air_date) {
         this.first_air_date = first_air_date;
     }
 
@@ -167,7 +167,7 @@ public class TvShow implements Parcelable {
         dest.writeString(this.poster_path);
         dest.writeString(this.backdrop_path);
         dest.writeValue(this.vote_average);
-        dest.writeLong(this.first_air_date != null ? this.first_air_date.getTime() : -1);
+        dest.writeString(this.first_air_date);
         dest.writeString(this.tags);
         dest.writeInt(this.duration);
         dest.writeStringList(this.languages);
@@ -183,8 +183,7 @@ public class TvShow implements Parcelable {
         this.poster_path = in.readString();
         this.backdrop_path = in.readString();
         this.vote_average = (Double) in.readValue(Double.class.getClassLoader());
-        long tmpFirst_air_date = in.readLong();
-        this.first_air_date = tmpFirst_air_date == -1 ? null : new Date(tmpFirst_air_date);
+        this.first_air_date = in.readString();
         this.tags = in.readString();
         this.duration = in.readInt();
         this.languages = in.createStringArrayList();
