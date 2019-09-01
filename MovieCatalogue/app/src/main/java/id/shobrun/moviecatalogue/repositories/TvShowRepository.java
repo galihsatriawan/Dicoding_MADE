@@ -72,6 +72,6 @@ public class TvShowRepository implements ITvShowDataSource.DBSource,ITvShowDataS
 
     @Override
     public void getTvShowByIdLocal(int id, LoadDataCallback callback) {
-
+        localData.getTvShowByIdLocal(id,callback);
     }
 }

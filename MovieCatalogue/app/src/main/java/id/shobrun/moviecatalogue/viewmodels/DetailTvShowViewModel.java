@@ -37,9 +37,10 @@ public class DetailTvShowViewModel extends ViewModel {
             public <T> void onLoadSuccess(T res) {
                 TvShow res_tv= (TvShow) res;
                 if(res_tv.getId() != -1){
-                    tvShow.postValue(res_tv);
+                    setTvShow(res_tv);
                     view.setIconFavorite(R.drawable.ic_favorite_black_24dp);
                 }
+
             }
         });
     }

@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,17 +33,17 @@ import id.shobrun.moviecatalogue.views.iview.ITvShowFavoriteView;
  */
 public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteView {
 
-    static private MovieFavoriteFragment INSTANCE;
+    static private TvShowFavoriteFragment INSTANCE;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private TvShowFavoriteAdapter tvShowAdapter;
     private TvShowFavoriteViewModel viewModel;
 
-    public static MovieFavoriteFragment getInstance() {
+    public static TvShowFavoriteFragment getInstance() {
         if(INSTANCE==null){
             synchronized (MovieFavoriteFragment.class){
                 if(INSTANCE==null){
-                    INSTANCE = new MovieFavoriteFragment();
+                    INSTANCE = new TvShowFavoriteFragment();
                 }
             }
         }
@@ -83,7 +84,11 @@ public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteV
         viewModel.getTvShows().observe(this, new Observer<ArrayList<TvShow>>() {
             @Override
             public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
-                TvShowFavoriteFragment.this.showListTvShow(tvShows);
+                Log.d(getClass().getSimpleName(), "onChanged: oya");
+                if(tvShows!=null){
+                    TvShowFavoriteFragment.this.showListTvShow(tvShows);
+                }
+
             }
         });
         viewModel.loadFavoriteTvShows();
@@ -109,22 +114,22 @@ public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteV
         if(tvShowAdapter == null) {
             tvShowAdapter = new TvShowFavoriteAdapter();
             recyclerView.setAdapter(tvShowAdapter);
+            tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClicked(View v, int position) {
+                    Intent detailMovie = new Intent(v.getContext(), DetailTvActivity.class);
+                    detailMovie.putExtra(DetailTvActivity.EXTRA_TV,tvShows.get(position));
+                    v.getContext().startActivity(detailMovie);
+                }
+            });
         }
         tvShowAdapter.setTvShows(tvShows);
-        tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClicked(View v, int position) {
-                Intent detailMovie = new Intent(v.getContext(), DetailTvActivity.class);
-                detailMovie.putExtra(DetailTvActivity.EXTRA_TV,tvShows.get(position));
-                v.getContext().startActivity(detailMovie);
-            }
-        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.loadFavoriteTvShows();
+//        viewModel.loadFavoriteTvShows();
     }
 
 }

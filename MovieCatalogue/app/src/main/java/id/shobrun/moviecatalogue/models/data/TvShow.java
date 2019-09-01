@@ -25,7 +25,7 @@ public class TvShow implements Parcelable {
     private String first_air_date;
     private String tags;
 
-    public TvShow(int id, String name, String overview, String poster_path, String backdrop_path, Double vote_average, String first_air_date) {
+    public TvShow(int id, String name, String overview, String poster_path, String backdrop_path, Double vote_average, String first_air_date, String tags) {
         this.id = id;
         this.name = name;
         this.overview = overview;
@@ -33,6 +33,7 @@ public class TvShow implements Parcelable {
         this.backdrop_path = backdrop_path;
         this.vote_average = vote_average;
         this.first_air_date = first_air_date;
+        this.tags = tags;
     }
 
     @Ignore

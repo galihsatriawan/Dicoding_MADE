@@ -72,7 +72,7 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
     @Override
     public void initUI() {
         progressBar = this.getView().findViewById(R.id.progressBar);
-        recyclerView = this.getView().findViewById(R.id.recycler_tv_show_wishlist);
+        recyclerView = this.getView().findViewById(R.id.recycler_movie_wishlist);
     }
     public void initRecyclerView(){
         recyclerView.setHasFixedSize(true);
@@ -110,21 +110,22 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
         if(movieAdapter == null) {
             movieAdapter = new MovieFavoriteAdapter();
             recyclerView.setAdapter(movieAdapter);
+            movieAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClicked(View v, int position) {
+                    Intent detailMovie = new Intent(v.getContext(), DetailMovieActivity.class);
+                    detailMovie.putExtra(DetailMovieActivity.EXTRA_MOVIE,movieList.get(position));
+                    v.getContext().startActivity(detailMovie);
+                }
+            });
         }
         movieAdapter.setMovies(movieList);
-        movieAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClicked(View v, int position) {
-                Intent detailMovie = new Intent(v.getContext(), DetailMovieActivity.class);
-                detailMovie.putExtra(DetailMovieActivity.EXTRA_MOVIE,movieList.get(position));
-                v.getContext().startActivity(detailMovie);
-            }
-        });
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.loadFavoriteMovie();
+//        viewModel.loadFavoriteMovie();
     }
 }

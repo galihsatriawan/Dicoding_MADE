@@ -53,8 +53,6 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
             }else{
                 weakCallback.get().onLoadSuccess(listLiveData);
             }
-
-
         }
 
     }
@@ -171,7 +169,10 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
     }
     @Override
     public void insertMovieLocal(Movie movie, IMoviesDataSource.DBSource.UpdateDataCallback callback){
-        InsertAsyncTask asyncTask = new InsertAsyncTask(movieDao,callback);
+        InsertAsyncTask asyncTask ;
+        synchronized (MovieLocalData.class){
+            asyncTask = new InsertAsyncTask(movieDao,callback);
+        }
         asyncTask.execute(movie);
 
     }

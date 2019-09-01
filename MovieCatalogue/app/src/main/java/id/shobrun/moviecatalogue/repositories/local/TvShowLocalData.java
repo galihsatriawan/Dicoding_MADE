@@ -45,9 +45,10 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         protected void onPostExecute(List<TvShow> listLiveData) {
             super.onPostExecute(listLiveData);
             if(listLiveData == null){
-
+                Log.e(getClass().getSimpleName(), "onPostExecute: null" );
                 weakCallback.get().onLoadSuccess(new ArrayList<>());
             }else{
+                Log.e(getClass().getSimpleName(), "onPostExecute: "+listLiveData.toString() );
                 weakCallback.get().onLoadSuccess(listLiveData);
             }
 
@@ -167,9 +168,12 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         }
     }
     @Override
-    public void insertTvShowLocal(TvShow movie, ITvShowDataSource.DBSource.UpdateDataCallback callback){
-        InsertAsyncTask asyncTask = new InsertAsyncTask(tvShowDao,callback);
-        asyncTask.execute(movie);
+    public void insertTvShowLocal(TvShow tvShow, ITvShowDataSource.DBSource.UpdateDataCallback callback){
+        InsertAsyncTask asyncTask ;
+        synchronized (TvShowLocalData.class){
+            asyncTask = new InsertAsyncTask(tvShowDao,callback);
+        }
+        asyncTask.execute(tvShow);
 
     }
     @Override

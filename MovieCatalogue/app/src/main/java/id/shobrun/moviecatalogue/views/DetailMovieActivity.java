@@ -132,10 +132,11 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
         tvTitle.setText(movie.getTitle());
         tvRating.setText(String.valueOf(movie.getVote_average()));
         tvProduction.setText(movie.getProductionCompany());
+        SimpleDateFormat pars = new SimpleDateFormat("yyyy-dd-MM");
         SimpleDateFormat dtf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
 
         try {
-            Date release_date = dtf.parse((movie.getRelease_date()));
+            Date release_date = pars.parse((movie.getRelease_date()));
             tvRelease.setText(dtf.format(release_date));
         } catch (ParseException e) {
             e.printStackTrace();
