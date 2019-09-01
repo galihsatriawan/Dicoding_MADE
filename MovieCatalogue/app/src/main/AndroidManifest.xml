@@ -14,7 +14,9 @@
         <activity android:name=".views.MainFavoriteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
-        <activity android:name=".views.DetailTvActivity" />
+        <activity android:name=".views.DetailTvActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity android:name=".views.DetailMovieActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

@@ -63,6 +63,7 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initUI();
         initRecyclerView();
         initViewModel();
 //        mPresenter.loadTvShowPopular();

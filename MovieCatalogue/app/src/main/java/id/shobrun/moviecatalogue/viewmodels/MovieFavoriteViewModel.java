@@ -31,7 +31,7 @@ public class MovieFavoriteViewModel extends ViewModel {
         this.movies.postValue(movies);
     }
 
-    public MutableLiveData<ArrayList<Movie>> getMovies() {
+    public LiveData<ArrayList<Movie>> getMovies() {
         return movies;
     }
     public void loadFavoriteMovie(){

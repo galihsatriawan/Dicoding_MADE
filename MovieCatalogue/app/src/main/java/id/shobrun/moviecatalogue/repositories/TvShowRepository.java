@@ -13,9 +13,9 @@ public class TvShowRepository implements ITvShowDataSource.DBSource,ITvShowDataS
     private TvShowLocalData localData;
     private TvShowRemoteData remoteData;
     private Context context;
-    private TvShowRepository INSTANCE ;
+    private static TvShowRepository INSTANCE ;
 
-    public TvShowRepository getInstance(Context context) {
+    public static TvShowRepository getInstance(Context context) {
         if(INSTANCE==null){
             synchronized (TvShowRepository.class){
                 if (INSTANCE==null) INSTANCE = new TvShowRepository(context);

@@ -17,26 +17,26 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
+import id.shobrun.moviecatalogue.models.data.TvShow;
 import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
-import id.shobrun.moviecatalogue.viewmodels.MovieFavoriteViewModel;
-import id.shobrun.moviecatalogue.views.DetailMovieActivity;
-import id.shobrun.moviecatalogue.views.adapter.MovieAdapter;
-import id.shobrun.moviecatalogue.views.adapter.MovieFavoriteAdapter;
-import id.shobrun.moviecatalogue.views.iview.IMovieFavoriteView;
+import id.shobrun.moviecatalogue.viewmodels.TvShowFavoriteViewModel;
+import id.shobrun.moviecatalogue.views.DetailTvActivity;
+import id.shobrun.moviecatalogue.views.adapter.TvShowFavoriteAdapter;
+import id.shobrun.moviecatalogue.views.iview.ITvShowFavoriteView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteView {
+public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteView {
+
     static private MovieFavoriteFragment INSTANCE;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
-    private MovieFavoriteAdapter movieAdapter;
-    private MovieFavoriteViewModel viewModel;
+    private TvShowFavoriteAdapter tvShowAdapter;
+    private TvShowFavoriteViewModel viewModel;
 
     public static MovieFavoriteFragment getInstance() {
         if(INSTANCE==null){
@@ -48,8 +48,7 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
         }
         return INSTANCE;
     }
-
-    public MovieFavoriteFragment() {
+    public TvShowFavoriteFragment() {
         // Required empty public constructor
     }
 
@@ -58,7 +57,7 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_favorite, container, false);
+        return inflater.inflate(R.layout.fragment_tv_show_favorite, container, false);
     }
 
     @Override
@@ -79,15 +78,15 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
     public void initViewModel(){
-        viewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(TvShowFavoriteViewModel.class);
         viewModel.setAppView(getContext(),this);
-        viewModel.getMovies().observe(this, new Observer<ArrayList<Movie>>() {
+        viewModel.getTvShows().observe(this, new Observer<ArrayList<TvShow>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<Movie> movies) {
-                MovieFavoriteFragment.this.showListMovie(movies);
+            public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
+                TvShowFavoriteFragment.this.showListTvShow(tvShows);
             }
         });
-        viewModel.loadFavoriteMovie();
+        viewModel.loadFavoriteTvShows();
     }
 
     @Override
@@ -106,17 +105,17 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
     }
 
     @Override
-    public void showListMovie(final ArrayList<Movie> movieList) {
-        if(movieAdapter == null) {
-            movieAdapter = new MovieFavoriteAdapter();
-            recyclerView.setAdapter(movieAdapter);
+    public void showListTvShow(final ArrayList<TvShow> tvShows) {
+        if(tvShowAdapter == null) {
+            tvShowAdapter = new TvShowFavoriteAdapter();
+            recyclerView.setAdapter(tvShowAdapter);
         }
-        movieAdapter.setMovies(movieList);
-        movieAdapter.setOnItemClickListener(new OnItemClickListener() {
+        tvShowAdapter.setTvShows(tvShows);
+        tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(View v, int position) {
-                Intent detailMovie = new Intent(v.getContext(), DetailMovieActivity.class);
-                detailMovie.putExtra(DetailMovieActivity.EXTRA_MOVIE,movieList.get(position));
+                Intent detailMovie = new Intent(v.getContext(), DetailTvActivity.class);
+                detailMovie.putExtra(DetailTvActivity.EXTRA_TV,tvShows.get(position));
                 v.getContext().startActivity(detailMovie);
             }
         });
@@ -125,6 +124,7 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.loadFavoriteMovie();
+        viewModel.loadFavoriteTvShows();
     }
+
 }

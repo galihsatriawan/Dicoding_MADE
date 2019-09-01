@@ -15,7 +15,7 @@
             android:visibility="gone"/>
         <!-- TODO: Update blank fragment layout -->
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_tv_show_wishlist"
+            android:id="@+id/recycler_movie_wishlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

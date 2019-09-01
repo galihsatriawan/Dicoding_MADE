@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatRatingBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +20,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import id.shobrun.moviecatalogue.R;
@@ -131,7 +134,13 @@ public class DetailTvActivity extends AppCompatActivity implements IDetailTvShow
         tvRating.setText(String.valueOf(tvShow.getVote_average()));
         tvProduction.setText(tvShow.getProductionCompany());
         SimpleDateFormat dtf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
-        tvRelease.setText(dtf.format(tvShow.getFirst_air_date()));
+
+        try {
+            Date release_date = dtf.parse((tvShow.getFirst_air_date()));
+            tvRelease.setText(dtf.format(release_date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         tvContent.setText(tvShow.getOverview());
         tvDuration.setText(getDuration(tvShow.getDuration()));
         ratingBar.setRating(tvShow.getVote_average().floatValue());
@@ -153,6 +162,9 @@ public class DetailTvActivity extends AppCompatActivity implements IDetailTvShow
     }
     @Override
     public void showActionBar() {
+        Toolbar toolbar = (Toolbar)findViewById(R.id.appbarlayout_tool_bar);
+        setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Detail TV Show");
