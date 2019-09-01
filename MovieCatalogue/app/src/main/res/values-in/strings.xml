@@ -11,6 +11,7 @@
     <string name="popular_on_movies">Populer di Movie Catalogue</string>
     <string name="communication_error">Permintaan data ke server gagal</string>
     <string name="add_to_wishlist">Tambah ke Wishlist</string>
+    <string name="remove_to_wishlist">Hapus dari Wishlist</string>
     <string name="tab_text_1">Katalog Film</string>
     <string name="tab_text_2">Acara TV</string>
     <string name="trending_now">Tren Sekarang</string>

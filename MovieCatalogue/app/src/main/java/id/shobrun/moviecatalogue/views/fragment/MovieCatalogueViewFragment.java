@@ -24,6 +24,7 @@ import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.viewmodels.MovieCatalogueViewModel;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 import id.shobrun.moviecatalogue.views.adapter.MovieAdapter;
+import id.shobrun.moviecatalogue.views.iview.IMovieCatalogueView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +33,7 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
     private final String TAG = this.getClass().getSimpleName();
     private RecyclerView mRecyclerView;
     private MovieAdapter movieAdapter;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     MovieCatalogueViewModel viewModel;
     private static MovieCatalogueViewFragment instance;
@@ -69,6 +70,7 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
     }
     public void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(MovieCatalogueViewModel.class);
+        viewModel.setAppView(getContext(),this);
         viewModel.getMovies().observe(this,getMovies);
         viewModel.loadAllMovie();
     }

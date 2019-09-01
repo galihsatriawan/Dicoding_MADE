@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.DetailTvActivity"></activity>
+        <activity android:name=".views.MainFavoriteActivity"></activity>
+        <activity android:name=".views.DetailTvActivity" />
         <activity android:name=".views.DetailMovieActivity" />
         <activity
             android:name=".views.MainActivity"

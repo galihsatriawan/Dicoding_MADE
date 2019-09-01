@@ -5,10 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -19,9 +17,8 @@ import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
-import id.shobrun.moviecatalogue.utils.common.OnViewClickListener;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavoriteViewHolder> {
     private List<Movie> movies = new ArrayList<>();
 
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
@@ -32,14 +29,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-
-        return new MovieViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_movie,parent,false));
+    public MovieFavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        return new MovieFavoriteViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_movie_wishlist,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MovieViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull MovieFavoriteViewHolder viewHolder, int position) {
         final int i = position;
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,25 +49,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         viewHolder.setExcerpt(movie.getOverview());
         viewHolder.setRating(movie.getVote_average());
         viewHolder.setPoster(Constants.BACKDROP_BASE_URL+movie.getBackdrop_path());
-        viewHolder.setOnViewClickListener(new OnViewClickListener() {
-            @Override
-            public void onViewClicked(View view) {
-
-            }
-
-            @Override
-            public void onViewClicked(View v1, View v2) {
-                if(v1.getVisibility()==View.VISIBLE){
-                    viewHolder.showView(v2);
-                    viewHolder.hideView(v1);
-                    Toast.makeText(viewHolder.itemView.getContext(),movie.getTitle()+" has removed",Toast.LENGTH_SHORT).show();
-                }else{
-                    viewHolder.showView(v1);
-                    viewHolder.hideView(v2);
-                    Toast.makeText(viewHolder.itemView.getContext(),movie.getTitle()+" has added",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
     public void setMovies(ArrayList<Movie> movies) {
         this.movies = movies;
@@ -83,17 +60,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder implements IMovieItemView {
+    class MovieFavoriteViewHolder extends RecyclerView.ViewHolder implements IMovieFavoriteItemView {
         private TextView tvTitle,tvExcerpt,tvRating;
         private ImageView imgPoster,imgWishlistOff,imgWishlistOn;
-        private Button btnAddToWishlist;
-        OnViewClickListener onViewClickListener;
-
-        public void setOnViewClickListener(OnViewClickListener onViewClickListener) {
-            this.onViewClickListener = onViewClickListener;
-        }
-
-        public MovieViewHolder(View view){
+        public MovieFavoriteViewHolder(@NonNull View view) {
             super(view);
             tvTitle = view.findViewById(R.id.text_title);
             tvExcerpt = view.findViewById(R.id.text_excerpt);
@@ -101,14 +71,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             imgPoster = view.findViewById(R.id.image_poster);
             imgWishlistOff = view.findViewById(R.id.image_wishlist_off);
             imgWishlistOn = view.findViewById(R.id.image_wishlist_on);
-            btnAddToWishlist = view.findViewById(R.id.button_add_wishlist);
-            btnAddToWishlist.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onViewClickListener.onViewClicked(imgWishlistOn,imgWishlistOff);
-                }
-            });
         }
+
 
         @Override
         public void setTitle(String title) {
@@ -130,16 +94,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public void setPoster(String poster) {
             Glide.with(this.itemView.getContext()).load(poster).into(imgPoster);
         }
-
-        @Override
-        public void showView(View v) {
-            v.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void hideView(View v) {
-            v.setVisibility(View.GONE);
-        }
     }
-    
 }

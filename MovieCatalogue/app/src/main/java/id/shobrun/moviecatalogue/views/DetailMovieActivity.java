@@ -24,9 +24,10 @@ import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.viewmodels.DetailMovieViewModel;
+import id.shobrun.moviecatalogue.views.iview.IDetailMovieView;
 
 
-public class DetailMovieActivity extends AppCompatActivity implements IDetailMovieView{
+public class DetailMovieActivity extends AppCompatActivity implements IDetailMovieView {
     public static final String EXTRA_MOVIE = "extra_movie";
     private ImageView imgPoster;
     private ImageView imgBanner;

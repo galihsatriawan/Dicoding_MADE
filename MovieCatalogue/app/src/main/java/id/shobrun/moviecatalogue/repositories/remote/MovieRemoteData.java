@@ -1,6 +1,7 @@
 package id.shobrun.moviecatalogue.repositories.remote;
 
 import android.app.Application;
+import android.content.Context;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,9 @@ import retrofit2.Response;
 public class MovieRemoteData implements IMoviesDataSource.ApiSource {
     private ApiInterface apiService ;
     private List<Movie> movies ;
-    public MovieRemoteData(Application application){
+    private Context context;
+    public MovieRemoteData(Context context){
+        this.context = context;
         this.apiService = ApiClient.getClient().create(ApiInterface.class);
     }
     @Override

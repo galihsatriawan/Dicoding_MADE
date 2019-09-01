@@ -2,6 +2,7 @@ package id.shobrun.moviecatalogue.repositories.local;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
@@ -15,9 +16,10 @@ import id.shobrun.moviecatalogue.repositories.IMoviesDataSource;
 public class MovieLocalData implements IMoviesDataSource.DBSource {
     private MovieDao movieDao;
     private MovieCatalogueDatabase db;
-
-    public MovieLocalData(Application application){
-        db = MovieCatalogueDatabase.getDatabase(application);
+    private Context context;
+    public MovieLocalData(Context context){
+        this.context = context;
+        db = MovieCatalogueDatabase.getDatabase(context);
         movieDao = db.movieDao();
     }
     private static class QueryAsyncTask extends AsyncTask<String , Void, LiveData<List<Movie>>> {

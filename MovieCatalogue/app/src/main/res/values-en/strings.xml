@@ -13,6 +13,7 @@
 
 
     <string name="add_to_wishlist">Add to Wishlist</string>
+    <string name="remove_to_wishlist">Remove from Wishlist</string>
     <string name="tab_text_1">Movie Catalogue</string>
     <string name="tab_text_2">TV Shows</string>
     <string name="trending_now">Trending Now</string>

@@ -1,6 +1,7 @@
 package id.shobrun.moviecatalogue.repositories;
 
 import android.app.Application;
+import android.content.Context;
 
 import java.util.List;
 
@@ -12,19 +13,19 @@ public class MovieRepository implements IMoviesDataSource.ApiSource,IMoviesDataS
     private MovieRemoteData remoteData;
     private MovieLocalData localData;
     private static MovieRepository INSTANCE;
-    public static MovieRepository getInstance(Application application){
+    public static MovieRepository getInstance(Context context){
         if(INSTANCE == null){
             synchronized (MovieRepository.class){
                 if(INSTANCE == null){
-                    INSTANCE = new MovieRepository(application);
+                    INSTANCE = new MovieRepository(context);
                 }
             }
         }
         return INSTANCE;
     }
-    public MovieRepository(Application application){
-        this.localData = new MovieLocalData(application);
-        this.remoteData = new MovieRemoteData(application);
+    public MovieRepository(Context context){
+        this.localData = new MovieLocalData(context);
+        this.remoteData = new MovieRemoteData(context);
     }
 
     @Override
