@@ -1,32 +1,37 @@
-package id.shobrun.moviecatalogue.models;
+package id.shobrun.moviecatalogue.repositories.remote;
 
 import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import id.shobrun.moviecatalogue.BuildConfig;
-import id.shobrun.moviecatalogue.models.data.TvShow;
-import id.shobrun.moviecatalogue.api.response.TvShowListResponse;
-import id.shobrun.moviecatalogue.contracts.TvShowContract;
 import id.shobrun.moviecatalogue.api.ApiClient;
 import id.shobrun.moviecatalogue.api.ApiInterface;
+import id.shobrun.moviecatalogue.contracts.TvShowContract;
+import id.shobrun.moviecatalogue.repositories.ITvShowDataSource;
+import id.shobrun.moviecatalogue.BuildConfig;
+import id.shobrun.moviecatalogue.api.response.TvShowListResponse;
+import id.shobrun.moviecatalogue.models.data.TvShow;
+import id.shobrun.moviecatalogue.repositories.ITvShowDataSource;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TvShowModel implements TvShowContract.Model {
+public class TvShowRemoteData implements ITvShowDataSource.ApiSource {
+    private ApiInterface apiService;
     private Context context;
+
     private ArrayList<TvShow> tvShows;
     private ArrayList<TvShow> tvShowsPopular;
     private ArrayList<TvShow> tvShowsTrending;
-    public TvShowModel(Context ctx){
-        this.context = ctx;
+    public TvShowRemoteData(Context context){
+        this.context = context;
+        apiService = ApiClient.getClient().create(ApiInterface.class);
     }
     @Override
-    public ArrayList<TvShow> getAllTvShowPopular(final OnFinishedListener onFinishedListener) {
+    public ArrayList<TvShow> getAllTvShowPopular(final ITvShowDataSource.ApiSource.OnFinishedListener onFinishedListener) {
         try {
-            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
             HashMap<String,String> options = new HashMap<>();
             options.put("api_key", BuildConfig.ApiKey);
             options.put("language","en-US");
@@ -36,7 +41,7 @@ public class TvShowModel implements TvShowContract.Model {
                 @Override
                 public void onResponse(Call<TvShowListResponse> call, Response<TvShowListResponse> response) {
                     if(response.isSuccessful()){
-                        onFinishedListener.onSuccess(response);
+                        onFinishedListener.onFinished(response);
                         tvShowsPopular = response.body().getResults();
                     }else {
                         onFinishedListener.onError(response);
@@ -48,8 +53,9 @@ public class TvShowModel implements TvShowContract.Model {
                     onFinishedListener.onFailure(t);
                 }
             });
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Throwable t){
+            onFinishedListener.onFailure(t);
+            t.printStackTrace();
         }
         return tvShowsPopular;
     }
@@ -57,7 +63,6 @@ public class TvShowModel implements TvShowContract.Model {
     @Override
     public ArrayList<TvShow> getAllTvShowTrending(final OnFinishedListener onFinishedListener) {
         try{
-            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
             HashMap<String,String> options = new HashMap<>();
             options.put("api_key", BuildConfig.ApiKey);
             options.put("language","en-US");
@@ -67,7 +72,7 @@ public class TvShowModel implements TvShowContract.Model {
                 @Override
                 public void onResponse(Call<TvShowListResponse> call, Response<TvShowListResponse> response) {
                     if (response.isSuccessful()){
-                        onFinishedListener.onSuccess(response);
+                        onFinishedListener.onFinished(response);
                         tvShowsTrending= response.body().getResults();
                     }else {
                         onFinishedListener.onError(response);
@@ -99,7 +104,6 @@ public class TvShowModel implements TvShowContract.Model {
         }
         return position;
     }
-
     @Override
     public int getTvShowCount() {
         return tvShows.size();

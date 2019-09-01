@@ -1,5 +1,9 @@
 package id.shobrun.moviecatalogue.models.data;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,52 +12,44 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
+@Entity(tableName = "tb_tv_show")
 public class TvShow implements Parcelable {
-
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "tvShowId")
     private int id;
     private String name;
-    @SerializedName("overview")
-    private String description;
-    @SerializedName("genre_ids")
-    private ArrayList<Integer> genre;
-    private String productionCompany;
-    @SerializedName("poster_path")
-    private String poster;
-    @SerializedName("backdrop_path")
-    private String backdrop;
-    @SerializedName("vote_average")
-    private double rating;
-    private ArrayList<String> languages;
-    private int duration;
-    @SerializedName("first_air_date")
-    private Date releaseDate;
-    private ArrayList<String> keywords;
+    private String overview;
+    private String poster_path;
+    private String backdrop_path;
+    private Double vote_average;
+    private Date first_air_date;
+    private String tags;
 
-    public TvShow(int id, String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
+    public TvShow(int id, String name, String overview, String poster_path, String backdrop_path, Double vote_average, Date first_air_date) {
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.genre = genre;
-        this.productionCompany = productionCompany;
-        this.poster = poster;
-        this.rating = rating;
-        this.languages = languages;
-        this.duration = duration;
-        this.releaseDate = releaseDate;
-        this.keywords = keywords;
+        this.overview = overview;
+        this.poster_path = poster_path;
+        this.backdrop_path = backdrop_path;
+        this.vote_average = vote_average;
+        this.first_air_date = first_air_date;
     }
-    public TvShow(String name, String description, ArrayList<Integer> genre, String productionCompany, String poster, double rating, ArrayList<String> languages, int duration, Date releaseDate, ArrayList<String> keywords) {
-        this.name = name;
-        this.description = description;
-        this.genre = genre;
-        this.productionCompany = productionCompany;
-        this.poster = poster;
-        this.rating = rating;
-        this.languages = languages;
-        this.duration = duration;
-        this.releaseDate = releaseDate;
-        this.keywords = keywords;
+
+    @Ignore
+    public TvShow(int id){
+        this.id = id;
     }
+    @Ignore
+    private int duration;
+    @Ignore
+    private ArrayList<String> languages;
+    @Ignore
+    private ArrayList<String> keywords;
+    @Ignore
+    private ArrayList<Integer> genre_ids;
+    @Ignore
+    private String productionCompany;
+
     public int getId() {
         return id;
     }
@@ -61,7 +57,6 @@ public class TvShow implements Parcelable {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -71,32 +66,45 @@ public class TvShow implements Parcelable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
-    public String getProductionCompany() {
-        return productionCompany;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setProductionCompany(String productionCompany) {
-        this.productionCompany = productionCompany;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
-
-
-    public double getRating() {
-        return rating;
+    public String getBackdrop_path() {
+        return backdrop_path;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
     }
 
+    public Double getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(Double vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public Date getFirst_air_date() {
+        return first_air_date;
+    }
+
+    public void setFirst_air_date(Date first_air_date) {
+        this.first_air_date = first_air_date;
+    }
 
     public int getDuration() {
         return duration;
@@ -104,22 +112,6 @@ public class TvShow implements Parcelable {
 
     public void setDuration(int duration) {
         this.duration = duration;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public ArrayList<Integer> getGenre() {
-        return genre;
-    }
-
-    public void setGenre(ArrayList<Integer> genre) {
-        this.genre = genre;
     }
 
     public ArrayList<String> getLanguages() {
@@ -138,22 +130,29 @@ public class TvShow implements Parcelable {
         this.keywords = keywords;
     }
 
-    public String getPoster() {
-        return poster;
+    public ArrayList<Integer> getGenre_ids() {
+        return genre_ids;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setGenre_ids(ArrayList<Integer> genre_ids) {
+        this.genre_ids = genre_ids;
     }
 
-    public String getBackdrop() {
-        return backdrop;
+    public String getProductionCompany() {
+        return productionCompany;
     }
 
-    public void setBackdrop(String backdrop) {
-        this.backdrop = backdrop;
+    public void setProductionCompany(String productionCompany) {
+        this.productionCompany = productionCompany;
     }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
 
     @Override
     public int describeContents() {
@@ -164,33 +163,35 @@ public class TvShow implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.description);
-        dest.writeList(this.genre);
-        dest.writeString(this.productionCompany);
-        dest.writeString(this.poster);
-        dest.writeString(this.backdrop);
-        dest.writeDouble(this.rating);
-        dest.writeStringList(this.languages);
+        dest.writeString(this.overview);
+        dest.writeString(this.poster_path);
+        dest.writeString(this.backdrop_path);
+        dest.writeValue(this.vote_average);
+        dest.writeLong(this.first_air_date != null ? this.first_air_date.getTime() : -1);
+        dest.writeString(this.tags);
         dest.writeInt(this.duration);
-        dest.writeLong(this.releaseDate != null ? this.releaseDate.getTime() : -1);
+        dest.writeStringList(this.languages);
         dest.writeStringList(this.keywords);
+        dest.writeList(this.genre_ids);
+        dest.writeString(this.productionCompany);
     }
 
     protected TvShow(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
-        this.description = in.readString();
-        this.genre = new ArrayList<Integer>();
-        in.readList(this.genre, Integer.class.getClassLoader());
-        this.productionCompany = in.readString();
-        this.poster = in.readString();
-        this.backdrop = in.readString();
-        this.rating = in.readDouble();
-        this.languages = in.createStringArrayList();
+        this.overview = in.readString();
+        this.poster_path = in.readString();
+        this.backdrop_path = in.readString();
+        this.vote_average = (Double) in.readValue(Double.class.getClassLoader());
+        long tmpFirst_air_date = in.readLong();
+        this.first_air_date = tmpFirst_air_date == -1 ? null : new Date(tmpFirst_air_date);
+        this.tags = in.readString();
         this.duration = in.readInt();
-        long tmpReleaseDate = in.readLong();
-        this.releaseDate = tmpReleaseDate == -1 ? null : new Date(tmpReleaseDate);
+        this.languages = in.createStringArrayList();
         this.keywords = in.createStringArrayList();
+        this.genre_ids = new ArrayList<Integer>();
+        in.readList(this.genre_ids, Integer.class.getClassLoader());
+        this.productionCompany = in.readString();
     }
 
     public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {

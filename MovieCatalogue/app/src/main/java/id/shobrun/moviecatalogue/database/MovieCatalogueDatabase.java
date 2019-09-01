@@ -6,11 +6,14 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import id.shobrun.moviecatalogue.database.dao.MovieDao;
+import id.shobrun.moviecatalogue.database.dao.TvShowDao;
 import id.shobrun.moviecatalogue.models.data.Movie;
+import id.shobrun.moviecatalogue.models.data.TvShow;
 
-@Database(entities = {Movie.class},version = 1,exportSchema = false)
+@Database(entities = {Movie.class, TvShow.class},version = 1,exportSchema = false)
 public abstract class MovieCatalogueDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
+    public abstract TvShowDao tvShowDao();
     private static MovieCatalogueDatabase INSTANCE;
     public static String DB_NAME = "db_movie_catalogue";
     public static MovieCatalogueDatabase getDatabase(final Context context){

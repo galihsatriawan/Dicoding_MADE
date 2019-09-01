@@ -13,6 +13,6 @@ public interface ApiInterface {
     Call<MovieListResponse> getMovie(@QueryMap HashMap<String, String> queries);
 
     @GET("discover/tv")
-    Call<TvShowListResponse> getTvMovie(@QueryMap HashMap<String, String> queries);
+    Call<TvShowListResponse> getTvShow(@QueryMap HashMap<String, String> queries);
 
 }
