@@ -23,10 +23,11 @@ public interface IMoviesDataSource {
         }
     }
     interface DBSource{
-
+        void updateMovieLocal(Movie movie,UpdateDataCallback callback);
         void deleteMovieLocal(Movie movie,UpdateDataCallback callback);
         void insertMovieLocal(Movie movie,UpdateDataCallback callback);
         void getLikeMoviesLocal(String tags,LoadDataCallback callback);
+        void getMovieByIdLocal(int id,LoadDataCallback callback);
         interface LoadDataCallback{
             void onPreLoad();
             <T> void onLoadSuccess(T res);

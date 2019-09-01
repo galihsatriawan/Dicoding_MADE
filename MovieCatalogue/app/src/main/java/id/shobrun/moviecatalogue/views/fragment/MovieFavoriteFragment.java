@@ -121,4 +121,10 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.loadFavoriteMovie();
+    }
 }

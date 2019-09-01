@@ -97,7 +97,7 @@ public class DetailTvActivity extends AppCompatActivity implements DetailTvContr
     public void showActionBar() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Detail Movie");
+        getSupportActionBar().setTitle("Detail TV Show");
     }
 
     @Override

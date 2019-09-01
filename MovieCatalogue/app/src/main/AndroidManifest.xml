@@ -11,9 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.MainFavoriteActivity"></activity>
+        <activity android:name=".views.MainFavoriteActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
         <activity android:name=".views.DetailTvActivity" />
-        <activity android:name=".views.DetailMovieActivity" />
+        <activity android:name=".views.DetailMovieActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".views.MainActivity"
             android:label="@string/app_name"

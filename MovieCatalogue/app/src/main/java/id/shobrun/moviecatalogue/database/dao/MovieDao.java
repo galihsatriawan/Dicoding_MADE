@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -17,9 +18,15 @@ public interface MovieDao {
     @Delete
     void deleteMovie(Movie movie);
 
+    @Update
+    void updateMovie(Movie movie);
+
     @Query("SELECT * FROM tb_movies")
-    LiveData<List<Movie>> getAllMovie();
+    List<Movie> getAllMovie();
 
     @Query("SELECT * FROM tb_movies WHERE tags = :tags")
-    LiveData<List<Movie>> getAllMovieByTags(String tags);
+    List<Movie> getAllMovieByTags(String tags);
+
+    @Query("SELECT * FROM tb_movies WHERE movieId = :id")
+    Movie getMovieById(int id);
 }

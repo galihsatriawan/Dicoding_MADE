@@ -44,6 +44,11 @@ public class Movie implements Parcelable {
         this.release_date = release_date;
         this.tags = tags;
     }
+    @Ignore
+    public Movie(int id){
+        this.id = id;
+    }
+    @Ignore
     public Movie(int id, String title, String overview, ArrayList<Integer> genre_ids, String poster_path, String backdrop_path, Double vote_average, String release_date, String tags, String productionCompany, ArrayList<String> keywords, ArrayList<String> languages, int duration) {
         this.id = id;
         this.title = title;

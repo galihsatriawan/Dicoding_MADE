@@ -10,7 +10,9 @@
     <string name="dummy_content_text">Content</string>
     <string name="popular_on_movies">Popular on Movie Catalogue</string>
     <string name="communication_error">Failed to get data from server</string>
-
+    <string name="failed_favorite">Failed Update</string>
+    <string name="success_favorite">Success to be your favorite</string>
+    <string name="remove_favorite">Favorite Movie has removed </string>
 
     <string name="add_to_wishlist">Add to Wishlist</string>
     <string name="remove_to_wishlist">Remove from Wishlist</string>
@@ -19,7 +21,5 @@
     <string name="trending_now">Trending Now</string>
     <string name="change_language_settings">Change Language Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

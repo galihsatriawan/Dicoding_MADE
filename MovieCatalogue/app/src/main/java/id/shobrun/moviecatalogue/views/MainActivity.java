@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initComponent();
+        initUI();
         showTabLayout();
     }
-    private void initComponent(){
+    private void initUI(){
         viewPager = findViewById(R.id.view_pager);
         tabs = findViewById(R.id.tabs);
         toolbar = findViewById(R.id.toolbar_main);
@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             case R.id.action_change_settings:
                 Intent setting = new Intent(Settings.ACTION_LOCALE_SETTINGS);
                 startActivity(setting);
+                break;
+            case R.id.action_list_favorite:
+                Intent list_favorite = new Intent(this, MainFavoriteActivity.class);
+                startActivity(list_favorite);
                 break;
         }
         return super.onOptionsItemSelected(item);

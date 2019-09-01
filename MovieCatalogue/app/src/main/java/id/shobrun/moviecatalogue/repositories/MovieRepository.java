@@ -49,8 +49,13 @@ public class MovieRepository implements IMoviesDataSource.ApiSource,IMoviesDataS
     }
 
     @Override
+    public void updateMovieLocal(Movie movie, UpdateDataCallback callback) {
+        localData.updateMovieLocal(movie,callback);
+    }
+
+    @Override
     public void deleteMovieLocal(Movie movie, UpdateDataCallback callback) {
-        localData.insertMovieLocal(movie,callback);
+        localData.deleteMovieLocal(movie,callback);
     }
 
     @Override
@@ -61,5 +66,10 @@ public class MovieRepository implements IMoviesDataSource.ApiSource,IMoviesDataS
     @Override
     public void getLikeMoviesLocal(String tags, LoadDataCallback callback) {
         localData.getLikeMoviesLocal(tags,callback);
+    }
+
+    @Override
+    public void getMovieByIdLocal(int id, LoadDataCallback callback) {
+        localData.getMovieByIdLocal(id,callback);
     }
 }
