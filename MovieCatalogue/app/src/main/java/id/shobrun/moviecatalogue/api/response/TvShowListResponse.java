@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import id.shobrun.moviecatalogue.models.data.TvShow;
 
 public class TvShowListResponse {
-    int page;
+    private int page;
     @SerializedName("total_results")
+    private
     int totalResults ;
     @SerializedName("total_pages")
+    private
     int totalPages;
-    ArrayList<TvShow> results;
+    private ArrayList<TvShow> results;
 
     public TvShowListResponse(int page, int totalResults, int totalPages, ArrayList<TvShow> results) {
         this.page = page;

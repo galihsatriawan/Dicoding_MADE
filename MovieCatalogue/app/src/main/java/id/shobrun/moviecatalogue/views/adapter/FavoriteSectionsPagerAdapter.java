@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.views.fragment.MovieFavoriteFragment;
 import id.shobrun.moviecatalogue.views.fragment.TvShowFavoriteFragment;
-import id.shobrun.moviecatalogue.views.fragment.TvShowFragment;
 
 public class FavoriteSectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes

@@ -24,7 +24,7 @@ public class DetailMovieViewModel extends ViewModel {
         this.repository = new MovieRepository(context);
     }
     public void setMovie(Movie movie) {
-        this.movie.postValue(movie);
+        this.movie.setValue(movie);
     }
     public void checkMovieById(final int id){
         repository.getMovieByIdLocal(id, new IMoviesDataSource.DBSource.LoadDataCallback() {
@@ -78,8 +78,13 @@ public class DetailMovieViewModel extends ViewModel {
                 }
             });
         }
-        this.movie.postValue(movie);
+        this.setMovie(movie);
 
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
     }
 
     public LiveData<Movie> getMovie() {

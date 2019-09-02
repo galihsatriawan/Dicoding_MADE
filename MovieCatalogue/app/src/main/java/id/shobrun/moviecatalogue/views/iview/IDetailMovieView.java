@@ -1,7 +1,5 @@
 package id.shobrun.moviecatalogue.views.iview;
 
-import android.support.annotation.IntegerRes;
-
 import id.shobrun.moviecatalogue.models.data.Movie;
 
 public interface IDetailMovieView extends IRootView {

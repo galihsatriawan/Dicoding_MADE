@@ -18,16 +18,16 @@ public class TvShowFavoriteViewModel extends ViewModel {
     private MutableLiveData<ArrayList<TvShow>> tvShows = new MutableLiveData<>();
     private TvShowRepository repository;
     private ITvShowFavoriteView mView;
-    private Context context;
+
     public void setAppView(Context context, ITvShowFavoriteView view){
-        this.context = context;
+        Context context1 = context;
         mView = view;
         this.repository = TvShowRepository.getInstance(context);
     }
 
 
-    public void setTvShows(ArrayList<TvShow> tvShows) {
-        this.tvShows.postValue(tvShows);
+    private void setTvShows(ArrayList<TvShow> tvShows) {
+        this.tvShows.setValue(tvShows);
     }
 
     public LiveData<ArrayList<TvShow>> getTvShows() {
@@ -45,9 +45,13 @@ public class TvShowFavoriteViewModel extends ViewModel {
                 ArrayList<TvShow> tvShows= (ArrayList<TvShow>) res;
                 TvShowFavoriteViewModel.this.setTvShows(tvShows);
                 mView.hideProgress();
-                mView.showListTvShow(tvShows);
                 Log.d(this.getClass().getSimpleName(), "onLoadSuccess: ");
             }
         });
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
     }
 }

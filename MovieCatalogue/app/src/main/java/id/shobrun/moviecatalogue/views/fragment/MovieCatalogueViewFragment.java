@@ -35,7 +35,7 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
     private MovieAdapter movieAdapter;
     private ProgressBar progressBar;
 
-    MovieCatalogueViewModel viewModel;
+    private MovieCatalogueViewModel viewModel;
     private static MovieCatalogueViewFragment instance;
     public static MovieCatalogueViewFragment getMovieCatalogueInstance(){
         if(instance == null){
@@ -63,12 +63,12 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
         initRecyclerView();
         initViewModel();
     }
-    public void initRecyclerView(){
+    private void initRecyclerView(){
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.e(TAG, "initPresenter: " );
     }
-    public void initViewModel(){
+    private void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(MovieCatalogueViewModel.class);
         viewModel.setAppView(getContext(),this);
         viewModel.getMovies().observe(this,getMovies);
@@ -101,17 +101,19 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
     public void showListMovieCatalogue(final ArrayList<Movie> movies) {
         if(movieAdapter == null){
             movieAdapter = new MovieAdapter();
-            mRecyclerView.setAdapter(movieAdapter);
+            movieAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClicked(View v, int position) {
+                    Intent detail = new Intent(v.getContext(), DetailMovieActivity.class);
+                    detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movies.get(position));
+                    v.getContext().startActivity(detail);
+
+                }
+            });
         }
         movieAdapter.setMovies(movies);
-        movieAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClicked(View v, int position) {
-                Intent detail = new Intent(v.getContext(), DetailMovieActivity.class);
-                detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movies.get(position));
-                v.getContext().startActivity(detail);
-            }
-        });
+        mRecyclerView.setAdapter(movieAdapter);
+
     }
 
     private Observer<ArrayList<Movie>> getMovies = new Observer<ArrayList<Movie>>() {
@@ -124,6 +126,12 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
 
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.loadAllMovie();
+    }
 
     @Override
     public void showActionBar() {

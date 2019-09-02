@@ -51,7 +51,6 @@ public class DetailTvActivity extends AppCompatActivity implements IDetailTvShow
         setContentView(R.layout.activity_detail_tv);
         initUI();
         initViewModel();
-
         if(getIntent() != null){
             showActionBar();
             mTvShow = getIntent().getParcelableExtra(EXTRA_TV);
@@ -98,7 +97,7 @@ public class DetailTvActivity extends AppCompatActivity implements IDetailTvShow
         viewModel.updateTvShowAfterAction(mTvShow);
     }
 
-    public void initViewModel(){
+    private void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(DetailTvShowViewModel.class);
         viewModel.setAppView(getApplicationContext(),this);
         viewModel.getTvShow().observe(this, new Observer<TvShow>() {
@@ -133,7 +132,7 @@ public class DetailTvActivity extends AppCompatActivity implements IDetailTvShow
         tvTitle.setText(tvShow.getName());
         tvRating.setText(String.valueOf(tvShow.getVote_average()));
         tvProduction.setText(tvShow.getProductionCompany());
-        SimpleDateFormat pars = new SimpleDateFormat("yyyy-dd-MM");
+        SimpleDateFormat pars = new SimpleDateFormat("yyyy-dd-MM",Locale.getDefault());
         SimpleDateFormat dtf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
 
         try {
@@ -163,7 +162,7 @@ public class DetailTvActivity extends AppCompatActivity implements IDetailTvShow
     }
     @Override
     public void showActionBar() {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.appbarlayout_tool_bar);
+        Toolbar toolbar = findViewById(R.id.appbarlayout_tool_bar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

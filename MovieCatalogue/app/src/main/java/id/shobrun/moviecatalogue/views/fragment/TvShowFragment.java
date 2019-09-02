@@ -32,8 +32,9 @@ import id.shobrun.moviecatalogue.views.iview.ITvShowView;
  * A simple {@link Fragment} subclass.
  */
 public class TvShowFragment extends Fragment implements ITvShowView {
-    public static final String EXTRA_POPULAR = "movie_popular";
-    public static final String EXTRA_TRENDING = "movie_trending";
+    private final String TAG = getClass().getSimpleName();
+    private static final String EXTRA_POPULAR = "movie_popular";
+    private static final String EXTRA_TRENDING = "movie_trending";
     private RecyclerView mRecyclerMoviePopular,mRecyclerMovieTrending;
     private HashMap<String ,RecyclerView> mRecyclerViews = new HashMap<>();
     private TVShowAdapter tvShowPopularAdapter;
@@ -98,6 +99,7 @@ public class TvShowFragment extends Fragment implements ITvShowView {
         @Override
         public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
             if(tvShows!=null){
+                hideProgress();
                 showListTvShowPopular(tvShows);
             }
         }
@@ -106,6 +108,7 @@ public class TvShowFragment extends Fragment implements ITvShowView {
         @Override
         public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
             if(tvShows!=null){
+                hideProgress();
                 showListTvShowTrending(tvShows);
             }
         }
@@ -133,9 +136,11 @@ public class TvShowFragment extends Fragment implements ITvShowView {
                     v.getContext().startActivity(detailTv);
                 }
             });
+
         }
         tvShowPopularAdapter.setTvShows(tvShows);
         mRecyclerMoviePopular.setAdapter(tvShowPopularAdapter);
+
     }
 
     @Override
@@ -152,7 +157,8 @@ public class TvShowFragment extends Fragment implements ITvShowView {
             });
         }
         tvShowTrendingAdapter.setTvShows(tvShows);
-        mRecyclerMovieTrending.setAdapter(tvShowTrendingAdapter);    }
+        mRecyclerMovieTrending.setAdapter(tvShowTrendingAdapter);
+    }
 
     @Override
     public void showMessage(String message) {
@@ -162,5 +168,12 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     @Override
     public void showActionBar() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.loadTvShowTrending();
+        viewModel.loadTvShowPopular();
     }
 }

@@ -17,13 +17,12 @@ import retrofit2.Response;
 
 public class TvShowRemoteData implements ITvShowDataSource.ApiSource {
     private ApiInterface apiService;
-    private Context context;
 
     private ArrayList<TvShow> tvShows;
     private ArrayList<TvShow> tvShowsPopular;
     private ArrayList<TvShow> tvShowsTrending;
     public TvShowRemoteData(Context context){
-        this.context = context;
+        Context context1 = context;
         apiService = ApiClient.getClient().create(ApiInterface.class);
     }
     @Override

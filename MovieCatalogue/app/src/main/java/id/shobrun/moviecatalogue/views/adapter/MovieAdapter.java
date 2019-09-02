@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
@@ -22,7 +21,7 @@ import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.utils.common.OnViewClickListener;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-    private List<Movie> movies = new ArrayList<>();
+    private ArrayList<Movie> movies = new ArrayList<>();
 
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
@@ -89,11 +88,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         private Button btnAddToWishlist;
         OnViewClickListener onViewClickListener;
 
-        public void setOnViewClickListener(OnViewClickListener onViewClickListener) {
+        void setOnViewClickListener(OnViewClickListener onViewClickListener) {
             this.onViewClickListener = onViewClickListener;
         }
 
-        public MovieViewHolder(View view){
+        MovieViewHolder(View view){
             super(view);
             tvTitle = view.findViewById(R.id.text_title);
             tvExcerpt = view.findViewById(R.id.text_excerpt);

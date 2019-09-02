@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import id.shobrun.moviecatalogue.models.data.Movie;
 
 public class MovieListResponse {
-    int page;
+    private int page;
     @SerializedName("total_results")
+    private
     int totalResults ;
     @SerializedName("total_pages")
+    private
     int totalPages;
-    ArrayList<Movie> results;
+    private ArrayList<Movie> results;
 
     public MovieListResponse(int page, int totalResults, int totalPages, ArrayList<Movie> results) {
         this.page = page;

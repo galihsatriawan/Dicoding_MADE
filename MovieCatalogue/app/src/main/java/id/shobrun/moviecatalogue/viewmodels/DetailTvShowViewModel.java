@@ -24,7 +24,7 @@ public class DetailTvShowViewModel extends ViewModel {
         this.repository = new TvShowRepository(context);
     }
     public void setTvShow(TvShow tvShow) {
-        this.tvShow.postValue(tvShow);
+        this.tvShow.setValue(tvShow);
     }
     public void checkTvShowById(final int id){
         repository.getTvShowByIdLocal(id, new ITvShowDataSource.DBSource.LoadDataCallback() {
@@ -79,8 +79,13 @@ public class DetailTvShowViewModel extends ViewModel {
                 }
             });
         }
-        this.tvShow.postValue(tvShow);
+        this.setTvShow(tvShow);
 
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
     }
 
     public LiveData<TvShow> getTvShow() {

@@ -1,7 +1,6 @@
 package id.shobrun.moviecatalogue.viewmodels;
 
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
@@ -66,7 +65,7 @@ public class MovieCatalogueViewModel extends ViewModel {
         return movies;
     }
 
-    public void setMovies(ArrayList<Movie> movies) {
+    private void setMovies(ArrayList<Movie> movies) {
         if(this.movies==null){
             this.movies = new MutableLiveData<>();
         }

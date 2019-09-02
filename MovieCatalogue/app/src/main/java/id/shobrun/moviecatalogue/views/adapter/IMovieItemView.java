@@ -2,7 +2,7 @@ package id.shobrun.moviecatalogue.views.adapter;
 
 import android.view.View;
 
-public interface IMovieItemView {
+interface IMovieItemView {
     void setTitle(String title);
     void setExcerpt(String excerpt);
     void setRating(double rating);

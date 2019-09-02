@@ -44,6 +44,7 @@ public class TvShowViewModel extends ViewModel {
 
             @Override
             public void onError(Response<TvShowListResponse> response) {
+
                 mView.showMessage(context.getString(R.string.communication_error));
                 mView.hideProgress();
             }
@@ -56,7 +57,7 @@ public class TvShowViewModel extends ViewModel {
         });
     }
     public void loadTvShowTrending(){
-        mView.showProgress();
+
         mRepository.getAllTvShowTrending(new ITvShowDataSource.ApiSource.OnFinishedListener() {
             @Override
             public void onFinished(Response<TvShowListResponse> response) {
@@ -93,14 +94,18 @@ public class TvShowViewModel extends ViewModel {
         return tvShowsTrending;
     }
 
-    public void setTvShowsTrending(ArrayList<TvShow> tvShowsTrending) {
+    private void setTvShowsTrending(ArrayList<TvShow> tvShowsTrending) {
         if(this.tvShowsTrending==null) this.tvShowsTrending = new MutableLiveData<>();
         this.tvShowsTrending.postValue(tvShowsTrending);
     }
 
-    public void setTvShowsPopular(ArrayList<TvShow> tvShowsPopular) {
+    private void setTvShowsPopular(ArrayList<TvShow> tvShowsPopular) {
         if(this.tvShowsPopular==null) this.tvShowsPopular= new MutableLiveData<>();
         this.tvShowsPopular.postValue(tvShowsPopular);
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
 }

@@ -1,7 +1,5 @@
 package id.shobrun.moviecatalogue.repositories;
 
-import android.arch.lifecycle.LiveData;
-
 import java.util.ArrayList;
 import java.util.List;
 

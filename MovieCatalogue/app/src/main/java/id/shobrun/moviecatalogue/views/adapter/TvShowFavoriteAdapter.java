@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.TvShow;
@@ -19,7 +18,7 @@ import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
 
 public class TvShowFavoriteAdapter extends RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowFavoriteViewHolder> {
-    private List<TvShow> tvShows = new ArrayList<>();
+    private ArrayList<TvShow> tvShows = new ArrayList<>();
 
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
@@ -63,7 +62,7 @@ public class TvShowFavoriteAdapter extends RecyclerView.Adapter<TvShowFavoriteAd
     class TvShowFavoriteViewHolder extends RecyclerView.ViewHolder implements ITvShowFavoriteItemView {
         private TextView tvTitle,tvExcerpt,tvRating;
         private ImageView imgPoster;
-        public TvShowFavoriteViewHolder(@NonNull View view) {
+        TvShowFavoriteViewHolder(@NonNull View view) {
             super(view);
             tvTitle = view.findViewById(R.id.text_title);
             tvExcerpt = view.findViewById(R.id.text_excerpt);

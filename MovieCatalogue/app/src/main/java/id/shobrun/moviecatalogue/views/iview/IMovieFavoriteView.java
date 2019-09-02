@@ -1,7 +1,6 @@
 package id.shobrun.moviecatalogue.views.iview;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import id.shobrun.moviecatalogue.models.data.Movie;
 

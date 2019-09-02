@@ -18,7 +18,7 @@ import id.shobrun.moviecatalogue.views.iview.IMainFavoriteView;
 public class MainFavoriteActivity extends AppCompatActivity implements IMainFavoriteView {
     private ViewPager viewPager;
     private TabLayout tabs;
-    Toolbar toolbar;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

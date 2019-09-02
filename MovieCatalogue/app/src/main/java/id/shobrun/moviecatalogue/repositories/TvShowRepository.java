@@ -5,14 +5,12 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.models.data.TvShow;
-import id.shobrun.moviecatalogue.repositories.local.MovieLocalData;
 import id.shobrun.moviecatalogue.repositories.local.TvShowLocalData;
 import id.shobrun.moviecatalogue.repositories.remote.TvShowRemoteData;
 
 public class TvShowRepository implements ITvShowDataSource.DBSource,ITvShowDataSource.ApiSource {
     private TvShowLocalData localData;
     private TvShowRemoteData remoteData;
-    private Context context;
     private static TvShowRepository INSTANCE ;
 
     public static TvShowRepository getInstance(Context context) {
@@ -25,7 +23,7 @@ public class TvShowRepository implements ITvShowDataSource.DBSource,ITvShowDataS
     }
 
     public TvShowRepository(Context context){
-        this.context = context;
+        Context context1 = context;
         localData = new TvShowLocalData(context);
         remoteData = new TvShowRemoteData(context);
     }

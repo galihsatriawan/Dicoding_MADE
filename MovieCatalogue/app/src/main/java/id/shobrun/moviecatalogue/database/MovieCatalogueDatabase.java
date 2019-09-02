@@ -15,7 +15,7 @@ public abstract class MovieCatalogueDatabase extends RoomDatabase {
     public abstract MovieDao movieDao();
     public abstract TvShowDao tvShowDao();
     private static MovieCatalogueDatabase INSTANCE;
-    public static String DB_NAME = "db_movie_catalogue";
+    private static String DB_NAME = "db_movie_catalogue";
     public static MovieCatalogueDatabase getDatabase(final Context context){
         if(INSTANCE == null){
             synchronized (MovieCatalogueDatabase.class){

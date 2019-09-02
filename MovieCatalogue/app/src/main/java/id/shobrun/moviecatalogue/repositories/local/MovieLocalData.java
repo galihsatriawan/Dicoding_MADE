@@ -1,11 +1,7 @@
 package id.shobrun.moviecatalogue.repositories.local;
 
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -18,11 +14,10 @@ import id.shobrun.moviecatalogue.repositories.IMoviesDataSource;
 
 public class MovieLocalData implements IMoviesDataSource.DBSource {
     private MovieDao movieDao;
-    private MovieCatalogueDatabase db;
-    private Context context;
+
     public MovieLocalData(Context context){
-        this.context = context;
-        db = MovieCatalogueDatabase.getDatabase(context);
+        Context context1 = context;
+        MovieCatalogueDatabase db = MovieCatalogueDatabase.getDatabase(context);
         movieDao = db.movieDao();
     }
     private static class QueryAsyncTask extends AsyncTask<String , Void, List<Movie>> {
@@ -78,7 +73,6 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         @Override
         protected void onPostExecute(Movie liveData) {
             super.onPostExecute(liveData);
-            Log.e(getClass().getSimpleName(), "onPostExecute: "+weakCallback.get().toString() );
             if(liveData == null ) {
                 Movie movie = new Movie(-1);
                 weakCallback.get().onLoadSuccess(movie);
@@ -172,17 +166,17 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         InsertAsyncTask asyncTask ;
         synchronized (MovieLocalData.class){
             asyncTask = new InsertAsyncTask(movieDao,callback);
+            asyncTask.execute(movie);
         }
-        asyncTask.execute(movie);
-
     }
     @Override
     public void getLikeMoviesLocal(String tags, IMoviesDataSource.DBSource.LoadDataCallback callback){
         QueryAsyncTask asyncTask;
         synchronized (MovieLocalData.class){
             asyncTask = new QueryAsyncTask(movieDao,callback);
+            asyncTask.execute(tags);
         }
-        asyncTask.execute(tags);
+
     }
 
     @Override
@@ -190,8 +184,9 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         QueryByIdAsyncTask asyncTask;
         synchronized (MovieLocalData.class){
             asyncTask = new QueryByIdAsyncTask(movieDao,callback);
+            asyncTask.execute(id);
         }
-        asyncTask.execute(id);
+
     }
 
     @Override

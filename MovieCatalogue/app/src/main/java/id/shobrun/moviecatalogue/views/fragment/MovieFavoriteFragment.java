@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.viewmodels.MovieFavoriteViewModel;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
-import id.shobrun.moviecatalogue.views.adapter.MovieAdapter;
 import id.shobrun.moviecatalogue.views.adapter.MovieFavoriteAdapter;
 import id.shobrun.moviecatalogue.views.iview.IMovieFavoriteView;
 
@@ -32,6 +31,7 @@ import id.shobrun.moviecatalogue.views.iview.IMovieFavoriteView;
  * A simple {@link Fragment} subclass.
  */
 public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteView {
+    private final String TAG = getClass().getSimpleName();
     static private MovieFavoriteFragment INSTANCE;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
@@ -74,17 +74,21 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
         progressBar = this.getView().findViewById(R.id.progressBar);
         recyclerView = this.getView().findViewById(R.id.recycler_movie_wishlist);
     }
-    public void initRecyclerView(){
+    private void initRecyclerView(){
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
-    public void initViewModel(){
+    private void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
         viewModel.setAppView(getContext(),this);
         viewModel.getMovies().observe(this, new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(@Nullable ArrayList<Movie> movies) {
-                MovieFavoriteFragment.this.showListMovie(movies);
+                Log.e(TAG, "onChanged: "+movies.size());
+                if (movies != null) {
+                    hideProgress();
+                    showListMovie(movies);
+                }
             }
         });
         viewModel.loadFavoriteMovie();
@@ -109,7 +113,6 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
     public void showListMovie(final ArrayList<Movie> movieList) {
         if(movieAdapter == null) {
             movieAdapter = new MovieFavoriteAdapter();
-            recyclerView.setAdapter(movieAdapter);
             movieAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClicked(View v, int position) {
@@ -120,12 +123,14 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
             });
         }
         movieAdapter.setMovies(movieList);
+        recyclerView.setAdapter(movieAdapter);
 
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
-//        viewModel.loadFavoriteMovie();
+        viewModel.loadFavoriteMovie();
     }
 }

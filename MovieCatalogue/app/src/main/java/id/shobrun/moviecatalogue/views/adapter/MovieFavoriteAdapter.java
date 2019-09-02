@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
@@ -19,7 +18,7 @@ import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
 
 public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavoriteViewHolder> {
-    private List<Movie> movies = new ArrayList<>();
+    private ArrayList<Movie> movies = new ArrayList<>();
 
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
@@ -63,7 +62,7 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
     class MovieFavoriteViewHolder extends RecyclerView.ViewHolder implements IMovieFavoriteItemView {
         private TextView tvTitle,tvExcerpt,tvRating;
         private ImageView imgPoster,imgWishlistOff,imgWishlistOn;
-        public MovieFavoriteViewHolder(@NonNull View view) {
+        MovieFavoriteViewHolder(@NonNull View view) {
             super(view);
             tvTitle = view.findViewById(R.id.text_title);
             tvExcerpt = view.findViewById(R.id.text_excerpt);

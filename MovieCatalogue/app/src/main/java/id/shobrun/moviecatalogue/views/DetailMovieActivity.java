@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.provider.Settings;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -132,7 +131,7 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
         tvTitle.setText(movie.getTitle());
         tvRating.setText(String.valueOf(movie.getVote_average()));
         tvProduction.setText(movie.getProductionCompany());
-        SimpleDateFormat pars = new SimpleDateFormat("yyyy-dd-MM");
+        SimpleDateFormat pars = new SimpleDateFormat("yyyy-dd-MM",Locale.getDefault());
         SimpleDateFormat dtf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
 
         try {
@@ -168,7 +167,7 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
     }
     @Override
     public void showActionBar() {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.appbarlayout_tool_bar);
+        Toolbar toolbar = findViewById(R.id.appbarlayout_tool_bar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

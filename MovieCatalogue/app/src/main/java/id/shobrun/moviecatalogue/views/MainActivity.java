@@ -18,7 +18,7 @@ import id.shobrun.moviecatalogue.views.iview.IMainView;
 public class MainActivity extends AppCompatActivity implements IMainView {
     private ViewPager viewPager;
     private TabLayout tabs;
-    Toolbar toolbar;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

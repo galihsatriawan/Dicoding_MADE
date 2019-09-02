@@ -85,10 +85,10 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.TVShowView
     public class TVShowViewHolder extends RecyclerView.ViewHolder implements ITvShowView.TVShowItemView {
         ImageView imgPoster,imgNotification;
         OnViewClickListener onViewClickListener;
-        public void setOnViewClickListener(OnViewClickListener onViewClickListener) {
+        void setOnViewClickListener(OnViewClickListener onViewClickListener) {
             this.onViewClickListener = onViewClickListener;
         }
-        public TVShowViewHolder(@NonNull View itemView) {
+        TVShowViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPoster = itemView.findViewById(R.id.image_poster);
             imgNotification = itemView.findViewById(R.id.image_notification);
@@ -111,7 +111,7 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.TVShowView
             Glide.with(this.itemView.getContext()).load(notif).into(imgNotification);
         }
 
-        public ImageView getImgNotification() {
+        ImageView getImgNotification() {
             return imgNotification;
         }
     }

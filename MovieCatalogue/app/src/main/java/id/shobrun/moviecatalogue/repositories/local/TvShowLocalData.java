@@ -2,7 +2,6 @@ package id.shobrun.moviecatalogue.repositories.local;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -15,11 +14,10 @@ import id.shobrun.moviecatalogue.repositories.ITvShowDataSource;
 
 public class TvShowLocalData implements ITvShowDataSource.DBSource {
     private TvShowDao tvShowDao;
-    private Context context;
-    private MovieCatalogueDatabase db;
+
     public TvShowLocalData(Context context){
-        this.context =context;
-        db = MovieCatalogueDatabase.getDatabase(context);
+        Context context1 = context;
+        MovieCatalogueDatabase db = MovieCatalogueDatabase.getDatabase(context);
         tvShowDao = db.tvShowDao();
     }
     private static class QueryAsyncTask extends AsyncTask<String , Void, List<TvShow>> {
@@ -45,10 +43,8 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         protected void onPostExecute(List<TvShow> listLiveData) {
             super.onPostExecute(listLiveData);
             if(listLiveData == null){
-                Log.e(getClass().getSimpleName(), "onPostExecute: null" );
                 weakCallback.get().onLoadSuccess(new ArrayList<>());
             }else{
-                Log.e(getClass().getSimpleName(), "onPostExecute: "+listLiveData.toString() );
                 weakCallback.get().onLoadSuccess(listLiveData);
             }
 
@@ -78,7 +74,6 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         @Override
         protected void onPostExecute(TvShow liveData) {
             super.onPostExecute(liveData);
-            Log.e(getClass().getSimpleName(), "onPostExecute: "+weakCallback.get().toString() );
             if(liveData == null ) {
                 TvShow movie = new TvShow(-1);
                 weakCallback.get().onLoadSuccess(movie);
@@ -172,8 +167,9 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         InsertAsyncTask asyncTask ;
         synchronized (TvShowLocalData.class){
             asyncTask = new InsertAsyncTask(tvShowDao,callback);
+            asyncTask.execute(tvShow);
         }
-        asyncTask.execute(tvShow);
+
 
     }
     @Override
@@ -181,8 +177,9 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         QueryAsyncTask asyncTask;
         synchronized (TvShowLocalData.class){
             asyncTask = new QueryAsyncTask(tvShowDao,callback);
+            asyncTask.execute(tags);
         }
-        asyncTask.execute(tags);
+
     }
 
     @Override
@@ -190,8 +187,9 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         QueryByIdAsyncTask asyncTask;
         synchronized (TvShowLocalData.class){
             asyncTask = new QueryByIdAsyncTask(tvShowDao,callback);
+            asyncTask.execute(id);
         }
-        asyncTask.execute(id);
+
     }
 
     @Override
@@ -199,8 +197,9 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         UpdateAsyncTask asyncTask ;
         synchronized (TvShowLocalData.class){
             asyncTask = new UpdateAsyncTask(tvShowDao,callback);
+            asyncTask.execute(tvShow);
         }
-        asyncTask.execute(tvShow);
+
     }
 
     @Override
@@ -208,8 +207,9 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         DeleteAsyncTask asyncTask ;
         synchronized (TvShowLocalData.class){
             asyncTask = new DeleteAsyncTask(tvShowDao,callback);
+            asyncTask.execute(tvShow);
         }
-        asyncTask.execute(tvShow);
+
     }
     
 }
