@@ -14,7 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,7 +40,9 @@ public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteV
     private RecyclerView recyclerView;
     private TvShowFavoriteAdapter tvShowAdapter;
     private TvShowFavoriteViewModel viewModel;
-
+    private LinearLayout content;
+    private RelativeLayout containerMessage;
+    private TextView tvMessage;
     public static TvShowFavoriteFragment getInstance() {
         if(INSTANCE==null){
             synchronized (MovieFavoriteFragment.class){
@@ -72,6 +77,9 @@ public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteV
     public void initUI() {
         progressBar = this.getView().findViewById(R.id.progressBar);
         recyclerView = this.getView().findViewById(R.id.recycler_tv_show_wishlist);
+        content = this.getView().findViewById(R.id.container_recycler);
+        containerMessage = this.getView().findViewById(R.id.container_message);
+        tvMessage = this.getView().findViewById(R.id.text_message);
     }
     private void initRecyclerView(){
         recyclerView.setHasFixedSize(true);
@@ -94,21 +102,26 @@ public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteV
         viewModel.loadFavoriteTvShows();
     }
 
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
 
     @Override
     public void showProgress() {
+        content.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
+        containerMessage.setVisibility(View.GONE);
     }
 
     @Override
-    public void showMessage(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+        content.setVisibility(View.VISIBLE);
+        containerMessage.setVisibility(View.GONE);
     }
-
+    @Override
+    public void showMessage(String message) {
+        content.setVisibility(View.GONE);
+        containerMessage.setVisibility(View.VISIBLE);
+        tvMessage.setText(message);
+    }
     @Override
     public void showListTvShow(final ArrayList<TvShow> tvShows) {
         if(tvShowAdapter == null) {

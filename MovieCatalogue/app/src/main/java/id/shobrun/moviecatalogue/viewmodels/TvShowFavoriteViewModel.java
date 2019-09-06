@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.TvShow;
 import id.shobrun.moviecatalogue.repositories.ITvShowDataSource;
 import id.shobrun.moviecatalogue.repositories.TvShowRepository;
@@ -18,9 +19,9 @@ public class TvShowFavoriteViewModel extends ViewModel {
     private MutableLiveData<ArrayList<TvShow>> tvShows = new MutableLiveData<>();
     private TvShowRepository repository;
     private ITvShowFavoriteView mView;
-
+    Context context ;
     public void setAppView(Context context, ITvShowFavoriteView view){
-        Context context1 = context;
+        this.context = context;
         mView = view;
         this.repository = TvShowRepository.getInstance(context);
     }
@@ -42,9 +43,12 @@ public class TvShowFavoriteViewModel extends ViewModel {
 
             @Override
             public <T> void onLoadSuccess(T res) {
+                mView.hideProgress();
                 ArrayList<TvShow> tvShows= (ArrayList<TvShow>) res;
                 TvShowFavoriteViewModel.this.setTvShows(tvShows);
-                mView.hideProgress();
+                if (tvShows.size() == 0) {
+                    mView.showMessage(context.getResources().getString(R.string.empty_tv));
+                }
                 Log.d(this.getClass().getSimpleName(), "onLoadSuccess: ");
             }
         });
