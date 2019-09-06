@@ -10,6 +10,7 @@ public interface ITvShowDataSource {
     interface ApiSource{
         ArrayList<TvShow> getAllTvShowPopular(OnFinishedListener onFinishedListener);
         ArrayList<TvShow> getAllTvShowTrending(OnFinishedListener onFinishedListener);
+        ArrayList<TvShow> getSearchTvShow(String str,OnFinishedListener onFinishedListener);
         int getTvShow(int position);
         int getTvShowCount();
         interface OnFinishedListener{

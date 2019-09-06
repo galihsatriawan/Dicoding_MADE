@@ -86,6 +86,36 @@ public class TvShowRemoteData implements ITvShowDataSource.ApiSource {
         return tvShowsTrending;
     }
 
+    @Override
+    public ArrayList<TvShow> getSearchTvShow(String str, final OnFinishedListener onFinishedListener) {
+        try {
+            HashMap<String, String > options = new HashMap<>();
+            options.put("api_key",BuildConfig.ApiKey);
+            options.put("language","en-US");
+            options.put("query",str);
+
+            Call<TvShowListResponse> response = apiService.getSearchTv(options);
+            response.enqueue(new Callback<TvShowListResponse>() {
+                @Override
+                public void onResponse(Call<TvShowListResponse> call, Response<TvShowListResponse> response) {
+                    if(response.isSuccessful()){
+                        onFinishedListener.onFinished(response);
+                    }else{
+                        onFinishedListener.onError(response);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TvShowListResponse> call, Throwable t) {
+                    onFinishedListener.onFailure(t);
+                }
+            });
+        }catch (Throwable t){
+            onFinishedListener.onFailure(t);
+        }
+        return tvShows;
+    }
+
 
     @Override
     public int getTvShow(int id) {

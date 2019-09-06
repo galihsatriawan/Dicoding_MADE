@@ -19,5 +19,5 @@ public interface ApiInterface {
     Call<MovieListResponse> getSearchMovie(@QueryMap HashMap<String, String> queries);
 
     @GET("search/tv")
-    Call<MovieListResponse> getSearchTv(@QueryMap HashMap<String, String> queries);
+    Call<TvShowListResponse> getSearchTv(@QueryMap HashMap<String, String> queries);
 }

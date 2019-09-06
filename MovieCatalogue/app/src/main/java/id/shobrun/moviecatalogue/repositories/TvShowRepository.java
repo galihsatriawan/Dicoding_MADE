@@ -39,6 +39,11 @@ public class TvShowRepository implements ITvShowDataSource.DBSource,ITvShowDataS
     }
 
     @Override
+    public ArrayList<TvShow> getSearchTvShow(String str, OnFinishedListener onFinishedListener) {
+        return remoteData.getSearchTvShow(str,onFinishedListener);
+    }
+
+    @Override
     public int getTvShow(int position) {
         return remoteData.getTvShow(position);
     }

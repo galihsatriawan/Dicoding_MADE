@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,11 +35,8 @@ import id.shobrun.moviecatalogue.views.iview.ITvShowView;
 public class TvShowFragment extends Fragment implements ITvShowView {
     private final String TAG = getClass().getSimpleName();
     private static final String EXTRA_POPULAR = "movie_popular";
-    private static final String EXTRA_TRENDING = "movie_trending";
-    private RecyclerView mRecyclerMoviePopular,mRecyclerMovieTrending;
-    private HashMap<String ,RecyclerView> mRecyclerViews = new HashMap<>();
+    private RecyclerView mRecyclerMoviePopular;
     private TVShowAdapter tvShowPopularAdapter;
-    private TVShowAdapter tvShowTrendingAdapter;
     private ProgressBar progressBar;
     private static TvShowFragment instance ;
 
@@ -74,27 +72,21 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     public void initUI(){
         progressBar = this.getView().findViewById(R.id.progressBar);
         mRecyclerMoviePopular = this.getView().findViewById(R.id.recycler_tv_show_popular);
-        mRecyclerMovieTrending = this.getView().findViewById(R.id.recycler_tv_show_trending_now);
-        mRecyclerViews.put(EXTRA_POPULAR,mRecyclerMoviePopular);
-        mRecyclerViews.put(EXTRA_TRENDING,mRecyclerMovieTrending);
     }
+
     private void initRecyclerView(){
         mRecyclerMoviePopular.setHasFixedSize(true);
-        mRecyclerMoviePopular.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
-
-        mRecyclerMovieTrending.setHasFixedSize(true);
-        mRecyclerMovieTrending.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
+        mRecyclerMoviePopular.setLayoutManager(new GridLayoutManager(getContext(),2));
 
     }
+
     private void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         viewModel.getTvShowsPopular().observe(this,getTvShowsPopular);
-        viewModel.getTvShowsTrending().observe(this,getGetTvShowsTrending);
         viewModel.setAppView(getContext(),this);
-
         viewModel.loadTvShowPopular();
-        viewModel.loadTvShowTrending();
     }
+
     private Observer<ArrayList<TvShow>> getTvShowsPopular = new Observer<ArrayList<TvShow>>() {
         @Override
         public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
@@ -104,15 +96,7 @@ public class TvShowFragment extends Fragment implements ITvShowView {
             }
         }
     };
-    private Observer<ArrayList<TvShow>> getGetTvShowsTrending = new Observer<ArrayList<TvShow>>() {
-        @Override
-        public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
-            if(tvShows!=null){
-                hideProgress();
-                showListTvShowTrending(tvShows);
-            }
-        }
-    };
+
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
@@ -143,22 +127,6 @@ public class TvShowFragment extends Fragment implements ITvShowView {
 
     }
 
-    @Override
-    public void showListTvShowTrending(final ArrayList<TvShow> tvShows) {
-        if(tvShowTrendingAdapter==null){
-            tvShowTrendingAdapter= new TVShowAdapter();
-            tvShowTrendingAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClicked(View v, int position) {
-                    Intent detailTv = new Intent(v.getContext(), DetailTvActivity.class);
-                    detailTv.putExtra(DetailTvActivity.EXTRA_TV,tvShows.get(position));
-                    v.getContext().startActivity(detailTv);
-                }
-            });
-        }
-        tvShowTrendingAdapter.setTvShows(tvShows);
-        mRecyclerMovieTrending.setAdapter(tvShowTrendingAdapter);
-    }
 
     @Override
     public void showMessage(String message) {
@@ -173,11 +141,10 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.loadTvShowTrending();
         viewModel.loadTvShowPopular();
     }
     @Override
-    public void updateSearch(String s){
-
+    public void updateSearch(String str){
+        viewModel.loadSearchTvShow(str);
     }
 }
