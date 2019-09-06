@@ -14,7 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,6 +37,9 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
     private RecyclerView mRecyclerView;
     private MovieAdapter movieAdapter;
     private ProgressBar progressBar;
+    private LinearLayout content;
+    private RelativeLayout containerMessage;
+    private TextView tvMessage;
 
     private MovieCatalogueViewModel viewModel;
     private static MovieCatalogueViewFragment instance;
@@ -79,25 +85,34 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
         viewModel.loadSearchMovie(str);
     }
 
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
 
     @Override
     public void initUI() {
         mRecyclerView = this.getView().findViewById(R.id.recycler_movie_catalogue);
         progressBar = this.getView().findViewById(R.id.progressBar);
+        content = this.getView().findViewById(R.id.container_recycler);
+        containerMessage = this.getView().findViewById(R.id.container_message);
+        tvMessage = this.getView().findViewById(R.id.text_message);
     }
 
     @Override
-    public void showMessage(String str) {
-        Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+    public void showProgress() {
+        content.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        containerMessage.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+        content.setVisibility(View.VISIBLE);
+        containerMessage.setVisibility(View.GONE);
+    }
+    @Override
+    public void showMessage(String message) {
+        content.setVisibility(View.GONE);
+        containerMessage.setVisibility(View.VISIBLE);
+        tvMessage.setText(message);
     }
 
     @Override

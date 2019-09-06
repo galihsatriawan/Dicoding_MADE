@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.api.response.MovieListResponse;
@@ -32,26 +33,34 @@ public class MovieCatalogueViewModel extends ViewModel {
         mRepository.getMoviesData(new IMoviesDataSource.ApiSource.OnFinishedListener() {
             @Override
             public void onFinished(Response<MovieListResponse> response) {
-                setMovies(response.body().getResults());
                 mView.hideProgress();
+                ArrayList<Movie> result = response.body().getResults();
+                setMovies(result);
+                if(result.size() == 0){
+                    mView.showMessage(context.getResources().getString(R.string.empty_movie));
+                }
             }
 
             @Override
             public void onRefresh(ArrayList<Movie> movies) {
-                setMovies(movies);
                 mView.hideProgress();
+                setMovies(movies);
+                if(movies.size() == 0){
+                    mView.showMessage(context.getResources().getString(R.string.empty_movie));
+                }
+
             }
 
             @Override
             public void onError(Response<MovieListResponse> response) {
-                mView.showMessage(context.getString(R.string.communication_error));
                 mView.hideProgress();
+                mView.showMessage(context.getString(R.string.communication_error));
             }
 
             @Override
             public void onFailure(Throwable t) {
-                mView.showMessage(context.getString(R.string.communication_error));
                 mView.hideProgress();
+                mView.showMessage(context.getString(R.string.communication_error));
             }
         });
     }
@@ -61,25 +70,33 @@ public class MovieCatalogueViewModel extends ViewModel {
             @Override
             public void onFinished(Response<MovieListResponse> response) {
                 mView.hideProgress();
-                setMovies(response.body().getResults());
+                ArrayList<Movie> result = response.body().getResults();
+                setMovies(result);
+                if(result.size() == 0){
+                    mView.showMessage(context.getResources().getString(R.string.empty_movie));
+                }
             }
 
             @Override
             public void onRefresh(ArrayList<Movie> movies) {
                 mView.hideProgress();
                 setMovies(movies);
+                if(movies.size() == 0){
+                    mView.showMessage(context.getResources().getString(R.string.empty_movie));
+                }
+
             }
 
             @Override
             public void onError(Response<MovieListResponse> response) {
-                mView.showMessage(context.getResources().getString(R.string.communication_error));
                 mView.hideProgress();
+                mView.showMessage(context.getString(R.string.communication_error));
             }
 
             @Override
             public void onFailure(Throwable t) {
-                mView.showMessage(context.getResources().getString(R.string.communication_error));
                 mView.hideProgress();
+                mView.showMessage(context.getString(R.string.communication_error));
             }
         });
     }

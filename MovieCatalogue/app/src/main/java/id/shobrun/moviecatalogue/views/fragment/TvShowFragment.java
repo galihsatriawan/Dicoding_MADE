@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.TvShow;
@@ -86,7 +83,6 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     private void initRecyclerView(){
         mRecyclerMoviePopular.setHasFixedSize(true);
         mRecyclerMoviePopular.setLayoutManager(new GridLayoutManager(getContext(),2));
-
     }
 
     private void initViewModel(){
@@ -119,7 +115,12 @@ public class TvShowFragment extends Fragment implements ITvShowView {
         content.setVisibility(View.VISIBLE);
         containerMessage.setVisibility(View.GONE);
     }
-
+    @Override
+    public void showMessage(String message) {
+        content.setVisibility(View.GONE);
+        containerMessage.setVisibility(View.VISIBLE);
+        tvMessage.setText(message);
+    }
 
     @Override
     public void showListTvShowPopular(final ArrayList<TvShow> tvShows) {
@@ -141,12 +142,7 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     }
 
 
-    @Override
-    public void showMessage(String message) {
-        content.setVisibility(View.GONE);
-        containerMessage.setVisibility(View.VISIBLE);
-        tvMessage.setText(message);
-    }
+
 
     @Override
     public void showActionBar() {
