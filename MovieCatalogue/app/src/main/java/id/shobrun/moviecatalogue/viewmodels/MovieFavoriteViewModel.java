@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.repositories.IMoviesDataSource;
 import id.shobrun.moviecatalogue.repositories.MovieRepository;
@@ -18,9 +19,9 @@ public class MovieFavoriteViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Movie>> movies = new MutableLiveData<>();
     private MovieRepository repository;
     private IMovieFavoriteView mView;
-
+    Context context;
     public void setAppView(Context context, IMovieFavoriteView view){
-        Context context1 = context;
+        this.context = context;
         mView = view;
         this.repository = MovieRepository.getInstance(context);
     }
@@ -43,8 +44,11 @@ public class MovieFavoriteViewModel extends ViewModel {
             @Override
             public <T> void onLoadSuccess(T res) {
                 ArrayList<Movie> movies = (ArrayList<Movie>) res;
-                MovieFavoriteViewModel.this.setMovies(movies);
                 mView.hideProgress();
+                MovieFavoriteViewModel.this.setMovies(movies);
+                if(movies.size()==0){
+                    mView.showMessage(context.getResources().getString(R.string.empty_movie));
+                }
                 Log.d(this.getClass().getSimpleName(), "onLoadSuccess: ");
             }
         });
