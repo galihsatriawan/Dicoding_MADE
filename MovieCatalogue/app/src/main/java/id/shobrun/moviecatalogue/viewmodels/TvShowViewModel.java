@@ -59,26 +59,33 @@ public class TvShowViewModel extends ViewModel {
             @Override
             public void onFinished(Response<TvShowListResponse> response) {
                 mView.hideProgress();
-                setTvShowsPopular(response.body().getResults());
+                ArrayList<TvShow> result = response.body().getResults();
+                setTvShowsPopular(result);
+                if(result.size()==0){
+                    mView.showMessage(context.getResources().getString(R.string.empty_tv));
+                }
             }
 
             @Override
             public void onRefresh(ArrayList<TvShow> tvShow) {
                 mView.hideProgress();
-                setTvShowsPopular(tvShow);
+                if(tvShow.size()==0){
+                    mView.showMessage(context.getResources().getString(R.string.empty_tv));
+                }
             }
 
             @Override
             public void onError(Response<TvShowListResponse> response) {
-
-                mView.showMessage(context.getString(R.string.communication_error));
                 mView.hideProgress();
+                mView.showMessage(context.getString(R.string.communication_error));
+
             }
 
             @Override
             public void onFailure(Throwable t) {
-                mView.showMessage(context.getString(R.string.communication_error));
                 mView.hideProgress();
+                mView.showMessage(context.getString(R.string.communication_error));
+
             }
         });
     }

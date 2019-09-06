@@ -14,7 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,8 +39,11 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     private final String TAG = getClass().getSimpleName();
     private static final String EXTRA_POPULAR = "movie_popular";
     private RecyclerView mRecyclerMoviePopular;
+    private LinearLayout content;
+    private RelativeLayout containerMessage;
     private TVShowAdapter tvShowPopularAdapter;
     private ProgressBar progressBar;
+    private TextView tvMessage;
     private static TvShowFragment instance ;
 
     private TvShowViewModel viewModel;
@@ -71,6 +77,9 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     @Override
     public void initUI(){
         progressBar = this.getView().findViewById(R.id.progressBar);
+        content = this.getView().findViewById(R.id.container_recycler);
+        containerMessage = this.getView().findViewById(R.id.container_message);
+        tvMessage = this.getView().findViewById(R.id.text_message);
         mRecyclerMoviePopular = this.getView().findViewById(R.id.recycler_tv_show_popular);
     }
 
@@ -99,12 +108,16 @@ public class TvShowFragment extends Fragment implements ITvShowView {
 
     @Override
     public void showProgress() {
+        content.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
+        containerMessage.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
+        content.setVisibility(View.VISIBLE);
+        containerMessage.setVisibility(View.GONE);
     }
 
 
@@ -130,7 +143,9 @@ public class TvShowFragment extends Fragment implements ITvShowView {
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        content.setVisibility(View.GONE);
+        containerMessage.setVisibility(View.VISIBLE);
+        tvMessage.setText(message);
     }
 
     @Override

@@ -12,6 +12,7 @@
     <string name="communication_error">Permintaan data ke server gagal</string>
     <string name="success_favorite">Sukses menjadi favorit anda</string>
     <string name="remove_favorite">Film favorit telah dihapus</string>
+    <string name="empty_tv">Tidak ada Acara TV</string>
 
     <string name="add_to_wishlist">Tambah ke Wishlist</string>
     <string name="tab_text_1">Katalog Film</string>
