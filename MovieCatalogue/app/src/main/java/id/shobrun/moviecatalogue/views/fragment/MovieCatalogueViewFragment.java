@@ -74,7 +74,10 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
         viewModel.getMovies().observe(this,getMovies);
         viewModel.loadAllMovie();
     }
-
+    @Override
+    public void updateSearch(String str){
+        viewModel.loadSearchMovie(str);
+    }
 
     @Override
     public void showProgress() {

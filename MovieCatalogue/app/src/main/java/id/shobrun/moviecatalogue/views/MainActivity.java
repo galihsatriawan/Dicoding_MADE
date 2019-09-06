@@ -1,17 +1,23 @@
 package id.shobrun.moviecatalogue.views;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.views.adapter.SectionsPagerAdapter;
+import id.shobrun.moviecatalogue.views.fragment.MovieCatalogueViewFragment;
+import id.shobrun.moviecatalogue.views.fragment.TvShowFragment;
 import id.shobrun.moviecatalogue.views.iview.IMainView;
 
 
@@ -39,7 +45,37 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        if(searchManager!=null){
+            SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setQueryHint(getResources().getString(R.string.search_hint));
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    searchInFragment(s);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    return false;
+                }
+            });
+
+        }
+
         return super.onCreateOptionsMenu(menu);
+    }
+    private void searchInFragment(String s){
+        Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:"+ R.id.view_pager+":"+viewPager.getCurrentItem());
+        if(viewPager.getCurrentItem() == 0 && page != null){
+            ((MovieCatalogueViewFragment)page).updateSearch(s);
+        }else{
+            ((TvShowFragment)page).updateSearch(s);
+        }
     }
 
     @Override

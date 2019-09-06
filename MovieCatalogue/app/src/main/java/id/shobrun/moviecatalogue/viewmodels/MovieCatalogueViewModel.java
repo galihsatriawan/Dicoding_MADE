@@ -55,6 +55,34 @@ public class MovieCatalogueViewModel extends ViewModel {
             }
         });
     }
+    public void loadSearchMovie(String str){
+        mView.showProgress();
+        mRepository.getSearchMoviesData(str, new IMoviesDataSource.ApiSource.OnFinishedListener() {
+            @Override
+            public void onFinished(Response<MovieListResponse> response) {
+                mView.hideProgress();
+                setMovies(response.body().getResults());
+            }
+
+            @Override
+            public void onRefresh(ArrayList<Movie> movies) {
+                mView.hideProgress();
+                setMovies(movies);
+            }
+
+            @Override
+            public void onError(Response<MovieListResponse> response) {
+                mView.showMessage(context.getResources().getString(R.string.communication_error));
+                mView.hideProgress();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                mView.showMessage(context.getResources().getString(R.string.communication_error));
+                mView.hideProgress();
+            }
+        });
+    }
     /**
      * Keep observe data
      */

@@ -176,4 +176,8 @@ public class TvShowFragment extends Fragment implements ITvShowView {
         viewModel.loadTvShowTrending();
         viewModel.loadTvShowPopular();
     }
+    @Override
+    public void updateSearch(String s){
+
+    }
 }

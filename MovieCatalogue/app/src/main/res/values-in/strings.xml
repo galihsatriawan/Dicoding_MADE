@@ -10,16 +10,17 @@
     <string name="dummy_content_text">Konten</string>
     <string name="popular_on_movies">Populer di Movie Catalogue</string>
     <string name="communication_error">Permintaan data ke server gagal</string>
-    <string name="failed_favorite">Gagal memperbarui</string>
     <string name="success_favorite">Sukses menjadi favorit anda</string>
     <string name="remove_favorite">Film favorit telah dihapus</string>
 
     <string name="add_to_wishlist">Tambah ke Wishlist</string>
-    <string name="remove_to_wishlist">Hapus dari Wishlist</string>
     <string name="tab_text_1">Katalog Film</string>
     <string name="tab_text_2">Acara TV</string>
     <string name="trending_now">Tren Sekarang</string>
     <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="dummy_rating">4.7</string>
+    <string name="search">Cari</string>
+    <string name="search_hint">Masukkan Kata</string>
 </resources>

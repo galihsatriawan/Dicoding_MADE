@@ -54,6 +54,35 @@ public class MovieRemoteData implements IMoviesDataSource.ApiSource {
     }
 
     @Override
+    public List<Movie> getSearchMoviesData(String str, final OnFinishedListener listener) {
+        try {
+            HashMap<String, String> options = new HashMap<>();
+            options.put("api_key",BuildConfig.ApiKey);
+            options.put("language","en-US");
+            options.put("query",str);
+            Call<MovieListResponse> response = apiService.getSearchMovie(options);
+            response.enqueue(new Callback<MovieListResponse>() {
+                @Override
+                public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
+                    if(response.isSuccessful()){
+                        listener.onFinished(response);
+                    }else{
+                        listener.onError(response);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MovieListResponse> call, Throwable t) {
+                    listener.onFailure(t);
+                }
+            });
+        }catch (Throwable t){
+            listener.onFailure(t);
+        }
+        return movies;
+    }
+
+    @Override
     public Movie getMovie(int position) {
         Movie movie = null;
         try{

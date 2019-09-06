@@ -33,6 +33,11 @@ public class MovieRepository implements IMoviesDataSource.ApiSource,IMoviesDataS
     }
 
     @Override
+    public List<Movie> getSearchMoviesData(String str, OnFinishedListener listener) {
+        return remoteData.getSearchMoviesData(str,listener);
+    }
+
+    @Override
     public Movie getMovie(int position) {
         return remoteData.getMovie(position);
     }

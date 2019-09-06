@@ -11,6 +11,7 @@ public interface ITvShowView extends IRootView {
     void showListTvShowPopular(ArrayList<TvShow> tvShows);
     void showListTvShowTrending(ArrayList<TvShow> tvShows);
     void showMessage(String message);
+    void updateSearch(String str);
     interface TVShowItemView {
         void setPoster(String poster);
         void setNotification(int notif);
