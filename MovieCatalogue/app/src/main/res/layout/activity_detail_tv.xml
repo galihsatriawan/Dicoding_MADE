@@ -74,7 +74,7 @@
                 android:layout_height="16dp"
                 android:layout_marginStart="8dp"
                 android:fontFamily="casual"
-                android:text="4.7"
+                android:text="@string/dummy_rating"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"

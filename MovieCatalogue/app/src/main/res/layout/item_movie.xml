@@ -124,7 +124,7 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:fontFamily="casual"
                     android:textStyle="bold"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     android:text="@string/add_to_wishlist" />
             </RelativeLayout>
 

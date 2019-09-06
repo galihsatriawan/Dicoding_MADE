@@ -193,7 +193,7 @@ public class Movie implements Parcelable {
         this.id = in.readInt();
         this.title = in.readString();
         this.overview = in.readString();
-        this.genre_ids = new ArrayList<Integer>();
+        this.genre_ids = new ArrayList<>();
         in.readList(this.genre_ids, Integer.class.getClassLoader());
         this.poster_path = in.readString();
         this.backdrop_path = in.readString();
