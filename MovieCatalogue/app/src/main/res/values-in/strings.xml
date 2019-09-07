@@ -24,4 +24,9 @@
     <string name="dummy_rating">4.7</string>
     <string name="search">Cari</string>
     <string name="search_hint">Masukkan Kata</string>
+
+    <string name="appwidget_text">Film Favoritku</string>
+    <string name="add_widget">Tambah Widget</string>
+    <string name="empty_text">Tidak ada Data</string>
+
 </resources>

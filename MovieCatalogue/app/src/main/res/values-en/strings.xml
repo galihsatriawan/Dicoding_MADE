@@ -23,4 +23,8 @@
     <string name="dummy_rating">4.7</string>
     <string name="search">Search</string>
     <string name="search_hint">Input Word</string>
+    <string name="appwidget_text">My Favorite Movie</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">No Data</string>
+
 </resources>
