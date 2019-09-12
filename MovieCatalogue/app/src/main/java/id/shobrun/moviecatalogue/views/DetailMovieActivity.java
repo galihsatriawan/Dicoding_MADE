@@ -34,6 +34,7 @@ import id.shobrun.moviecatalogue.views.iview.IDetailMovieView;
 
 public class DetailMovieActivity extends AppCompatActivity implements IDetailMovieView {
     public static final String EXTRA_MOVIE = "extra_movie";
+    public static final String ACTION_VIEW = "android.intent.action.VIEW";
     private FrameLayout menuFavorite;
     private ImageView iconFavorite;
     private ImageView imgPoster;
