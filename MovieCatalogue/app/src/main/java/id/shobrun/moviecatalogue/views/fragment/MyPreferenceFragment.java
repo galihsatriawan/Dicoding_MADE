@@ -1,5 +1,11 @@
 package id.shobrun.moviecatalogue.views.fragment;
 
+import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -8,11 +14,17 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.widget.Toast;
 
 import id.shobrun.moviecatalogue.R;
+import id.shobrun.moviecatalogue.utils.alarm.ReminderReceiver;
+import id.shobrun.moviecatalogue.utils.services.DailyJobService;
+import id.shobrun.moviecatalogue.views.MainActivity;
 
 public class MyPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private String RELEASE_REMINDER;
     private String DAILY_REMINDER;
+    private ReminderReceiver reminderReceiver;
 
+    private static final String timeDaily ="7:00";
+    private static final String timeRelease ="8:00";
     private SwitchPreference isSetReleaseReminder,isSetDailyReminder;
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -26,6 +38,8 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
 
         isSetDailyReminder = (SwitchPreference) findPreference(DAILY_REMINDER);
         isSetReleaseReminder = (SwitchPreference) findPreference(RELEASE_REMINDER);
+
+        reminderReceiver = new ReminderReceiver();
     }
 
     private void setSummaries(){
@@ -49,12 +63,19 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),0,intent,0);
         if(key.equals(RELEASE_REMINDER)){
             isSetReleaseReminder.setChecked(sharedPreferences.getBoolean(RELEASE_REMINDER,false));
             boolean setRelease = sharedPreferences.getBoolean(RELEASE_REMINDER,false);
             if(setRelease){
+                String title = getContext().getResources().getString(R.string.release_reminder);
+                String message = getContext().getResources().getString(R.string.is_release_reminder);
+
+//                reminderReceiver.setRepeatAlarm(getContext(),ReminderReceiver.RELEASE_REMINDER,timeRelease,title,message,pendingIntent);
                 Toast.makeText(getContext(), "Set Release Reminder", Toast.LENGTH_SHORT).show();
             }else {
+//                reminderReceiver.cancelAlarm(getContext(),ReminderReceiver.RELEASE_REMINDER);
                 Toast.makeText(getContext(), "Unset Release Reminder", Toast.LENGTH_SHORT).show();
             }
         }
@@ -63,10 +84,17 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
             isSetDailyReminder.setChecked(sharedPreferences.getBoolean(DAILY_REMINDER,false));
             boolean setDaily= sharedPreferences.getBoolean(DAILY_REMINDER,false);
             if(setDaily){
+                String title = getContext().getResources().getString(R.string.daily_reminder);
+                String message = getContext().getResources().getString(R.string.is_daily_reminder);
+
+                reminderReceiver.setRepeatAlarm(getContext(),ReminderReceiver.DAILY_REMINDER,timeDaily,title,message,pendingIntent);
                 Toast.makeText(getContext(), "Set Daily Reminder", Toast.LENGTH_SHORT).show();
             }else {
+                reminderReceiver.cancelAlarm(getContext(),DAILY_REMINDER);
                 Toast.makeText(getContext(), "Unset Daily Reminder", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+
 }
