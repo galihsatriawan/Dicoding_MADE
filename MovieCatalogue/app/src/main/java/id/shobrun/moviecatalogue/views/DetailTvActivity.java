@@ -75,6 +75,10 @@ public class DetailTvActivity extends AppCompatActivity implements IDetailTvShow
                 Log.d(this.getClass().getSimpleName(), "onOptionsItemSelected: ");
                 isFavorite();
                 break;
+            case R.id.action_settings:
+                Intent settings = new Intent(this,SettingActivity.class);
+                startActivity(settings);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

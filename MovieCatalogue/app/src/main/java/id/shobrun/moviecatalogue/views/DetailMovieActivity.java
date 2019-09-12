@@ -90,6 +90,10 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
                 Log.d(this.getClass().getSimpleName(), "onOptionsItemSelected: ");
                 isFavorite();
                 break;
+            case R.id.action_settings:
+                Intent settings = new Intent(this,SettingActivity.class);
+                startActivity(settings);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

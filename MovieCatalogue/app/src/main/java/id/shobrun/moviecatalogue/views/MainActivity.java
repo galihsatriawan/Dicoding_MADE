@@ -89,6 +89,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 Intent list_favorite = new Intent(this, MainFavoriteActivity.class);
                 startActivity(list_favorite);
                 break;
+            case R.id.action_settings:
+                Intent settings = new Intent(this,SettingActivity.class);
+                startActivity(settings);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

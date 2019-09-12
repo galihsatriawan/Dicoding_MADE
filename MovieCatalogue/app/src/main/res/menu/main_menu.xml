@@ -9,12 +9,16 @@
         />
     <group android:menuCategory="container">
         <item android:id="@+id/action_list_favorite"
-            android:title="List Favorite"
+            android:title="@string/list_favorite"
             android:icon="@drawable/ic_favorite_white_24dp"
             app:showAsAction="ifRoom"
             />
         <item android:id="@+id/action_change_settings"
             android:title="@string/change_language_settings"
             app:showAsAction="never"/>
+        <item android:id="@+id/action_settings"
+            android:title="@string/setting"
+            app:showAsAction="never"/>
+
     </group>
 </menu>

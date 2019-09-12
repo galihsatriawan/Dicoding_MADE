@@ -20,6 +20,8 @@
     <string name="tab_text_2">TV Shows</string>
     <string name="trending_now">Trending Now</string>
     <string name="change_language_settings">Change Language Settings</string>
+    <string name="list_favorite">List Favorite</string>
+    <string name="setting">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="dummy_rating">4.7</string>
@@ -30,4 +32,11 @@
     <string name="empty_text">No Data</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="key_release_reminder">release_reminder</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="is_release_reminder">Reminder showing the movie that released today</string>
+
+    <string name="key_daily_reminder">daily_reminder</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="is_daily_reminder">Reminder for return to app</string>
 </resources>

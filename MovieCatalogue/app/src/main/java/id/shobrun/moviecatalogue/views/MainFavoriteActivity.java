@@ -45,6 +45,10 @@ public class MainFavoriteActivity extends AppCompatActivity implements IMainFavo
                 Intent setting = new Intent(Settings.ACTION_LOCALE_SETTINGS);
                 startActivity(setting);
                 break;
+            case R.id.action_settings:
+                Intent settings = new Intent(this,SettingActivity.class);
+                startActivity(settings);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
