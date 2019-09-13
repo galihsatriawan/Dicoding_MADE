@@ -1,5 +1,7 @@
 package id.shobrun.moviecatalogue.viewmodels;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -7,6 +9,7 @@ import android.arch.lifecycle.ViewModel;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -22,6 +25,8 @@ import id.shobrun.moviecatalogue.views.iview.IDetailMovieView;
 
 public class DetailMovieViewModel extends ViewModel {
     private final String TAG = getClass().getSimpleName();
+    public static final int JOB_ID = 12;
+    private final int SCHEDULE_PERIOD = 1*1000;
     private MutableLiveData<Movie> movie = new MutableLiveData<>();
     private MovieRepository repository;
     private Context context;
@@ -109,9 +114,23 @@ public class DetailMovieViewModel extends ViewModel {
             });
         }
         this.setMovie(movie);
-//        UpdateWidgetService.startActionUpdateAppWidgets(context);
+        startJobUpdate();
 
     }
+    private void startJobUpdate(){
+        ComponentName mServiceComponent = new ComponentName(context,UpdateWidgetService.class);
+
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID,mServiceComponent);
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_NONE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            builder.setMinimumLatency(SCHEDULE_PERIOD);
+        }else {
+            builder.setPeriodic(SCHEDULE_PERIOD);
+        }
+        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        jobScheduler.schedule(builder.build());
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();

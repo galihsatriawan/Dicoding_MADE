@@ -31,6 +31,7 @@ public class MainFavoriteActivity extends AppCompatActivity implements IMainFavo
         tabs = findViewById(R.id.tabs);
         toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
+        showActionBar();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

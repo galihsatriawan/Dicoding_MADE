@@ -1,14 +1,21 @@
 package id.shobrun.moviecatalogue.utils.services;
 
 import android.app.IntentService;
+import android.app.job.JobParameters;
+import android.app.job.JobScheduler;
+import android.app.job.JobService;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.RemoteViews;
 
+import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.utils.widget.MovieFavoriteWidget;
 import id.shobrun.moviecatalogue.utils.widget.StackRemoteViewsFactory;
+import id.shobrun.moviecatalogue.viewmodels.DetailMovieViewModel;
 
 
 /**
@@ -17,41 +24,36 @@ import id.shobrun.moviecatalogue.utils.widget.StackRemoteViewsFactory;
  * <p>
  * TODO: Customize class - update intent actions and extra parameters.
  */
-public class UpdateWidgetService extends IntentService {
-    // TODO: Rename actions, choose action names that describe tasks that this
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
+public class UpdateWidgetService extends JobService {
+
     private final String TAG = getClass().getSimpleName();
-    public static final String ACTION_UPDATE_WIDGETS= "id.shobrun.moviecatalogue.utils.services.action.UPDATE_WIDGETS";
 
-    // TODO: Rename parameters
-    public static final String EXTRA_PARAM1 = "id.shobrun.moviecatalogue.utils.services.extra.PARAM1";
-
-    public UpdateWidgetService() {
-        super("UpdateWidgetService");
-    }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
-            final String action = intent.getAction();
-            if (ACTION_UPDATE_WIDGETS.equals(action)) {
-                Log.d(TAG, "onHandleIntent: ");
-                handleUpdateAppWidgets();
-            }
-        }
+    public boolean onStartJob(JobParameters params) {
+        Log.d(TAG, "onStartJob: ");
+        handleUpdateAppWidgets(params);
+        return true;
+    }
+    private void stopJobUpdate(){
+        JobScheduler stJob =(JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        stJob.cancel(DetailMovieViewModel.JOB_ID);
+        Log.d(TAG, "stopJobUpdate: ");
+    }
+    @Override
+    public boolean onStopJob(JobParameters params) {
+        Log.d(TAG, "onStopJob: ");
+        return false;
     }
 
-    private void handleUpdateAppWidgets(){
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this.getApplicationContext());
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this.getApplicationContext(), MovieFavoriteWidget.class));
-
-        MovieFavoriteWidget.updateAllWidget(this,appWidgetManager,appWidgetIds);
-
+    private void handleUpdateAppWidgets(JobParameters parameters){
+        Context context = getApplicationContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName thisWidget = new ComponentName(context, MovieFavoriteWidget.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.stack_view);
+        jobFinished(parameters,false);
+        stopJobUpdate();
     }
 
-    public static void startActionUpdateAppWidgets(Context context){
-        Intent intent = new Intent(context, UpdateWidgetService.class);
-        intent.setAction(ACTION_UPDATE_WIDGETS);
-        context.startService(intent);
-    }
 }

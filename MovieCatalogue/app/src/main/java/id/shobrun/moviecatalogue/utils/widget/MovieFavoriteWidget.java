@@ -56,7 +56,8 @@ public class MovieFavoriteWidget extends AppWidgetProvider {
         for(int appWidgetId : appWidgetIds){
             updateAppWidget(context,appWidgetManager,appWidgetId);
         }
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds,R.id.stack_view_item);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.stack_view_item);
+
     }
 
     @Override

@@ -46,7 +46,9 @@
             android:exported="true" /> <!-- StackWidget Service -->
         <service
             android:name=".utils.services.UpdateWidgetService"
-            android:exported="false"></service>
+            android:exported="true"
+            android:enabled="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
         <service
             android:name=".utils.services.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
