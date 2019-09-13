@@ -32,11 +32,9 @@ public class MovieFavoriteWidget extends AppWidgetProvider {
 
         // Set intent for item click
         Intent viewIntent = new Intent(context, DetailMovieActivity.class);
-        viewIntent.setAction(DetailMovieActivity.ACTION_VIEW);
         viewIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,appWidgetId);
-        viewIntent.setData(Uri.parse(viewIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        PendingIntent viewPendingIntent = PendingIntent.getActivity(context,0,viewIntent,0);
+        PendingIntent viewPendingIntent = PendingIntent.getActivity(context,0,viewIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.stack_view,viewPendingIntent);
 
         // Instruct the widget manager to update the widget

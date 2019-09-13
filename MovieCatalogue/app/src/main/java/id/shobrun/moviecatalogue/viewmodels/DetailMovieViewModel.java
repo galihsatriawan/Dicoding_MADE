@@ -1,16 +1,20 @@
 package id.shobrun.moviecatalogue.viewmodels;
 
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.ComponentName;
 import android.content.Context;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.repositories.IMoviesDataSource;
 import id.shobrun.moviecatalogue.repositories.MovieRepository;
 import id.shobrun.moviecatalogue.utils.Constants;
+import id.shobrun.moviecatalogue.utils.services.StackWidgetService;
 import id.shobrun.moviecatalogue.views.iview.IDetailMovieView;
 
 public class DetailMovieViewModel extends ViewModel {
@@ -23,25 +27,31 @@ public class DetailMovieViewModel extends ViewModel {
         this.view = view;
         this.repository = new MovieRepository(context);
     }
+
     public void setMovie(Movie movie) {
         this.movie.setValue(movie);
     }
-    public void checkMovieById(final int id){
+    public Movie checkMovieById(final int id){
+        final Movie[] res_movie = new Movie[1];
         repository.getMovieByIdLocal(id, new IMoviesDataSource.DBSource.LoadDataCallback() {
             @Override
             public void onPreLoad() {
-
+                view.showProgress();
             }
 
             @Override
             public <T> void onLoadSuccess(T res) {
-                Movie res_movie = (Movie) res;
-                if(res_movie.getId() != -1){
-                    movie.postValue(res_movie);
+                res_movie[0] = (Movie) res;
+                if(res_movie[0].getId() != -1){
+
+                    movie.postValue(res_movie[0]);
                     view.setIconFavorite(R.drawable.ic_favorite_black_24dp);
+
                 }
+                view.hideProgress();
             }
         });
+        return res_movie[0];
     }
     public void updateMovieAfterAction(final Movie movie){
 
@@ -59,7 +69,7 @@ public class DetailMovieViewModel extends ViewModel {
                 @Override
                 public <T> void onPostExecute(T res) {
                     view.setIconFavorite(R.drawable.ic_favorite_border_black_24dp);
-                    view.showMessage(context.getString(R.string.remove_favorite));
+                    view.showMessageToast(context.getString(R.string.remove_favorite));
                 }
             });
         }else{
@@ -74,14 +84,14 @@ public class DetailMovieViewModel extends ViewModel {
                 @Override
                 public <T> void onPostExecute(T res) {
                     view.setIconFavorite(R.drawable.ic_favorite_black_24dp);
-                    view.showMessage(context.getString(R.string.success_favorite));
+                    view.showMessageToast(context.getString(R.string.success_favorite));
+
                 }
             });
         }
         this.setMovie(movie);
 
     }
-
     @Override
     protected void onCleared() {
         super.onCleared();

@@ -41,7 +41,6 @@
         </receiver> <!-- StackWidget Service -->
         <service
             android:name=".utils.services.StackWidgetService"
-            android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <service android:name=".utils.services.DailyJobService"

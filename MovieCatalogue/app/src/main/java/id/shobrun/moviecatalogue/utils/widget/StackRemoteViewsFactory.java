@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Binder;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -21,7 +22,7 @@ import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 
 public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-
+    private final String TAG = this.getClass().getSimpleName();
     private Context context;
     private ArrayList<Movie> movies = new ArrayList<>();
     private MovieRepository repository ;
@@ -31,27 +32,33 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     }
     @Override
     public void onCreate() {
-
+        Log.d(TAG, "onCreate: ");
     }
 
     @Override
     public void onDataSetChanged() {
+        Log.d(TAG, "onDataSetChanged: ");
         final long identityToken = Binder.clearCallingIdentity();
-            repository.getLikeMoviesLocal(Constants.TAGS_FAVORITE, new IMoviesDataSource.DBSource.LoadDataCallback() {
-                @Override
-                public void onPreLoad() {
-
-                }
-
-                @Override
-                public <T> void onLoadSuccess(T res) {
-                    ArrayList<Movie> movies = (ArrayList<Movie>) res;
-                    StackRemoteViewsFactory.this.movies = movies;
-                }
-            });
+        loadMovie();
         Binder.restoreCallingIdentity(identityToken);
-    }
 
+    }
+    public void loadMovie(){
+        repository.getLikeMoviesLocal(Constants.TAGS_FAVORITE, new IMoviesDataSource.DBSource.LoadDataCallback() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public <T> void onLoadSuccess(T res) {
+
+                ArrayList<Movie> movies = (ArrayList<Movie>) res;
+                StackRemoteViewsFactory.this.movies = movies;
+                Log.d(TAG, "onLoadSuccess: "+movies.size());
+            }
+        });
+    }
     @Override
     public void onDestroy() {
         movies.clear();
@@ -65,14 +72,14 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.movie_widget_item);
+        Log.d(TAG, "getViewAt: ");
 
-        if(position <= getCount()){
             Movie movie = movies.get(position);
             try {
                 Bitmap bitmap = Glide.with(context)
                         .asBitmap()
-                        .load(movie.getBackdrop_path())
-                        .submit(512,512)
+                        .load(Constants.BACKDROP_BASE_URL+movie.getBackdrop_path())
+                        .submit(200,100)
                         .get();
                 rv.setImageViewBitmap(R.id.image_poster_widget,bitmap);
             } catch (Throwable t) {
@@ -81,12 +88,11 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
             rv.setTextViewText(R.id.text_title_widget,movie.getTitle());
 
             // store the object in the extras so the main activity can use it
-            Bundle extras = new Bundle();
-            extras.putParcelable(DetailMovieActivity.EXTRA_MOVIE,movie);
+
             Intent fillIntent = new Intent();
-            fillIntent.putExtras(extras);
+            fillIntent.putExtra(DetailMovieActivity.EXTRA_ID_MOVIE,movie.getId());
             rv.setOnClickFillInIntent(R.id.stack_view_item, fillIntent);
-        }
+
         return rv;
     }
 
@@ -107,6 +113,6 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public boolean hasStableIds() {
-        return true;
+        return false;
     }
 }

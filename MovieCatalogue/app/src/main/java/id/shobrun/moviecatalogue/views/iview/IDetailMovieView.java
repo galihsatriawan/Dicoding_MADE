@@ -8,4 +8,7 @@ public interface IDetailMovieView extends IRootView {
     void showDetailMovie(Movie movie);
     void setIconFavorite(int res);
     void showMessage(String str);
+    void showMessageToast(String str);
+    void hideProgress();
+    void showProgress();
 }

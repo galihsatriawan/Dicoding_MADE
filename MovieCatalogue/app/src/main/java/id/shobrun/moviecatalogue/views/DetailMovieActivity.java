@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -15,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +37,9 @@ import id.shobrun.moviecatalogue.views.iview.IDetailMovieView;
 
 
 public class DetailMovieActivity extends AppCompatActivity implements IDetailMovieView {
+    private final String TAG = getClass().getSimpleName();
     public static final String EXTRA_MOVIE = "extra_movie";
+    public static final String EXTRA_ID_MOVIE = "extra_id_movie";
     public static final String ACTION_VIEW = "android.intent.action.VIEW";
     private FrameLayout menuFavorite;
     private ImageView iconFavorite;
@@ -48,6 +54,11 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
     private AppCompatRatingBar ratingBar;
     private DetailMovieViewModel viewModel;
     private Movie mMovie;
+
+    private ProgressBar progressBar;
+    private NestedScrollView content;
+    private RelativeLayout containerMessage;
+    private TextView tvMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +67,25 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
         initViewModel();
         this.invalidateOptionsMenu();
         if(getIntent() != null){
+
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+                for (String key : bundle.keySet()) {
+                    Object value = bundle.get(key);
+                    Log.d(TAG, String.format("%s %s (%s)", key,
+                            value.toString(), value.getClass().getName()));
+                }
+            }
+
+            int id = getIntent().getIntExtra(EXTRA_ID_MOVIE,0);
+            if(id !=0){
+                Log.d(TAG, "onCreate: "+id);
+                mMovie = viewModel.checkMovieById(id);
+            }else{
+                mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+            }
+
             showActionBar();
-            mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
             viewModel.setMovie(mMovie);
             showDetailMovie(mMovie);
         }
@@ -128,7 +156,10 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
         imgPoster = findViewById(R.id.image_poster);
         imgBanner = findViewById(R.id.img_banner_poster);
         ratingBar = findViewById(R.id.rb_rating);
-
+        content  = findViewById(R.id.container_content);
+        tvMessage = findViewById(R.id.text_message);
+        progressBar = findViewById(R.id.progressBar);
+        containerMessage = findViewById(R.id.container_message);
     }
 
     @Override
@@ -159,7 +190,27 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
     }
 
     @Override
-    public void showMessage(String str) {
+    public void showProgress() {
+        content.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        containerMessage.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+        content.setVisibility(View.VISIBLE);
+        containerMessage.setVisibility(View.GONE);
+    }
+    @Override
+    public void showMessage(String message) {
+        content.setVisibility(View.GONE);
+        containerMessage.setVisibility(View.VISIBLE);
+        tvMessage.setText(message);
+    }
+
+    @Override
+    public void showMessageToast(String str) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 

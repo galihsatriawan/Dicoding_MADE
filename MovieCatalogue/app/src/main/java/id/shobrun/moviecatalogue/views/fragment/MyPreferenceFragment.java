@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.utils.alarm.ReminderReceiver;
-import id.shobrun.moviecatalogue.utils.services.DailyJobService;
 import id.shobrun.moviecatalogue.views.MainActivity;
 
 public class MyPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {

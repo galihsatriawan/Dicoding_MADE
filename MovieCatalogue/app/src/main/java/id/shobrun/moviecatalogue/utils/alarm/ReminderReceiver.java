@@ -134,7 +134,6 @@ public class ReminderReceiver extends BroadcastReceiver {
                 }
 
             }
-
             @Override
             public void onFailure(Throwable t) {
                 Log.d(getClass().getSimpleName(), "onError: "+"failure");
