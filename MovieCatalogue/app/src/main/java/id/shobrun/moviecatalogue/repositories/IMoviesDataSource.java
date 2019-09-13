@@ -28,6 +28,7 @@ public interface IMoviesDataSource {
         void deleteMovieLocal(Movie movie,UpdateDataCallback callback);
         void insertMovieLocal(Movie movie,UpdateDataCallback callback);
         void getLikeMoviesLocal(String tags,LoadDataCallback callback);
+        ArrayList<Movie>  getLikeMoviesLocalSync(String tags);
         void getMovieByIdLocal(int id,LoadDataCallback callback);
         interface LoadDataCallback{
             void onPreLoad();

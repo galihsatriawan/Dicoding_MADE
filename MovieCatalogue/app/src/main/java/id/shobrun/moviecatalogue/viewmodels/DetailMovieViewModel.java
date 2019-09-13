@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -16,9 +17,11 @@ import id.shobrun.moviecatalogue.repositories.MovieRepository;
 import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.utils.services.StackWidgetService;
 import id.shobrun.moviecatalogue.utils.services.UpdateWidgetService;
+import id.shobrun.moviecatalogue.utils.widget.MovieFavoriteWidget;
 import id.shobrun.moviecatalogue.views.iview.IDetailMovieView;
 
 public class DetailMovieViewModel extends ViewModel {
+    private final String TAG = getClass().getSimpleName();
     private MutableLiveData<Movie> movie = new MutableLiveData<>();
     private MovieRepository repository;
     private Context context;
@@ -32,27 +35,42 @@ public class DetailMovieViewModel extends ViewModel {
     public void setMovie(Movie movie) {
         this.movie.setValue(movie);
     }
-    public Movie checkMovieById(final int id){
-        final Movie[] res_movie = new Movie[1];
+    public void getMovieById(final int id){
         repository.getMovieByIdLocal(id, new IMoviesDataSource.DBSource.LoadDataCallback() {
             @Override
             public void onPreLoad() {
-                view.showProgress();
+
             }
 
             @Override
             public <T> void onLoadSuccess(T res) {
-                res_movie[0] = (Movie) res;
-                if(res_movie[0].getId() != -1){
+                Movie res_movie = (Movie) res;
+                Log.d(TAG, "onLoadSuccess: "+res_movie.getTitle());
+                setMovie(res_movie);
+                view.hideProgress();
+                view.showDetailMovie(res_movie);
+            }
+        });
+    }
+    public void checkMovieById(final int id){
 
-                    movie.postValue(res_movie[0]);
+        repository.getMovieByIdLocal(id, new IMoviesDataSource.DBSource.LoadDataCallback() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public <T> void onLoadSuccess(T res) {
+                Movie res_movie = (Movie) res;
+                if(res_movie.getId() != -1){
+
+                    movie.postValue(res_movie);
                     view.setIconFavorite(R.drawable.ic_favorite_black_24dp);
 
                 }
-                view.hideProgress();
             }
         });
-        return res_movie[0];
     }
     public void updateMovieAfterAction(final Movie movie){
 
@@ -91,7 +109,8 @@ public class DetailMovieViewModel extends ViewModel {
             });
         }
         this.setMovie(movie);
-        UpdateWidgetService.startActionUpdateAppWidgets(context);
+//        UpdateWidgetService.startActionUpdateAppWidgets(context);
+
     }
     @Override
     protected void onCleared() {

@@ -2,6 +2,7 @@ package id.shobrun.moviecatalogue.repositories;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import id.shobrun.moviecatalogue.models.data.Movie;
@@ -76,6 +77,11 @@ public class MovieRepository implements IMoviesDataSource.ApiSource,IMoviesDataS
     @Override
     public void getLikeMoviesLocal(String tags, LoadDataCallback callback) {
         localData.getLikeMoviesLocal(tags,callback);
+    }
+
+    @Override
+    public ArrayList<Movie> getLikeMoviesLocalSync(String tags) {
+        return localData.getLikeMoviesLocalSync(tags);
     }
 
     @Override

@@ -180,6 +180,12 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
     }
 
     @Override
+    public ArrayList<Movie> getLikeMoviesLocalSync(String tags) {
+
+        return (ArrayList)movieDao.getAllMovieByTags(tags);
+    }
+
+    @Override
     public void getMovieByIdLocal(int id, LoadDataCallback callback) {
         QueryByIdAsyncTask asyncTask;
         synchronized (MovieLocalData.class){

@@ -11,4 +11,5 @@ public interface IDetailMovieView extends IRootView {
     void showMessageToast(String str);
     void hideProgress();
     void showProgress();
+
 }

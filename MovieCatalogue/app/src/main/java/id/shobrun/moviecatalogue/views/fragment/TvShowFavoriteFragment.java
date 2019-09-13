@@ -91,7 +91,7 @@ public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteV
         viewModel.getTvShows().observe(this, new Observer<ArrayList<TvShow>>() {
             @Override
             public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
-                Log.d(getClass().getSimpleName(), "onChanged: oya");
+                Log.d(getClass().getSimpleName(), "onChanged: "+tvShows.size());
                 if(tvShows!=null){
                     hideProgress();
                     showListTvShow(tvShows);
@@ -126,15 +126,16 @@ public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteV
     public void showListTvShow(final ArrayList<TvShow> tvShows) {
         if(tvShowAdapter == null) {
             tvShowAdapter = new TvShowFavoriteAdapter();
-            tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClicked(View v, int position) {
-                    Intent detailMovie = new Intent(v.getContext(), DetailTvActivity.class);
-                    detailMovie.putExtra(DetailTvActivity.EXTRA_TV,tvShows.get(position));
-                    v.getContext().startActivity(detailMovie);
-                }
-            });
+
         }
+        tvShowAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClicked(View v, int position) {
+                Intent detailMovie = new Intent(v.getContext(), DetailTvActivity.class);
+                detailMovie.putExtra(DetailTvActivity.EXTRA_TV,tvShows.get(position));
+                v.getContext().startActivity(detailMovie);
+            }
+        });
         tvShowAdapter.setTvShows(tvShows);
         recyclerView.setAdapter(tvShowAdapter);
     }

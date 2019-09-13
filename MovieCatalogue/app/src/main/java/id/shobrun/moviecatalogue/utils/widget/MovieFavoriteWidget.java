@@ -39,6 +39,7 @@ public class MovieFavoriteWidget extends AppWidgetProvider {
         PendingIntent viewPendingIntent = PendingIntent.getActivity(context,0,viewIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.stack_view,viewPendingIntent);
 
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -46,20 +47,16 @@ public class MovieFavoriteWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        UpdateWidgetService.startActionUpdateAppWidgets(context);
-    }
-
-    @Override
-    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
-        UpdateWidgetService.startActionUpdateAppWidgets(context);
-        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
-
+//        UpdateWidgetService.startActionUpdateAppWidgets(context);
+        updateAllWidget(context,appWidgetManager,appWidgetIds);
+        super.onUpdate(context,appWidgetManager,appWidgetIds);
     }
 
     public static void updateAllWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for(int appWidgetId : appWidgetIds){
             updateAppWidget(context,appWidgetManager,appWidgetId);
         }
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds,R.id.stack_view_item);
     }
 
     @Override

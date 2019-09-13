@@ -65,7 +65,9 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
         setContentView(R.layout.activity_detail_movie);
         initUI();
         initViewModel();
+        showActionBar();
         this.invalidateOptionsMenu();
+        showProgress();
         if(getIntent() != null){
 
             Bundle bundle = getIntent().getExtras();
@@ -80,14 +82,15 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
             int id = getIntent().getIntExtra(EXTRA_ID_MOVIE,0);
             if(id !=0){
                 Log.d(TAG, "onCreate: "+id);
-                mMovie = viewModel.checkMovieById(id);
+                viewModel.getMovieById(id);
+
             }else{
                 mMovie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+                viewModel.setMovie(mMovie);
+                hideProgress();
+                showDetailMovie(mMovie);
             }
 
-            showActionBar();
-            viewModel.setMovie(mMovie);
-            showDetailMovie(mMovie);
         }
     }
     @Override
@@ -132,7 +135,9 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
         FrameLayout rootView = (FrameLayout) favoriteMenuItem.getActionView();
 
         iconFavorite = rootView.findViewById(R.id.ic_favorite);
-        viewModel.checkMovieById(mMovie.getId());
+        if(mMovie!=null){
+            viewModel.checkMovieById(mMovie.getId());
+        }
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +147,7 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
         return super.onPrepareOptionsMenu(menu);
     }
     private void isFavorite(){
+        Log.d(TAG, "isFavorite: "+mMovie);
         viewModel.updateMovieAfterAction(mMovie);
     }
 
@@ -164,6 +170,8 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
 
     @Override
     public void showDetailMovie(Movie movie) {
+        mMovie = movie;
+        Log.d(TAG, "showDetailMovie: "+movie.getTitle());
         tvTitle.setText(movie.getTitle());
         tvRating.setText(String.valueOf(movie.getVote_average()));
         tvProduction.setText(movie.getProductionCompany());
@@ -182,6 +190,14 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
         ratingBar.setRating(movie.getVote_average().floatValue());
         Glide.with(getApplicationContext()).load(Constants.IMAGE_BASE_URL+movie.getPoster_path()).into(imgPoster);
         Glide.with(getApplicationContext()).load(Constants.BACKDROP_BASE_URL+movie.getBackdrop_path()).into(imgBanner);
+        Log.d(TAG, "showDetailMovie: "+movie.getTags());
+
+        if(movie.getTags()!=null && iconFavorite!=null){
+            if(movie.getTags().contains(Constants.TAGS_FAVORITE)) {
+                setIconFavorite(R.drawable.ic_favorite_black_24dp);
+        }
+
+        }
     }
 
     @Override

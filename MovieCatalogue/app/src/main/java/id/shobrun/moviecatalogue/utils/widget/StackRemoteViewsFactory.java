@@ -1,5 +1,6 @@
 package id.shobrun.moviecatalogue.utils.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import id.shobrun.moviecatalogue.R;
+import id.shobrun.moviecatalogue.database.MovieCatalogueDatabase;
+import id.shobrun.moviecatalogue.database.dao.MovieDao;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.repositories.IMoviesDataSource;
 import id.shobrun.moviecatalogue.repositories.MovieRepository;
@@ -29,6 +32,10 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public StackRemoteViewsFactory(Context context,Intent intent){
         this.context = context;
         this.repository = new MovieRepository(context);
+        int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        if(widgetId!= AppWidgetManager.INVALID_APPWIDGET_ID){
+
+        }
     }
     @Override
     public void onCreate() {
@@ -39,25 +46,9 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public void onDataSetChanged() {
         Log.d(TAG, "onDataSetChanged: ");
         final long identityToken = Binder.clearCallingIdentity();
-        loadMovie();
+        movies =repository.getLikeMoviesLocalSync(Constants.TAGS_FAVORITE);
         Binder.restoreCallingIdentity(identityToken);
 
-    }
-    public void loadMovie(){
-        repository.getLikeMoviesLocal(Constants.TAGS_FAVORITE, new IMoviesDataSource.DBSource.LoadDataCallback() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public <T> void onLoadSuccess(T res) {
-
-                ArrayList<Movie> movies = (ArrayList<Movie>) res;
-                StackRemoteViewsFactory.this.movies = movies;
-                Log.d(TAG, "onLoadSuccess: "+movies.size());
-            }
-        });
     }
     @Override
     public void onDestroy() {

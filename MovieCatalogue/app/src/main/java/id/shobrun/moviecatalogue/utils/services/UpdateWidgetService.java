@@ -40,11 +40,13 @@ public class UpdateWidgetService extends IntentService {
             }
         }
     }
+
     private void handleUpdateAppWidgets(){
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, StackWidgetService.class));
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this.getApplicationContext());
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this.getApplicationContext(), MovieFavoriteWidget.class));
 
         MovieFavoriteWidget.updateAllWidget(this,appWidgetManager,appWidgetIds);
+
     }
 
     public static void startActionUpdateAppWidgets(Context context){

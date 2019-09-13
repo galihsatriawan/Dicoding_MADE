@@ -152,7 +152,7 @@ public class TvShowFragment extends Fragment implements ITvShowView {
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.loadTvShowPopular();
+//        viewModel.loadTvShowPopular();
     }
     @Override
     public void updateSearch(String str){

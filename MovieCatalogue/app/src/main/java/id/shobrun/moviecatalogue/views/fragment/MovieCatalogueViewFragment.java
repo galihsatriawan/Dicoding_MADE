@@ -148,7 +148,7 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.loadAllMovie();
+//        viewModel.loadAllMovie();
     }
 
     @Override

@@ -125,15 +125,16 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
     public void showListMovie(final ArrayList<Movie> movieList) {
         if(movieAdapter == null) {
             movieAdapter = new MovieFavoriteAdapter();
-            movieAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClicked(View v, int position) {
-                    Intent detailMovie = new Intent(v.getContext(), DetailMovieActivity.class);
-                    detailMovie.putExtra(DetailMovieActivity.EXTRA_MOVIE,movieList.get(position));
-                    v.getContext().startActivity(detailMovie);
-                }
-            });
+
         }
+        movieAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClicked(View v, int position) {
+                Intent detailMovie = new Intent(v.getContext(), DetailMovieActivity.class);
+                detailMovie.putExtra(DetailMovieActivity.EXTRA_MOVIE,movieList.get(position));
+                v.getContext().startActivity(detailMovie);
+            }
+        });
         movieAdapter.setMovies(movieList);
         recyclerView.setAdapter(movieAdapter);
 
