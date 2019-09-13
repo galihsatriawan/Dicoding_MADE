@@ -69,13 +69,10 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
             isSetReleaseReminder.setChecked(sharedPreferences.getBoolean(RELEASE_REMINDER,false));
             boolean setRelease = sharedPreferences.getBoolean(RELEASE_REMINDER,false);
             if(setRelease){
-                String title = getContext().getResources().getString(R.string.release_reminder);
-                String message = getContext().getResources().getString(R.string.is_release_reminder);
-
-//                reminderReceiver.setRepeatAlarm(getContext(),ReminderReceiver.RELEASE_REMINDER,timeRelease,title,message,pendingIntent);
+                reminderReceiver.setRepeatAlarm(getContext(),ReminderReceiver.RELEASE_REMINDER,timeRelease);
                 Toast.makeText(getContext(), "Set Release Reminder", Toast.LENGTH_SHORT).show();
             }else {
-//                reminderReceiver.cancelAlarm(getContext(),ReminderReceiver.RELEASE_REMINDER);
+                reminderReceiver.cancelAlarm(getContext(),ReminderReceiver.RELEASE_REMINDER);
                 Toast.makeText(getContext(), "Unset Release Reminder", Toast.LENGTH_SHORT).show();
             }
         }

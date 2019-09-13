@@ -2,8 +2,12 @@ package id.shobrun.moviecatalogue.repositories.remote;
 
 import android.content.Context;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import id.shobrun.moviecatalogue.BuildConfig;
 import id.shobrun.moviecatalogue.api.ApiClient;
@@ -51,6 +55,41 @@ public class MovieRemoteData implements IMoviesDataSource.ApiSource {
         }
 
         return movies;
+    }
+
+    @Override
+    public List<Movie> getReleaseMovie(final OnFinishedListener listener) {
+        final List<Movie>[] res = new List[]{new ArrayList<>()};
+        try {
+            HashMap<String,String> options = new HashMap<>();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date datetime = new Date();
+            String date  = sdf.format(datetime);
+            options.put("api_key", BuildConfig.ApiKey);
+            options.put("primary_release_date.gte",date);
+            options.put("primary_release_date.lte",date);
+            Call<MovieListResponse> response = apiService.getMovie(options);
+            response.enqueue(new Callback<MovieListResponse>() {
+                @Override
+                public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
+                    if(response.isSuccessful()){
+                        listener.onFinished(response);
+                        res[0] = response.body().getResults();
+                    }else{
+                        listener.onError(response);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MovieListResponse> call, Throwable t) {
+                    listener.onFailure(t);
+                }
+            });
+        }catch (Throwable t){
+            t.printStackTrace();
+        }
+
+        return res[0];
     }
 
     @Override

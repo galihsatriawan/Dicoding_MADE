@@ -26,7 +26,8 @@ public class Notifications {
                 .setContentText(message)
                 .setColor(ContextCompat.getColor(context, android.R.color.black))
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                .setSound(alarmSound);
+                .setSound(alarmSound)
+                .setAutoCancel(true);
         if(pendingIntent!=null){
             builder.setContentIntent(pendingIntent);
         }

@@ -10,7 +10,9 @@ import retrofit2.Response;
 public interface IMoviesDataSource {
     interface ApiSource{
         List<Movie> getMoviesData(OnFinishedListener listener);
+        List<Movie> getReleaseMovie(OnFinishedListener listener);
         List<Movie> getSearchMoviesData(String str,OnFinishedListener listener);
+
         Movie getMovie(int position);
         int getMovieById(int id);
         int getMovieCount();
