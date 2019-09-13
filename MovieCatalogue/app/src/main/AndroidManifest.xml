@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.SettingActivity"></activity>
+        <activity android:name=".views.SettingActivity" />
+
         <activity
             android:name=".views.MainFavoriteActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -29,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <receiver android:name=".utils.widget.MovieFavoriteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -38,22 +38,23 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/movie_favorite_widget_info" />
-        </receiver> <!-- StackWidget Service -->
+        </receiver>
+
+        <receiver
+            android:name=".utils.alarm.ReminderReceiver"
+            android:enabled="true"
+            android:exported="true" /> <!-- StackWidget Service -->
+        <service
+            android:name=".utils.services.UpdateWidgetService"
+            android:exported="false"></service>
         <service
             android:name=".utils.services.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
-        <service android:name=".utils.services.DailyJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true"
-            />
-        <receiver android:name=".utils.alarm.ReminderReceiver"
-            android:exported="true"
-            android:enabled="true"/>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

@@ -6,12 +6,14 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.utils.services.StackWidgetService;
+import id.shobrun.moviecatalogue.utils.services.UpdateWidgetService;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 
 /**
@@ -44,8 +46,19 @@ public class MovieFavoriteWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+        UpdateWidgetService.startActionUpdateAppWidgets(context);
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        UpdateWidgetService.startActionUpdateAppWidgets(context);
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
+
+    }
+
+    public static void updateAllWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        for(int appWidgetId : appWidgetIds){
+            updateAppWidget(context,appWidgetManager,appWidgetId);
         }
     }
 

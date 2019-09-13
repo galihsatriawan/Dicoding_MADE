@@ -15,6 +15,7 @@ import id.shobrun.moviecatalogue.repositories.IMoviesDataSource;
 import id.shobrun.moviecatalogue.repositories.MovieRepository;
 import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.utils.services.StackWidgetService;
+import id.shobrun.moviecatalogue.utils.services.UpdateWidgetService;
 import id.shobrun.moviecatalogue.views.iview.IDetailMovieView;
 
 public class DetailMovieViewModel extends ViewModel {
@@ -90,7 +91,7 @@ public class DetailMovieViewModel extends ViewModel {
             });
         }
         this.setMovie(movie);
-
+        UpdateWidgetService.startActionUpdateAppWidgets(context);
     }
     @Override
     protected void onCleared() {
