@@ -4,15 +4,29 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "tb_tv_show")
+import id.shobrun.moviecatalogue.database.MovieCatalogueDatabase;
+
+@Entity(tableName = TvShow.TABLE_NAME)
 public class TvShow implements Parcelable {
+    public static final String TABLE_NAME = "tb_tv_show";
+    public static final String _ID = BaseColumns._ID;
+    public static final String TITLE = "name";
+    public static final String OVERVIEW = "overview";
+    public static final String POSTER_PATH = "poster_path";
+    public static final String BACKDROP_PATH = "backdrop_path";
+    public static final String VOTE_AVERAGE = "vote_average";
+    public static final String RELEASE_DATE = "first_air_date";
+    public static final String TAGS = "tags";
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "tvShowId")
+    @ColumnInfo(name = _ID)
     private int id;
     private String name;
     private String overview;
@@ -202,4 +216,22 @@ public class TvShow implements Parcelable {
             return new TvShow[size];
         }
     };
+    private static final String SCHEME = "content";
+    public static final Uri CONTENT_URI = new Uri.Builder()
+            .scheme(SCHEME)
+            .authority(MovieCatalogueDatabase.AUTHORITY)
+            .appendPath(TABLE_NAME)
+            .build();
+    public static TvShow fromContentValues(ContentValues values){
+        final TvShow tvShow = new TvShow(-1);
+        if(values.containsKey(_ID)) tvShow.setId(values.getAsInteger(_ID));
+        if(values.containsKey(TITLE)) tvShow.setName(values.getAsString(TITLE));
+        if(values.containsKey(OVERVIEW)) tvShow.setOverview(values.getAsString(OVERVIEW));
+        if(values.containsKey(POSTER_PATH)) tvShow.setPoster_path(values.getAsString(POSTER_PATH));
+        if(values.containsKey(BACKDROP_PATH)) tvShow.setBackdrop_path(values.getAsString(BACKDROP_PATH));
+        if(values.containsKey(VOTE_AVERAGE)) tvShow.setVote_average(values.getAsDouble(VOTE_AVERAGE));
+        if(values.containsKey(RELEASE_DATE)) tvShow.setFirst_air_date(values.getAsString(RELEASE_DATE));
+        if(values.containsKey(TAGS)) tvShow.setTags(values.getAsString(TAGS));
+        return tvShow;
+    }
 }

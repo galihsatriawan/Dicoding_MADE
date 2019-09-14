@@ -25,6 +25,7 @@ import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
 import id.shobrun.moviecatalogue.viewmodels.MovieWishListViewModel;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
+import id.shobrun.moviecatalogue.views.DetailMovieWishListActivity;
 import id.shobrun.moviecatalogue.views.adapter.MovieFavoriteAdapter;
 import id.shobrun.moviecatalogue.views.iview.IConsumerWishlistMovieView;
 
@@ -127,8 +128,8 @@ public class MovieWishListFragment extends Fragment implements IConsumerWishlist
         movieAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClicked(View v, int position) {
-                Intent detailMovie = new Intent(v.getContext(), DetailMovieActivity.class);
-                detailMovie.putExtra(DetailMovieActivity.EXTRA_MOVIE,movieList.get(position));
+                Intent detailMovie = new Intent(v.getContext(), DetailMovieWishListActivity.class);
+                detailMovie.putExtra(DetailMovieWishListActivity.EXTRA_MOVIE,movieList.get(position));
                 v.getContext().startActivity(detailMovie);
             }
         });

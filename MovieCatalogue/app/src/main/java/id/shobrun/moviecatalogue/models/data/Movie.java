@@ -4,15 +4,29 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "tb_movies")
+import id.shobrun.moviecatalogue.database.MovieCatalogueDatabase;
+
+@Entity(tableName = Movie.TABLE_NAME)
 public class Movie implements Parcelable {
+    public static final String TABLE_NAME = "tb_movies";
+    public static final String _ID = BaseColumns._ID;
+    public static final String TITLE = "title";
+    public static final String OVERVIEW = "overview";
+    public static final String POSTER_PATH = "poster_path";
+    public static final String BACKDROP_PATH = "backdrop_path";
+    public static final String VOTE_AVERAGE = "vote_average";
+    public static final String RELEASE_DATE = "release_date";
+    public static final String TAGS = "tags";
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "movieId")
+    @ColumnInfo(name = _ID)
     private int id;
     private String title;
     private String overview;
@@ -217,5 +231,24 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+    private static final String SCHEME = "content";
+    public static final Uri CONTENT_URI = new Uri.Builder()
+            .scheme(SCHEME)
+            .authority(MovieCatalogueDatabase.AUTHORITY)
+            .appendPath(TABLE_NAME)
+            .build();
+
+    public static Movie fromContentValues(ContentValues values){
+        final Movie movie = new Movie(-1);
+        if(values.containsKey(_ID)) movie.setId(values.getAsInteger(_ID));
+        if(values.containsKey(TITLE)) movie.setTitle(values.getAsString(TITLE));
+        if(values.containsKey(OVERVIEW)) movie.setOverview(values.getAsString(OVERVIEW));
+        if(values.containsKey(POSTER_PATH)) movie.setPoster_path(values.getAsString(POSTER_PATH));
+        if(values.containsKey(BACKDROP_PATH)) movie.setBackdrop_path(values.getAsString(BACKDROP_PATH));
+        if(values.containsKey(VOTE_AVERAGE)) movie.setVote_average(values.getAsDouble(VOTE_AVERAGE));
+        if(values.containsKey(RELEASE_DATE)) movie.setRelease_date(values.getAsString(RELEASE_DATE));
+        if(values.containsKey(TAGS)) movie.setTags(values.getAsString(TAGS));
+        return movie;
+    }
 }
 

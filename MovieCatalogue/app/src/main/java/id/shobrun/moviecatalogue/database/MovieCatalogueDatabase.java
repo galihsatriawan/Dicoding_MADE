@@ -12,10 +12,15 @@ import id.shobrun.moviecatalogue.models.data.TvShow;
 
 @Database(entities = {Movie.class, TvShow.class},version = 1,exportSchema = false)
 public abstract class MovieCatalogueDatabase extends RoomDatabase {
+
     public abstract MovieDao movieDao();
     public abstract TvShowDao tvShowDao();
+
+    public static final String AUTHORITY = "id.shobrun.moviecatalogue";
+
     private static MovieCatalogueDatabase INSTANCE;
     private static String DB_NAME = "db_movie_catalogue";
+
     public static MovieCatalogueDatabase getDatabase(final Context context){
         if(INSTANCE == null){
             synchronized (MovieCatalogueDatabase.class){

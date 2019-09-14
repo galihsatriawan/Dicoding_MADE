@@ -52,6 +52,15 @@
         <service
             android:name=".utils.services.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <!-- Provider        -->
+        <provider
+            android:authorities="id.shobrun.moviecatalogue"
+            android:name=".utils.provider.MovieCatalogueProvider"
+            android:exported="true"
+            android:readPermission="com.dicoding.mynotesapp.READ_DATABASE"
+            android:writePermission="com.dicoding.mynotesapp.WRITE_DATABASE"
+            />
     </application>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
