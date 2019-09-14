@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.models.data.Movie;
 
-public interface IMovieFavoriteView {
+public interface IConsumerWishlistMovieView {
     void initUI();
     void initViewModel();
     void hideProgress();

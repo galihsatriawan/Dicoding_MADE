@@ -84,8 +84,8 @@ public class TvShowFragment extends Fragment implements ITvShowView {
         mRecyclerMoviePopular.setHasFixedSize(true);
         mRecyclerMoviePopular.setLayoutManager(new GridLayoutManager(getContext(),2));
     }
-
-    private void initViewModel(){
+    @Override
+    public void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         viewModel.getTvShowsPopular().observe(this,getTvShowsPopular);
         viewModel.setAppView(getContext(),this);

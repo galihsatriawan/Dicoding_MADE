@@ -1,6 +1,5 @@
 package id.shobrun.moviecatalogue.views.fragment;
 
-
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -18,43 +17,40 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
-import id.shobrun.moviecatalogue.viewmodels.MovieFavoriteViewModel;
+import id.shobrun.moviecatalogue.viewmodels.MovieWishListViewModel;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 import id.shobrun.moviecatalogue.views.adapter.MovieFavoriteAdapter;
-import id.shobrun.moviecatalogue.views.iview.IMovieFavoriteView;
+import id.shobrun.moviecatalogue.views.iview.IConsumerWishlistMovieView;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteView {
+
+public class MovieWishListFragment extends Fragment implements IConsumerWishlistMovieView {
     private final String TAG = getClass().getSimpleName();
-    static private MovieFavoriteFragment INSTANCE;
+    static private MovieWishListFragment INSTANCE;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private MovieFavoriteAdapter movieAdapter;
-    private MovieFavoriteViewModel viewModel;
+    private MovieWishListViewModel viewModel;
     private LinearLayout content;
     private RelativeLayout containerMessage;
     private TextView tvMessage;
-    public static MovieFavoriteFragment getInstance() {
+    public static MovieWishListFragment getInstance() {
         if(INSTANCE==null){
             synchronized (MovieFavoriteFragment.class){
                 if(INSTANCE==null){
-                    INSTANCE = new MovieFavoriteFragment();
+                    INSTANCE = new MovieWishListFragment();
                 }
             }
         }
         return INSTANCE;
     }
 
-    public MovieFavoriteFragment() {
+    public MovieWishListFragment() {
         // Required empty public constructor
     }
 
@@ -88,7 +84,7 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
     }
     @Override
     public void initViewModel(){
-        viewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(MovieWishListViewModel.class);
         viewModel.setAppView(getContext(),this);
         viewModel.getMovies().observe(this, new Observer<ArrayList<Movie>>() {
             @Override
@@ -100,7 +96,7 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
                 }
             }
         });
-        viewModel.loadFavoriteMovie();
+        viewModel.loadWishListMovie();
     }
 
     @Override
@@ -145,6 +141,6 @@ public class MovieFavoriteFragment extends Fragment implements IMovieFavoriteVie
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.loadFavoriteMovie();
+        viewModel.loadWishListMovie();
     }
 }

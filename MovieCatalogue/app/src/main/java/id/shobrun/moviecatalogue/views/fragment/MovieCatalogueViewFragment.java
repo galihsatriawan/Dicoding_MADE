@@ -74,7 +74,8 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.e(TAG, "initPresenter: " );
     }
-    private void initViewModel(){
+    @Override
+    public void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(MovieCatalogueViewModel.class);
         viewModel.setAppView(getContext(),this);
         viewModel.getMovies().observe(this,getMovies);

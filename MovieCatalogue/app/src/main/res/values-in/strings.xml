@@ -28,7 +28,7 @@
     <string name="appwidget_text">Film Favoritku</string>
     <string name="add_widget">Tambah Widget</string>
     <string name="empty_text">Tidak ada Data</string>
-    <string name="list_favorite">Daftar Favorit</string>
+    <string name="list_favorite">Favoritku</string>
     <string name="setting">Pengaturan</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="key_release_reminder">release_reminder</string>

@@ -85,7 +85,8 @@ public class TvShowFavoriteFragment extends Fragment implements ITvShowFavoriteV
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
-    private void initViewModel(){
+    @Override
+    public void initViewModel(){
         viewModel = ViewModelProviders.of(this).get(TvShowFavoriteViewModel.class);
         viewModel.setAppView(getContext(),this);
         viewModel.getTvShows().observe(this, new Observer<ArrayList<TvShow>>() {
