@@ -36,6 +36,11 @@ public class ConsumerMovieRepository implements IConsumerMovieDataSource.DBSourc
     }
 
     @Override
+    public void deleteMovieByIdLocal(int id, UpdateDataCallback callback) {
+        localData.deleteMovieByIdLocal(id,callback);
+    }
+
+    @Override
     public void insertMovieLocal(Movie movie, UpdateDataCallback callback) {
         localData.insertMovieLocal(movie,callback);
     }

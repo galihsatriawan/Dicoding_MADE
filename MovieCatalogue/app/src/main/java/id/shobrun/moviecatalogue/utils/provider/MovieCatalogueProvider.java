@@ -24,7 +24,6 @@ public class MovieCatalogueProvider extends ContentProvider {
     static {
         sUriMatcher.addURI(MovieCatalogueDatabase.AUTHORITY, Movie.TABLE_NAME, MOVIE);
         sUriMatcher.addURI(MovieCatalogueDatabase.AUTHORITY, Movie.TABLE_NAME + "/#", MOVIE_ID);
-        sUriMatcher.addURI(MovieCatalogueDatabase.AUTHORITY, Movie.TABLE_NAME + "/*", MOVIE_TAGS);
     }
 
     @Override
@@ -43,20 +42,20 @@ public class MovieCatalogueProvider extends ContentProvider {
         }
         switch (sUriMatcher.match(uri)) {
             case MOVIE: {
-                cursor = movieDao.selectAllProvider();
-                cursor.setNotificationUri(context.getContentResolver(), uri);
+                if(selection == null){
+                    cursor = movieDao.selectAllProvider();
+                    cursor.setNotificationUri(context.getContentResolver(), uri);
+                }else{
+                    cursor = movieDao.selectByTagProvider(selectionArgs[0]);
+                    cursor.setNotificationUri(context.getContentResolver(), uri);
+                }
+
                 return cursor;
             }
             case MOVIE_ID: {
                 cursor = movieDao.selectByIdProvider(Integer.parseInt(uri.getLastPathSegment()));
                 cursor.setNotificationUri(context.getContentResolver(), uri);
                 return cursor;
-            }
-            case MOVIE_TAGS: {
-                cursor = movieDao.selectByTagProvider(uri.getLastPathSegment());
-                cursor.setNotificationUri(context.getContentResolver(), uri);
-                return cursor;
-
             }
             default: {
                 throw new IllegalArgumentException("Unknown URI:" + uri);
