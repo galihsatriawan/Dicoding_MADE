@@ -9,11 +9,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.views.fragment.MovieFavoriteFragment;
+import id.shobrun.moviecatalogue.views.fragment.MovieWishListFragment;
 import id.shobrun.moviecatalogue.views.fragment.TvShowFavoriteFragment;
 
 public class FavoriteSectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2,R.string.tab_text_3};
     private final Context mContext;
 
     public FavoriteSectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -25,10 +26,13 @@ public class FavoriteSectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        if(position == 0){
-            return MovieFavoriteFragment.getInstance();
-        }else{
-            return TvShowFavoriteFragment.getInstance();
+        switch (position){
+            case 0:
+                return MovieFavoriteFragment.getInstance();
+            case 1:
+                return TvShowFavoriteFragment.getInstance();
+            default:
+                return MovieWishListFragment.getInstance();
         }
     }
 
@@ -41,6 +45,6 @@ public class FavoriteSectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 2;
+        return 3;
     }
 }

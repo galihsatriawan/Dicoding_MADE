@@ -73,7 +73,7 @@ public class DetailMovieWishListViewModel extends ViewModel {
         if(before.contains(Constants.TAGS_WISHLIST)){
             movie.setTags("");
             // remove
-            repository.deleteMovieLocal(movie, new IConsumerMovieDataSource.DBSource.UpdateDataCallback() {
+            repository.deleteMovieByIdLocal(movie.getId(), new IConsumerMovieDataSource.DBSource.UpdateDataCallback() {
                 @Override
                 public void onPreExecute() {
 
