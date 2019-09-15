@@ -10,6 +10,7 @@ public interface IMovieCatalogueView extends IRootView {
     void initUI();
     void initViewModel();
     void showMessage(String str);
+    void showMessageToast(String str);
     void showListMovieCatalogue(ArrayList<Movie> movies);
     void updateSearch(String str);
 }

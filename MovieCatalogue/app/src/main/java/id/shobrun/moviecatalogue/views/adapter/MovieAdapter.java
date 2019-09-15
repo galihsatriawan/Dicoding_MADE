@@ -28,6 +28,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     private OnItemClickListener mOnItemClickListener;
+    private OnViewClickListener mOnViewClickListener;
+
+    public void setOnViewClickListener(OnViewClickListener mOnViewClickListener) {
+        this.mOnViewClickListener = mOnViewClickListener;
+    }
 
     @NonNull
     @Override
@@ -52,25 +57,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         viewHolder.setExcerpt(movie.getOverview());
         viewHolder.setRating(movie.getVote_average());
         viewHolder.setPoster(Constants.BACKDROP_BASE_URL+movie.getBackdrop_path());
-        viewHolder.setOnViewClickListener(new OnViewClickListener() {
-            @Override
-            public void onViewClicked(View view) {
-
-            }
-
-            @Override
-            public void onViewClicked(View v1, View v2) {
-                if(v1.getVisibility()==View.VISIBLE){
-                    viewHolder.showView(v2);
-                    viewHolder.hideView(v1);
-                    Toast.makeText(viewHolder.itemView.getContext(),movie.getTitle()+" has removed",Toast.LENGTH_SHORT).show();
-                }else{
-                    viewHolder.showView(v1);
-                    viewHolder.hideView(v2);
-                    Toast.makeText(viewHolder.itemView.getContext(),movie.getTitle()+" has added",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        viewHolder.setOnViewClickListener(movie,mOnViewClickListener);
     }
     public void setMovies(ArrayList<Movie> movies) {
         this.movies = movies;
@@ -86,10 +73,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         private TextView tvTitle,tvExcerpt,tvRating;
         private ImageView imgPoster,imgWishlistOff,imgWishlistOn;
         private Button btnAddToWishlist;
-        OnViewClickListener onViewClickListener;
+        private Movie movie;
+        private OnViewClickListener onViewClickListener;
 
-        void setOnViewClickListener(OnViewClickListener onViewClickListener) {
+        void setOnViewClickListener(Movie movie,OnViewClickListener onViewClickListener) {
             this.onViewClickListener = onViewClickListener;
+            this.movie = movie;
         }
 
         MovieViewHolder(View view){
@@ -104,7 +93,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             btnAddToWishlist.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onViewClickListener.onViewClicked(imgWishlistOn,imgWishlistOff);
+                    onViewClickListener.onViewClicked(movie,imgWishlistOn,imgWishlistOff);
                 }
             });
         }

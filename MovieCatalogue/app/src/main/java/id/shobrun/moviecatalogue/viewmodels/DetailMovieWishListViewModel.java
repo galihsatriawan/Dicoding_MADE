@@ -20,7 +20,8 @@ public class DetailMovieWishListViewModel extends ViewModel {
     private ConsumerMovieRepository repository;
     private Context context;
     private IDetailMovieWishListView view;
-    public void setAppView(Context context, IDetailMovieWishListView view){
+
+    public void setAppView(Context context, IDetailMovieWishListView view) {
         this.context = context;
         this.view = view;
         this.repository = new ConsumerMovieRepository(context);
@@ -29,7 +30,8 @@ public class DetailMovieWishListViewModel extends ViewModel {
     public void setMovie(Movie movie) {
         this.movie.setValue(movie);
     }
-    public void getMovieById(final int id){
+
+    public void getMovieById(final int id) {
         repository.getMovieByIdLocal(id, new IConsumerMovieDataSource.DBSource.LoadDataCallback() {
             @Override
             public void onPreLoad() {
@@ -39,14 +41,15 @@ public class DetailMovieWishListViewModel extends ViewModel {
             @Override
             public <T> void onLoadSuccess(T res) {
                 Movie res_movie = (Movie) res;
-                Log.d(TAG, "onLoadSuccess: "+res_movie.getTitle());
+                Log.d(TAG, "onLoadSuccess: " + res_movie.getTitle());
                 setMovie(res_movie);
                 view.hideProgress();
                 view.showDetailMovie(res_movie);
             }
         });
     }
-    public void checkMovieById(final int id){
+
+    public void checkMovieById(final int id) {
 
         repository.getMovieByIdLocal(id, new IConsumerMovieDataSource.DBSource.LoadDataCallback() {
             @Override
@@ -57,35 +60,22 @@ public class DetailMovieWishListViewModel extends ViewModel {
             @Override
             public <T> void onLoadSuccess(T res) {
                 Movie res_movie = (Movie) res;
-                if(res_movie.getId() != -1){
+                if (res_movie.getId() != -1) {
 
                     movie.postValue(res_movie);
-                    view.setIconWishList(R.drawable.ic_favorite_black_24dp);
+                    if(res_movie.getTags().contains(Constants.TAGS_WISHLIST)){
+                        view.setIconWishList(R.drawable.ic_bookmark_white_24dp);
+                    }
+
 
                 }
             }
         });
     }
-    public void updateMovieAfterAction(final Movie movie){
 
-        final String before =(movie.getTags()==null)?"":movie.getTags();
-        Log.e(getClass().getSimpleName(), "updateMovieAfterAction: "+before+movie.getId());
-        if(before.contains(Constants.TAGS_WISHLIST)){
-            movie.setTags("");
-            // remove
-            repository.deleteMovieByIdLocal(movie.getId(), new IConsumerMovieDataSource.DBSource.UpdateDataCallback() {
-                @Override
-                public void onPreExecute() {
+    public void updateMovieAfterAction(final Movie movie) {
 
-                }
-
-                @Override
-                public <T> void onPostExecute(T res) {
-                    view.setIconWishList(R.drawable.ic_bookmark_border_white_48dp);
-                    view.showMessageToast(context.getString(R.string.remove_favorite));
-                }
-            });
-        }else{
+        if (movie.getTags() == null) {
             movie.setTags(Constants.TAGS_WISHLIST);
             // insert
             repository.insertMovieLocal(movie, new IConsumerMovieDataSource.DBSource.UpdateDataCallback() {
@@ -97,10 +87,46 @@ public class DetailMovieWishListViewModel extends ViewModel {
                 @Override
                 public <T> void onPostExecute(T res) {
                     view.setIconWishList(R.drawable.ic_bookmark_white_24dp);
-                    view.showMessageToast(context.getString(R.string.success_favorite));
+                    view.showMessageToast(context.getString(R.string.success_wishlist));
 
                 }
             });
+        } else {
+            final String before = (movie.getTags() == null) ? "" : movie.getTags();
+            Log.e(getClass().getSimpleName(), "updateMovieAfterAction: " + before + movie.getId());
+            if (before.contains(Constants.TAGS_WISHLIST)) {
+                movie.setTags(movie.getTags().replace(Constants.TAGS_WISHLIST, ""));
+                // remove tags
+                repository.updateMovieLocal(movie, new IConsumerMovieDataSource.DBSource.UpdateDataCallback() {
+                    @Override
+                    public void onPreExecute() {
+
+                    }
+
+                    @Override
+                    public <T> void onPostExecute(T res) {
+                        view.setIconWishList(R.drawable.ic_bookmark_border_white_48dp);
+                        view.showMessageToast(context.getString(R.string.remove_wishlist));
+                    }
+                });
+            } else {
+                movie.setTags(movie.getTags() + Constants.TAGS_WISHLIST);
+                // update
+                repository.updateMovieLocal(movie, new IConsumerMovieDataSource.DBSource.UpdateDataCallback() {
+                    @Override
+                    public void onPreExecute() {
+
+                    }
+
+                    @Override
+                    public <T> void onPostExecute(T res) {
+                        view.setIconWishList(R.drawable.ic_bookmark_white_24dp);
+                        view.showMessageToast(context.getString(R.string.success_wishlist));
+
+                    }
+                });
+            }
+
         }
         this.setMovie(movie);
 

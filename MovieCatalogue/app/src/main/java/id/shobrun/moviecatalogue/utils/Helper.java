@@ -2,6 +2,7 @@ package id.shobrun.moviecatalogue.utils;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 import id.shobrun.moviecatalogue.models.data.Movie;
 
 public class Helper {
+    private static final String TAG = Helper.class.getSimpleName();
 
     public static ArrayList<Movie> mappingCursorToMovies(Cursor cursor){
         ArrayList<Movie>  movies = new ArrayList<>();
@@ -24,13 +26,16 @@ public class Helper {
             String tags = cursor.getString(cursor.getColumnIndexOrThrow(Movie.TAGS));
 
             Movie movie = new Movie(id,title,overview,poster_path,backdrop_path,vote_average,release_date,tags);
+            Log.d(TAG, "mappingCursorToMovies: "+movie.getId());
             movies.add(movie);
         }
+        Log.d(TAG, "mappingCursorToMovies size: "+movies.size());
         return  movies;
     }
 
     public static ContentValues mappingMoviesToContent(Movie movie){
         ContentValues values = new ContentValues();
+        Log.d(TAG, "mappingMoviesToContent: "+movie.getId());
         values.put(Movie._ID,movie.getId());
         values.put(Movie.TITLE,movie.getTitle());
         values.put(Movie.OVERVIEW,movie.getOverview());
@@ -40,6 +45,9 @@ public class Helper {
         values.put(Movie.RELEASE_DATE,movie.getRelease_date());
         values.put(Movie.TAGS,movie.getTags());
         return values;
+    }
+    public static String addWildcard(String str){
+        return "%"+str+"%";
     }
 
 }

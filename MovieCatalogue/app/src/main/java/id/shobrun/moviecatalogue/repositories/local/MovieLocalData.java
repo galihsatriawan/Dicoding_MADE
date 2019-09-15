@@ -11,6 +11,7 @@ import id.shobrun.moviecatalogue.database.MovieCatalogueDatabase;
 import id.shobrun.moviecatalogue.database.dao.MovieDao;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.repositories.IMoviesDataSource;
+import id.shobrun.moviecatalogue.utils.Helper;
 
 public class MovieLocalData implements IMoviesDataSource.DBSource {
     private MovieDao movieDao;
@@ -36,7 +37,7 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
 
         @Override
         protected List<Movie> doInBackground(String... params) {
-            return this.movieDao.get().getAllMovieByTags(params[0]);
+            return this.movieDao.get().getAllMovieByTags(Helper.addWildcard(params[0]));
         }
 
         @Override
@@ -182,7 +183,7 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
     @Override
     public ArrayList<Movie> getLikeMoviesLocalSync(String tags) {
 
-        return (ArrayList)movieDao.getAllMovieByTags(tags);
+        return (ArrayList)movieDao.getAllMovieByTags(Helper.addWildcard(tags));
     }
 
     @Override

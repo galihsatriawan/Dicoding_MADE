@@ -69,6 +69,11 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.TVShowView
             public void onViewClicked(View v1, View v2) {
 
             }
+
+            @Override
+            public <T> void onViewClicked(T obj, View v1, View v2) {
+
+            }
         });
     }
 

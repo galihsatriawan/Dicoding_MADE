@@ -26,7 +26,7 @@ public interface MovieDao {
     @Query("SELECT * FROM "+ Movie.TABLE_NAME)
     List<Movie> getAllMovie();
 
-    @Query("SELECT * FROM "+Movie.TABLE_NAME+" WHERE "+Movie.TAGS+" = :tags")
+    @Query("SELECT * FROM "+Movie.TABLE_NAME+" WHERE "+Movie.TAGS+" LIKE :tags")
     List<Movie> getAllMovieByTags(String tags);
 
     @Query("SELECT * FROM "+Movie.TABLE_NAME+" WHERE "+Movie._ID+" = :id")
@@ -39,11 +39,11 @@ public interface MovieDao {
     @Query("SELECT * FROM "+Movie.TABLE_NAME +" WHERE "+Movie._ID+" = :id")
     Cursor selectByIdProvider(int id);
 
-    @Query("SELECT * FROM "+Movie.TABLE_NAME +" WHERE "+Movie.TAGS+" = :tags")
+    @Query("SELECT * FROM "+Movie.TABLE_NAME +" WHERE "+Movie.TAGS+" LIKE :tags")
     Cursor selectByTagProvider(String tags);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    int insertProvider(Movie movie);
+    long insertProvider(Movie movie);
 
     @Query("DELETE FROM "+Movie.TABLE_NAME+" WHERE "+Movie._ID+" = :id")
     int deleteByIdProvider(int id);

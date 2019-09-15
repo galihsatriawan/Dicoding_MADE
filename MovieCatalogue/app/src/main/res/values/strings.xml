@@ -12,6 +12,8 @@
     <string name="communication_error">Failed to get data from server</string>
     <string name="success_favorite">Success to be your favorite</string>
     <string name="remove_favorite">Favorite Movie has removed </string>
+    <string name="success_wishlist">Success to be your Wish List</string>
+    <string name="remove_wishlist">Wish List Movie has removed </string>
     <string name="empty_tv">There is no TV Show</string>
     <string name="empty_movie">There is no Movie</string>
 

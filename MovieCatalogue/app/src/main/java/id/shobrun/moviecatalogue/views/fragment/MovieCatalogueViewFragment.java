@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.utils.common.OnItemClickListener;
+import id.shobrun.moviecatalogue.utils.common.OnViewClickListener;
 import id.shobrun.moviecatalogue.viewmodels.MovieCatalogueViewModel;
 import id.shobrun.moviecatalogue.views.DetailMovieActivity;
 import id.shobrun.moviecatalogue.views.adapter.MovieAdapter;
@@ -117,6 +118,11 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
     }
 
     @Override
+    public void showMessageToast(String str) {
+        Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void showListMovieCatalogue(final ArrayList<Movie> movies) {
         if(movieAdapter == null){
             movieAdapter = new MovieAdapter();
@@ -127,6 +133,31 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
                     detail.putExtra(DetailMovieActivity.EXTRA_MOVIE,movies.get(position));
                     v.getContext().startActivity(detail);
 
+                }
+            });
+            movieAdapter.setOnViewClickListener(new OnViewClickListener() {
+                @Override
+                public void onViewClicked(View view) {
+
+                }
+
+                @Override
+                public void onViewClicked(View v1, View v2) {
+
+                }
+
+                @Override
+                public <T> void onViewClicked(T obj, View v1, View v2) {
+                    Movie movie = (Movie) obj;
+                    if(v1.getVisibility()==View.VISIBLE){
+                        v2.setVisibility(View.VISIBLE);
+                        v1.setVisibility(View.GONE);
+                        viewModel.updateMovieAfterAction(movie);
+                    }else{
+                        v2.setVisibility(View.GONE);
+                        v1.setVisibility(View.VISIBLE);
+                        viewModel.updateMovieAfterAction(movie);
+                    }
                 }
             });
         }

@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ import id.shobrun.moviecatalogue.database.MovieCatalogueDatabase;
 
 @Entity(tableName = Movie.TABLE_NAME)
 public class Movie implements Parcelable {
+    private static final String TAG = Movie.class.getSimpleName();
     public static final String TABLE_NAME = "tb_movies";
     public static final String _ID = BaseColumns._ID;
     public static final String TITLE = "title";
@@ -231,16 +233,19 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+    @Ignore
     private static final String SCHEME = "content";
+    @Ignore
     public static final Uri CONTENT_URI = new Uri.Builder()
             .scheme(SCHEME)
             .authority(MovieCatalogueDatabase.AUTHORITY)
             .appendPath(TABLE_NAME)
             .build();
-
+    @Ignore
     public static Movie fromContentValues(ContentValues values){
         final Movie movie = new Movie(-1);
         if(values.containsKey(_ID)) movie.setId(values.getAsInteger(_ID));
+        Log.d(TAG, "fromContentValues: "+values.getAsInteger(_ID));
         if(values.containsKey(TITLE)) movie.setTitle(values.getAsString(TITLE));
         if(values.containsKey(OVERVIEW)) movie.setOverview(values.getAsString(OVERVIEW));
         if(values.containsKey(POSTER_PATH)) movie.setPoster_path(values.getAsString(POSTER_PATH));

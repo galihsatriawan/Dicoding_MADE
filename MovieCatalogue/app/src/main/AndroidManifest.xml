@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.DetailMovieWishListActivity"></activity>
-        <activity android:name=".views.SettingActivity" />
+        <activity android:name=".views.DetailMovieWishListActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".views.SettingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".views.MainFavoriteActivity"
             android:theme="@style/AppTheme.NoActionBar" />

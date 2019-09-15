@@ -21,12 +21,12 @@ public interface TvShowDao {
     @Update
     void updateTvShow(TvShow tvShow);
 
-    @Query("SELECT * FROM tb_tv_show")
+    @Query("SELECT * FROM "+TvShow.TABLE_NAME)
     List<TvShow> getAllTvShow();
 
-    @Query("SELECT * FROM tb_tv_show WHERE tags = :tags")
+    @Query("SELECT * FROM "+TvShow.TABLE_NAME +" WHERE tags = :tags")
     List<TvShow> getAllTvShowByTags(String tags);
 
-    @Query("SELECT * FROM tb_tv_show WHERE tvShowId = :id")
+    @Query("SELECT * FROM "+TvShow.TABLE_NAME+" WHERE _id = :id")
     TvShow getTvShowById(int id);
 }

@@ -41,8 +41,10 @@ public class ReminderReceiver extends BroadcastReceiver {
         String title = intent.getStringExtra(EXTRA_TITLE);
         String message = intent.getStringExtra(EXTRA_MESSAGE);
         int idNotif = (type.equalsIgnoreCase(DAILY_REMINDER))?NOTIF_ID_DAILY:NOTIF_ID_RELEASE;
-        PendingIntent pIntent = (PendingIntent)intent.getParcelableExtra(EXTRA_INTENT);
+
+
         if(type.equalsIgnoreCase(DAILY_REMINDER)){
+            PendingIntent pIntent = (PendingIntent)intent.getParcelableExtra(EXTRA_INTENT);
             doDaily(context,title,message,idNotif,pIntent);
         }else{
             doReleaseReminder(context,idNotif,1);
@@ -116,7 +118,7 @@ public class ReminderReceiver extends BroadcastReceiver {
                 Intent intent = new Intent(context, DetailMovieActivity.class);
                 intent.putExtra(DetailMovieActivity.EXTRA_MOVIE,movie);
 
-                PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
+                PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
                 Notifications.showNotification(context,movie.getTitle(),movie.getOverview(),id,pendingIntent);
             }

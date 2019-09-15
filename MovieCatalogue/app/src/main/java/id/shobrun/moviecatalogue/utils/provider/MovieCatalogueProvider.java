@@ -9,17 +9,22 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import id.shobrun.moviecatalogue.database.MovieCatalogueDatabase;
 import id.shobrun.moviecatalogue.database.dao.MovieDao;
 import id.shobrun.moviecatalogue.models.data.Movie;
+import id.shobrun.moviecatalogue.utils.Helper;
 
+@SuppressWarnings("ConstantConditions")
 public class MovieCatalogueProvider extends ContentProvider {
+    private final String TAG = getClass().getSimpleName();
     private static final int MOVIE = 1;
     private static final int MOVIE_ID = 2;
     private static final int MOVIE_TAGS = 3;
     public static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private MovieDao movieDao;
+    private Context context;
 
     static {
         sUriMatcher.addURI(MovieCatalogueDatabase.AUTHORITY, Movie.TABLE_NAME, MOVIE);
@@ -28,7 +33,9 @@ public class MovieCatalogueProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        movieDao = MovieCatalogueDatabase.getDatabase(getContext()).movieDao();
+        context = getContext();
+        Log.d(TAG, "onCreate: "+context);
+        movieDao = MovieCatalogueDatabase.getDatabase(context).movieDao();
         return true;
     }
 
@@ -36,7 +43,6 @@ public class MovieCatalogueProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         Cursor cursor;
-        final Context context = getContext();
         if (context == null) {
             return null;
         }
@@ -46,7 +52,8 @@ public class MovieCatalogueProvider extends ContentProvider {
                     cursor = movieDao.selectAllProvider();
                     cursor.setNotificationUri(context.getContentResolver(), uri);
                 }else{
-                    cursor = movieDao.selectByTagProvider(selectionArgs[0]);
+
+                    cursor = movieDao.selectByTagProvider(Helper.addWildcard(selectionArgs[0]));
                     cursor.setNotificationUri(context.getContentResolver(), uri);
                 }
 
@@ -84,14 +91,16 @@ public class MovieCatalogueProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        final Context context = getContext();
-
         switch (sUriMatcher.match(uri)) {
             case MOVIE: {
-                if (context != null) {
+                if (context == null) {
+                    Log.d(TAG, "insert: null context");
                     return null;
                 }
-                final long id = movieDao.insertProvider(Movie.fromContentValues(values));
+                Movie movie = Movie.fromContentValues(values);
+                final long id = movieDao.insertProvider(movie);
+                Log.d(TAG, "insert: id : "+id+" Movie Id :"+movie.getId() );
+
                 if (id != 0) {
                     context.getContentResolver().notifyChange(uri, null);
                     return ContentUris.withAppendedId(uri, id);
@@ -106,12 +115,10 @@ public class MovieCatalogueProvider extends ContentProvider {
 
         }
 
-
     }
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        final Context context = getContext();
 
         switch (sUriMatcher.match(uri)) {
             case MOVIE:
@@ -119,7 +126,7 @@ public class MovieCatalogueProvider extends ContentProvider {
                 throw new IllegalArgumentException("Invalid URI, only can update with ID" + uri);
             }
             case MOVIE_ID: {
-                if (context != null) {
+                if (context == null) {
                     return 0;
                 }
                 final int count = movieDao.deleteByIdProvider(Integer.parseInt(uri.getLastPathSegment()));
@@ -135,15 +142,14 @@ public class MovieCatalogueProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        final Context context = getContext();
 
         switch (sUriMatcher.match(uri)) {
-            case MOVIE:
+            case MOVIE_ID:
             case MOVIE_TAGS: {
                 throw new IllegalArgumentException("Invalid URI, only can update with ID" + uri);
             }
-            case MOVIE_ID: {
-                if (context != null) {
+            case MOVIE: {
+                if (context == null) {
                     return 0;
                 }
                 final int count = movieDao.updateProvider(Movie.fromContentValues(values));

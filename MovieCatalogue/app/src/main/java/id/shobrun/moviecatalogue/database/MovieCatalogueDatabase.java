@@ -10,7 +10,7 @@ import id.shobrun.moviecatalogue.database.dao.TvShowDao;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.models.data.TvShow;
 
-@Database(entities = {Movie.class, TvShow.class},version = 1,exportSchema = false)
+@Database(entities = {Movie.class, TvShow.class},version = 2,exportSchema = false)
 public abstract class MovieCatalogueDatabase extends RoomDatabase {
 
     public abstract MovieDao movieDao();

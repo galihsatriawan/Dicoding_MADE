@@ -22,8 +22,8 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
     private String DAILY_REMINDER;
     private ReminderReceiver reminderReceiver;
 
-    private static final String timeDaily ="7:00";
-    private static final String timeRelease ="8:00";
+    private static final String timeDaily ="07:00";
+    private static final String timeRelease ="08:00";
     private SwitchPreference isSetReleaseReminder,isSetDailyReminder;
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -63,7 +63,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Intent intent = new Intent(getContext(), MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),0,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         if(key.equals(RELEASE_REMINDER)){
             isSetReleaseReminder.setChecked(sharedPreferences.getBoolean(RELEASE_REMINDER,false));
             boolean setRelease = sharedPreferences.getBoolean(RELEASE_REMINDER,false);

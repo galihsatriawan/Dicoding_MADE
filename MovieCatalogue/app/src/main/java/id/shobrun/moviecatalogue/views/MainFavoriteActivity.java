@@ -35,7 +35,15 @@ public class MainFavoriteActivity extends AppCompatActivity implements IMainFavo
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
+        invalidateOptionsMenu();
         getMenuInflater().inflate(R.menu.main_menu,menu);
+
+        MenuItem item_search = menu.findItem(R.id.search);
+        item_search.setVisible(false);
+
+        MenuItem item_list= menu.findItem(R.id.action_list_favorite);
+        item_list.setVisible(false);
+
         return super.onCreateOptionsMenu(menu);
     }
 
