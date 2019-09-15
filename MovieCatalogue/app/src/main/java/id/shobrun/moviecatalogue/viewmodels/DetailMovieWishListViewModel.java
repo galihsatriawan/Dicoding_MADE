@@ -61,13 +61,10 @@ public class DetailMovieWishListViewModel extends ViewModel {
             public <T> void onLoadSuccess(T res) {
                 Movie res_movie = (Movie) res;
                 if (res_movie.getId() != -1) {
-
                     movie.postValue(res_movie);
                     if(res_movie.getTags().contains(Constants.TAGS_WISHLIST)){
                         view.setIconWishList(R.drawable.ic_bookmark_white_24dp);
                     }
-
-
                 }
             }
         });

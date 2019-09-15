@@ -45,7 +45,13 @@
         <receiver
             android:name=".utils.alarm.ReminderReceiver"
             android:enabled="true"
-            android:exported="true" /> <!-- StackWidget Service -->
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver><!-- StackWidget Service -->
+        <service android:name=".utils.services.NotificationService"/>
         <service
             android:name=".utils.services.UpdateWidgetService"
             android:enabled="true"
