@@ -219,7 +219,7 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
     public ArrayList<Movie> getWishListMoviesLocalSync(String tags) {
         Uri uri = Movie.CONTENT_URI;
         DataPair dataPair = new DataPair(uri,Movie.TAGS+" = ?",new String[]{Constants.TAGS_WISHLIST});
-        return (ArrayList) Helper.mappingCursorToMovies(mContentResolver.query(uri,null,dataPair.selection,dataPair.argument,null));
+        return Helper.mappingCursorToMovies(mContentResolver.query(uri,null,dataPair.selection,dataPair.argument,null));
     }
 
     @Override

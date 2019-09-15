@@ -171,6 +171,7 @@ public class MovieCatalogueViewFragment extends Fragment implements IMovieCatalo
         public void onChanged(ArrayList<Movie> movies) {
             if(movies != null){
                 hideProgress();
+                Log.d(TAG, "onChanged: ");
                 showListMovieCatalogue(movies);
             }
 

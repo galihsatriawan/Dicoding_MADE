@@ -21,7 +21,6 @@
     <string name="tab_text_1">Movie Catalogue</string>
     <string name="tab_text_2">TV Shows</string>
     <string name="tab_text_3">Movie Wish List</string>
-    <string name="trending_now">Trending Now</string>
     <string name="change_language_settings">Change Language Settings</string>
     <string name="list_favorite">My Favorite</string>
     <string name="setting">Settings</string>
@@ -31,7 +30,6 @@
     <string name="search">Search</string>
     <string name="search_hint">Input Word</string>
     <string name="appwidget_text">My Favorite Movie</string>
-    <string name="add_widget">Add widget</string>
     <string name="empty_text">No Data</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -42,7 +40,11 @@
     <string name="key_daily_reminder">daily_reminder</string>
     <string name="daily_reminder">Daily Reminder</string>
     <string name="is_daily_reminder">Reminder for return to app</string>
+    <string name="dummy_production">MNC TV</string>
+    <string name="dummy_release_date">12 Juni 2019</string>
+    <string name="dummy_duration">2 Hours 3 Minutes</string>
+    <string name="action_favorite">Favorite</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

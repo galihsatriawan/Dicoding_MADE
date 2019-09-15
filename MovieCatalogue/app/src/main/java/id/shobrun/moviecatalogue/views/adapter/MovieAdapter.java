@@ -105,7 +105,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         @Override
         public void setExcerpt(String excerpt) {
-            String ex = excerpt.substring(0,13)+" [...]";
+            int len = excerpt.length();
+            String ex = excerpt.substring(0,(len<15)?len:15)+" [...]";
             tvExcerpt.setText(ex);
         }
 

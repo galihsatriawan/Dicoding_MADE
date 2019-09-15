@@ -20,7 +20,6 @@
     <string name="tab_text_1">Katalog Film</string>
     <string name="tab_text_2">Acara TV</string>
     <string name="tab_text_3">Daftar Tunggu Film</string>
-    <string name="trending_now">Tren Sekarang</string>
     <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -29,7 +28,6 @@
     <string name="search_hint">Masukkan Kata</string>
 
     <string name="appwidget_text">Film Favoritku</string>
-    <string name="add_widget">Tambah Widget</string>
     <string name="empty_text">Tidak ada Data</string>
     <string name="list_favorite">Favoritku</string>
     <string name="setting">Pengaturan</string>

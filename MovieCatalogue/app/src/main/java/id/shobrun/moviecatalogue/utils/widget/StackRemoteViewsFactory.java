@@ -64,25 +64,27 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public RemoteViews getViewAt(int position) {
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.movie_widget_item);
         Log.d(TAG, "getViewAt: ");
+            if (movies.size()>0){
+                Movie movie = movies.get(position);
+                try {
+                    Bitmap bitmap = Glide.with(context)
+                            .asBitmap()
+                            .load(Constants.BACKDROP_BASE_URL+movie.getBackdrop_path())
+                            .submit(200,100)
+                            .get();
+                    rv.setImageViewBitmap(R.id.image_poster_widget,bitmap);
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                }
+                rv.setTextViewText(R.id.text_title_widget,movie.getTitle());
 
-            Movie movie = movies.get(position);
-            try {
-                Bitmap bitmap = Glide.with(context)
-                        .asBitmap()
-                        .load(Constants.BACKDROP_BASE_URL+movie.getBackdrop_path())
-                        .submit(200,100)
-                        .get();
-                rv.setImageViewBitmap(R.id.image_poster_widget,bitmap);
-            } catch (Throwable t) {
-                t.printStackTrace();
+                // store the object in the extras so the main activity can use it
+
+                Intent fillIntent = new Intent();
+                fillIntent.putExtra(DetailMovieActivity.EXTRA_ID_MOVIE,movie.getId());
+                rv.setOnClickFillInIntent(R.id.stack_view_item, fillIntent);
+
             }
-            rv.setTextViewText(R.id.text_title_widget,movie.getTitle());
-
-            // store the object in the extras so the main activity can use it
-
-            Intent fillIntent = new Intent();
-            fillIntent.putExtra(DetailMovieActivity.EXTRA_ID_MOVIE,movie.getId());
-            rv.setOnClickFillInIntent(R.id.stack_view_item, fillIntent);
 
         return rv;
     }

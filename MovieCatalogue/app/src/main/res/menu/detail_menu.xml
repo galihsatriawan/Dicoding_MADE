@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_favorite"
-        android:title="Favorite"
+        android:title="@string/action_favorite"
         app:actionLayout="@layout/view_favorite_badge"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_change_settings"

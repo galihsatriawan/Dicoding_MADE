@@ -58,7 +58,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         intent.putExtra(EXTRA_MESSAGE,message);
         intent.putExtra(EXTRA_INTENT,pIntent);
 
-        String timeArray[] = time.split(":");
+        String[] timeArray = time.split(":");
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(timeArray[0]));
@@ -78,7 +78,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderReceiver.class);
         intent.putExtra(EXTRA_TYPE,type);
-        String timeArray[] = time.split(":");
+        String[] timeArray = time.split(":");
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(timeArray[0]));

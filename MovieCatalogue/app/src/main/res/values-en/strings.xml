@@ -20,14 +20,12 @@
     <string name="tab_text_1">Movie Catalogue</string>
     <string name="tab_text_2">TV Shows</string>
     <string name="tab_text_3">Movie Wish List</string>
-    <string name="trending_now">Trending Now</string>
     <string name="change_language_settings">Change Language Settings</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="dummy_rating">4.7</string>
     <string name="search">Search</string>
     <string name="search_hint">Input Word</string>
     <string name="appwidget_text">My Favorite Movie</string>
-    <string name="add_widget">Add widget</string>
     <string name="empty_text">No Data</string>
     <string name="list_favorite">My Favorite</string>
     <string name="setting">Settings</string>

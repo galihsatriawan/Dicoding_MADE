@@ -26,6 +26,10 @@ public class MovieCatalogueViewModel extends ViewModel {
     private ConsumerMovieRepository mConsumerRepository;
     private Context context;
     private IMovieCatalogueView mView;
+    /**
+     * Keep observe data
+     */
+    private MutableLiveData<ArrayList<Movie>> movies;
 
     public void setAppView(Context context, IMovieCatalogueView view) {
         this.context = context;
@@ -144,7 +148,7 @@ public class MovieCatalogueViewModel extends ViewModel {
 
     }
 
-    public void loadSearchMovie(String str) {
+    public void loadSearchMovie(final String str) {
         mView.showProgress();
         mRepository.getSearchMoviesData(str, new IMoviesDataSource.ApiSource.OnFinishedListener() {
             @Override
@@ -181,10 +185,7 @@ public class MovieCatalogueViewModel extends ViewModel {
         });
     }
 
-    /**
-     * Keep observe data
-     */
-    private MutableLiveData<ArrayList<Movie>> movies;
+
 
     public LiveData<ArrayList<Movie>> getMovies() {
         if (movies == null) return movies = new MutableLiveData<>();

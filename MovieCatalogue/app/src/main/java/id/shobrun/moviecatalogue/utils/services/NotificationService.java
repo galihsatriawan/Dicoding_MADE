@@ -46,7 +46,7 @@ public class NotificationService extends IntentService {
         String message = intent.getStringExtra(EXTRA_MESSAGE);
         int idNotif = (type.equalsIgnoreCase(DAILY_REMINDER))?NOTIF_ID_DAILY:NOTIF_ID_RELEASE;
         if(type.equalsIgnoreCase(DAILY_REMINDER)){
-            PendingIntent pIntent = (PendingIntent)intent.getParcelableExtra(EXTRA_INTENT);
+            PendingIntent pIntent = intent.getParcelableExtra(EXTRA_INTENT);
             doDaily(context,title,message,idNotif,pIntent);
         }else{
             doReleaseReminder(context,idNotif,1);
