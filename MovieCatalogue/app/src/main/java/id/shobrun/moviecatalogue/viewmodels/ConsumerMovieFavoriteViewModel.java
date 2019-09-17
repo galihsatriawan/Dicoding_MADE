@@ -12,16 +12,15 @@ import id.shobrun.moviecatalogue.R;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.repositories.ConsumerMovieRepository;
 import id.shobrun.moviecatalogue.repositories.IConsumerMovieDataSource;
-
 import id.shobrun.moviecatalogue.utils.Constants;
-import id.shobrun.moviecatalogue.views.iview.IConsumerWishlistMovieView;
+import id.shobrun.moviecatalogue.views.iview.IConsumerMovieFavoriteView;
 
-public class MovieWishListViewModel extends ViewModel {
+public class ConsumerMovieFavoriteViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Movie>> movies = new MutableLiveData<>();
     private ConsumerMovieRepository repository;
-    private IConsumerWishlistMovieView mView;
+    private IConsumerMovieFavoriteView mView;
     Context context;
-    public void setAppView(Context context, IConsumerWishlistMovieView view){
+    public void setAppView(Context context, IConsumerMovieFavoriteView view){
         this.context = context;
         mView = view;
         this.repository = ConsumerMovieRepository.getInstance(context);
@@ -35,8 +34,8 @@ public class MovieWishListViewModel extends ViewModel {
     public LiveData<ArrayList<Movie>> getMovies() {
         return movies;
     }
-    public void loadWishListMovie(){
-        repository.getMovieByTags(Constants.TAGS_WISHLIST, new IConsumerMovieDataSource.DBSource.LoadDataCallback() {
+    public void loadFavoriteMovie(){
+        repository.getMovieByTags(Constants.TAGS_FAVORITE, new IConsumerMovieDataSource.DBSource.LoadDataCallback() {
             @Override
             public void onPreLoad() {
                 mView.showProgress();
@@ -46,7 +45,7 @@ public class MovieWishListViewModel extends ViewModel {
             public <T> void onLoadSuccess(T res) {
                 ArrayList<Movie> movies = (ArrayList<Movie>) res;
                 mView.hideProgress();
-                MovieWishListViewModel.this.setMovies(movies);
+                ConsumerMovieFavoriteViewModel.this.setMovies(movies);
                 if(movies.size()==0){
                     mView.showMessage(context.getResources().getString(R.string.empty_movie));
                 }

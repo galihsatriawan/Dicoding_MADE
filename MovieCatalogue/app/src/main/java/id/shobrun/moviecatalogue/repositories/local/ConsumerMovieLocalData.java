@@ -204,10 +204,10 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         }
     }
     @Override
-    public void getWishListMoviesLocal(String tags, IConsumerMovieDataSource.DBSource.LoadDataCallback callback){
+    public void getMovieByTags(String tags, IConsumerMovieDataSource.DBSource.LoadDataCallback callback){
         QueryAsyncTask asyncTask;
         Uri uri = Movie.CONTENT_URI;
-        DataPair dataPair = new DataPair(uri,Movie.TAGS+" = ?",new String[]{Constants.TAGS_WISHLIST});
+        DataPair dataPair = new DataPair(uri,Movie.TAGS+" = ?",new String[]{tags});
         synchronized (ConsumerMovieLocalData.class){
             asyncTask = new QueryAsyncTask(mContentResolver,callback);
             asyncTask.execute(dataPair);

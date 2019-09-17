@@ -38,7 +38,7 @@ public class MainFavoriteActivity extends AppCompatActivity implements IMainFavo
         invalidateOptionsMenu();
         getMenuInflater().inflate(R.menu.main_menu,menu);
 
-        MenuItem item_search = menu.findItem(R.id.search);
+        MenuItem item_search = menu.findItem(R.id.action_search);
         item_search.setVisible(false);
 
         MenuItem item_list= menu.findItem(R.id.action_list_favorite);
@@ -57,6 +57,10 @@ public class MainFavoriteActivity extends AppCompatActivity implements IMainFavo
             case R.id.action_settings:
                 Intent settings = new Intent(this,SettingActivity.class);
                 startActivity(settings);
+                break;
+            case R.id.action_content_provider:
+                Intent contentProvider = new Intent(this, ConsumerMainActivity.class);
+                startActivity(contentProvider);
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -44,6 +44,10 @@
     <string name="dummy_release_date">12 Juni 2019</string>
     <string name="dummy_duration">2 Hours 3 Minutes</string>
     <string name="action_favorite">Favorite</string>
+    <string name="content_provider">Content Provider</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
 
     <!-- TODO: Remove or change this placeholder text -->
 

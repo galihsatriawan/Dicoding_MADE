@@ -37,4 +37,10 @@
     <string name="key_daily_reminder">daily_reminder</string>
     <string name="daily_reminder">Daily Reminder</string>
     <string name="is_daily_reminder">Reminder for return to app</string>
+
+    <string name="dummy_production">MNC TV</string>
+    <string name="dummy_release_date">12 Juni 2019</string>
+    <string name="dummy_duration">2 Hours 3 Minutes</string>
+    <string name="action_favorite">Favorite</string>
+    <string name="content_provider">Content Provider</string>
 </resources>

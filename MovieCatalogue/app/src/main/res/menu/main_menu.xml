@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/search"
+    <item android:id="@+id/action_search"
             android:title="@string/search"
             android:icon="@drawable/ic_search_white_24dp"
             app:showAsAction="collapseActionView|ifRoom"
@@ -12,6 +12,10 @@
             android:title="@string/list_favorite"
             android:icon="@drawable/ic_favorite_white_24dp"
             app:showAsAction="ifRoom"
+            />
+        <item android:id="@+id/action_content_provider"
+            android:title="@string/content_provider"
+            app:showAsAction="never"
             />
         <item android:id="@+id/action_change_settings"
             android:title="@string/change_language_settings"

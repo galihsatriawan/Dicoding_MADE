@@ -46,9 +46,10 @@ public class ConsumerMovieRepository implements IConsumerMovieDataSource.DBSourc
     }
 
     @Override
-    public void getWishListMoviesLocal(String tags, LoadDataCallback callback) {
-        localData.getWishListMoviesLocal(tags,callback);
+    public void getMovieByTags(String tags, LoadDataCallback callback) {
+        localData.getMovieByTags(tags,callback);
     }
+
 
     @Override
     public ArrayList<Movie> getWishListMoviesLocalSync(String tags) {

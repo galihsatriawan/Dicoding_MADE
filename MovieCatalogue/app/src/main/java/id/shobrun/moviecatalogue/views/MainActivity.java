@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
         if(searchManager!=null){
-            SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
+            SearchView searchView = (SearchView) (menu.findItem(R.id.action_search)).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setQueryHint(getResources().getString(R.string.search_hint));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -86,12 +86,16 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 startActivity(setting);
                 break;
             case R.id.action_list_favorite:
-                Intent list_favorite = new Intent(this, MainFavoriteActivity.class);
-                startActivity(list_favorite);
+                Intent listFavorite = new Intent(this, MainFavoriteActivity.class);
+                startActivity(listFavorite);
                 break;
             case R.id.action_settings:
                 Intent settings = new Intent(this,SettingActivity.class);
                 startActivity(settings);
+                break;
+            case R.id.action_content_provider:
+                Intent contentProvider = new Intent(this, ConsumerMainActivity.class);
+                startActivity(contentProvider);
                 break;
         }
         return super.onOptionsItemSelected(item);

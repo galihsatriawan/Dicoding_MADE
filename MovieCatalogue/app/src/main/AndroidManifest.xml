@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.shobrun.moviecatalogue">
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,11 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".views.ConsumerMainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".views.ConsumerDetailMovieActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".views.DetailMovieWishListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.SettingActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".views.SettingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.MainFavoriteActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -37,6 +39,13 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:name=".utils.provider.MovieCatalogueProvider"
+            android:authorities="id.shobrun.moviecatalogue"
+            android:exported="true"
+            android:readPermission="com.dicoding.mynotesapp.READ_DATABASE"
+            android:writePermission="com.dicoding.mynotesapp.WRITE_DATABASE" />
+
         <receiver android:name=".utils.widget.MovieFavoriteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -45,36 +54,30 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/movie_favorite_widget_info" />
-        </receiver>
+        </receiver> <!-- StackWidget Service -->
         <receiver
             android:name=".utils.alarm.ReminderReceiver"
             android:enabled="true"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver><!-- StackWidget Service -->
-        <service android:name=".utils.services.NotificationService"/>
+        </receiver>
+
+        <service android:name=".utils.services.NotificationService" />
         <service
             android:name=".utils.services.UpdateWidgetService"
             android:enabled="true"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- Provider -->
         <service
             android:name=".utils.services.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
-        <!-- Provider        -->
-        <provider
-            android:authorities="id.shobrun.moviecatalogue"
-            android:name=".utils.provider.MovieCatalogueProvider"
-            android:exported="true"
-            android:readPermission="com.dicoding.mynotesapp.READ_DATABASE"
-            android:writePermission="com.dicoding.mynotesapp.WRITE_DATABASE"
-            />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 </manifest>

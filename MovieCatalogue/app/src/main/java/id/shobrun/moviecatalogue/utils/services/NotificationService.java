@@ -60,13 +60,15 @@ public class NotificationService extends IntentService {
         repository.getReleaseMovie(new IMoviesDataSource.ApiSource.OnFinishedListener() {
             @Override
             public void onFinished(Response<MovieListResponse> response) {
-                Movie movie = response.body().getResults().get(0);
-                Intent intent = new Intent(context, DetailMovieActivity.class);
-                intent.putExtra(DetailMovieActivity.EXTRA_MOVIE,movie);
+                for(Movie movie : response.body().getResults()){
+                    Intent intent = new Intent(context, DetailMovieActivity.class);
+                    intent.putExtra(DetailMovieActivity.EXTRA_MOVIE,movie);
 
-                PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-                Notifications.showNotification(context,movie.getTitle(),movie.getOverview(),id,pendingIntent);
+                    Notifications.showNotification(context,movie.getTitle(),movie.getOverview(),movie.getId(),pendingIntent);
+                }
+
             }
 
             @Override

@@ -10,7 +10,7 @@ public interface IConsumerMovieDataSource {
         void deleteMovieLocal(Movie movie,UpdateDataCallback callback);
         void deleteMovieByIdLocal(int id,UpdateDataCallback callback);
         void insertMovieLocal(Movie movie,UpdateDataCallback callback);
-        void getWishListMoviesLocal(String tags,LoadDataCallback callback);
+        void getMovieByTags(String tags, LoadDataCallback callback);
         ArrayList<Movie> getWishListMoviesLocalSync(String tags);
         void getMovieByIdLocal(int id,LoadDataCallback callback);
         interface LoadDataCallback{
