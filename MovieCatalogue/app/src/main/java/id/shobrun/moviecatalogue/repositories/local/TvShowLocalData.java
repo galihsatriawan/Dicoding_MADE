@@ -11,6 +11,7 @@ import id.shobrun.moviecatalogue.database.MovieCatalogueDatabase;
 import id.shobrun.moviecatalogue.database.dao.TvShowDao;
 import id.shobrun.moviecatalogue.models.data.TvShow;
 import id.shobrun.moviecatalogue.repositories.ITvShowDataSource;
+import id.shobrun.moviecatalogue.utils.Constants;
 
 public class TvShowLocalData implements ITvShowDataSource.DBSource {
     private TvShowDao tvShowDao;
@@ -31,24 +32,34 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreLoad();
+            ITvShowDataSource.DBSource.LoadDataCallback listener =weakCallback.get();
+            if(listener!=null){
+                listener.onPreLoad();
+            }
         }
 
         @Override
         protected List<TvShow> doInBackground(String... params) {
-            return this.tvShowDao.get().getAllTvShowByTags(params[0]);
+            List<TvShow> res = this.tvShowDao.get().getAllTvShowByTags(params[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return res;
         }
 
         @Override
         protected void onPostExecute(List<TvShow> listLiveData) {
             super.onPostExecute(listLiveData);
-            if(listLiveData == null){
-                weakCallback.get().onLoadSuccess(new ArrayList<>());
-            }else{
-                weakCallback.get().onLoadSuccess(listLiveData);
+            ITvShowDataSource.DBSource.LoadDataCallback listener =weakCallback.get();
+            if(listener!=null){
+                if(listLiveData == null){
+                    weakCallback.get().onLoadSuccess(new ArrayList<>());
+                }else{
+                    weakCallback.get().onLoadSuccess(listLiveData);
+                }
             }
-
-
         }
 
     }
@@ -63,25 +74,35 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreLoad();
+            ITvShowDataSource.DBSource.LoadDataCallback listener =weakCallback.get();
+            if(listener!=null){
+                listener.onPreLoad();
+            }
         }
 
         @Override
         protected TvShow doInBackground(Integer... params) {
-            return this.tvShowDao.get().getTvShowById(params[0]);
+            TvShow res = this.tvShowDao.get().getTvShowById(params[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return res;
         }
 
         @Override
         protected void onPostExecute(TvShow liveData) {
             super.onPostExecute(liveData);
-            if(liveData == null ) {
-                TvShow movie = new TvShow(-1);
-                weakCallback.get().onLoadSuccess(movie);
-            }else{
-                weakCallback.get().onLoadSuccess(liveData);
+            ITvShowDataSource.DBSource.LoadDataCallback listener =weakCallback.get();
+            if(listener!=null){
+                if(liveData == null ) {
+                    TvShow movie = new TvShow(-1);
+                    listener.onLoadSuccess(movie);
+                }else{
+                    listener.onLoadSuccess(liveData);
+                }
             }
-
-
         }
 
     }
@@ -96,19 +117,30 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreExecute();
+            ITvShowDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPreExecute();
+            }
         }
 
         @Override
         protected String doInBackground(TvShow... movies) {
             tvShowDao.get().updateTvShow(movies[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return movies[0].getTags();
         }
 
         @Override
         protected void onPostExecute(String res) {
             super.onPostExecute(res);
-            weakCallback.get().onPostExecute(res);
+            ITvShowDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPostExecute(res);
+            }
         }
     }
     private static class InsertAsyncTask extends AsyncTask<TvShow,Void, Integer>{
@@ -122,19 +154,32 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            this.callback.get().onPreExecute();
+            ITvShowDataSource.DBSource.UpdateDataCallback listener = callback.get();
+            if(listener!=null){
+                listener.onPreExecute();
+            }
+
         }
 
         @Override
         protected Integer doInBackground(final TvShow... movies) {
             this.dao.get().insertTvShow(movies[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return movies[0].getId();
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            this.callback.get().onPostExecute(integer);
+            ITvShowDataSource.DBSource.UpdateDataCallback listener = callback.get();
+            if(listener!=null){
+                listener.onPostExecute(integer);
+            }
+
         }
     }
     private static class DeleteAsyncTask extends AsyncTask<TvShow, Void,Void>{
@@ -147,19 +192,30 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            this.callback.get().onPreExecute();
+            ITvShowDataSource.DBSource.UpdateDataCallback listener = callback.get();
+            if(listener!=null){
+                listener.onPreExecute();
+            }
         }
 
         @Override
         protected Void doInBackground(TvShow... movies) {
             this.dao.get().deleteTvShow(movies[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void Voids) {
             super.onPostExecute(Voids);
-            this.callback.get().onPostExecute(null);
+            ITvShowDataSource.DBSource.UpdateDataCallback listener = callback.get();
+            if(listener!=null){
+                listener.onPostExecute(null);
+            }
         }
     }
     @Override
@@ -167,19 +223,16 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         InsertAsyncTask asyncTask ;
         synchronized (TvShowLocalData.class){
             asyncTask = new InsertAsyncTask(tvShowDao,callback);
-            asyncTask.execute(tvShow);
         }
-
-
+        asyncTask.execute(tvShow);
     }
     @Override
     public void getFavoriteTvShowLocal(String tags, ITvShowDataSource.DBSource.LoadDataCallback callback){
         QueryAsyncTask asyncTask;
         synchronized (TvShowLocalData.class){
             asyncTask = new QueryAsyncTask(tvShowDao,callback);
-            asyncTask.execute(tags);
         }
-
+        asyncTask.execute(tags);
     }
 
     @Override
@@ -187,9 +240,8 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         QueryByIdAsyncTask asyncTask;
         synchronized (TvShowLocalData.class){
             asyncTask = new QueryByIdAsyncTask(tvShowDao,callback);
-            asyncTask.execute(id);
         }
-
+        asyncTask.execute(id);
     }
 
     @Override
@@ -197,9 +249,8 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         UpdateAsyncTask asyncTask ;
         synchronized (TvShowLocalData.class){
             asyncTask = new UpdateAsyncTask(tvShowDao,callback);
-            asyncTask.execute(tvShow);
         }
-
+        asyncTask.execute(tvShow);
     }
 
     @Override
@@ -207,9 +258,8 @@ public class TvShowLocalData implements ITvShowDataSource.DBSource {
         DeleteAsyncTask asyncTask ;
         synchronized (TvShowLocalData.class){
             asyncTask = new DeleteAsyncTask(tvShowDao,callback);
-            asyncTask.execute(tvShow);
         }
-
+        asyncTask.execute(tvShow);
     }
     
 }

@@ -30,7 +30,7 @@
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 tool:src="@drawable/poster_avengerinfinity"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/dummy_content_description" />
             <ImageView
                 android:id="@+id/image_wishlist_off"
                 android:layout_width="30dp"
@@ -39,7 +39,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
                 android:visibility="visible"
                 android:src="@drawable/ic_bookmark_border_white_48dp"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/dummy_content_description" />
             <ImageView
                 android:id="@+id/image_wishlist_on"
                 android:layout_width="30dp"
@@ -48,7 +48,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
                 android:visibility="gone"
                 android:src="@drawable/ic_bookmark_white_24dp"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/dummy_content_description" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@android:drawable/star_on"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="@string/dummy_content_description" />
 
                 <TextView
                     android:id="@+id/text_rating"

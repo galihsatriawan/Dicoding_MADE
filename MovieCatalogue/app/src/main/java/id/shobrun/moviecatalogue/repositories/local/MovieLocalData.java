@@ -11,6 +11,7 @@ import id.shobrun.moviecatalogue.database.MovieCatalogueDatabase;
 import id.shobrun.moviecatalogue.database.dao.MovieDao;
 import id.shobrun.moviecatalogue.models.data.Movie;
 import id.shobrun.moviecatalogue.repositories.IMoviesDataSource;
+import id.shobrun.moviecatalogue.utils.Constants;
 import id.shobrun.moviecatalogue.utils.Helper;
 
 public class MovieLocalData implements IMoviesDataSource.DBSource {
@@ -32,23 +33,35 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreLoad();
+            IMoviesDataSource.DBSource.LoadDataCallback listener = weakCallback.get();
+            if(listener!= null){
+                listener.onPreLoad();
+            }
         }
 
         @Override
         protected List<Movie> doInBackground(String... params) {
-            return this.movieDao.get().getAllMovieByTags(Helper.addWildcard(params[0]));
+            List<Movie> res = this.movieDao.get().getAllMovieByTags(Helper.addWildcard(params[0]));
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return res;
         }
 
         @Override
         protected void onPostExecute(List<Movie> listLiveData) {
             super.onPostExecute(listLiveData);
-            if(listLiveData == null){
-
-                weakCallback.get().onLoadSuccess(new ArrayList<>());
-            }else{
-                weakCallback.get().onLoadSuccess(listLiveData);
+            IMoviesDataSource.DBSource.LoadDataCallback listener = weakCallback.get();
+            if(listener !=null){
+                if(listLiveData == null){
+                    listener.onLoadSuccess(new ArrayList<>());
+                }else{
+                    listener.onLoadSuccess(listLiveData);
+                }
             }
+
         }
 
     }
@@ -63,23 +76,37 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreLoad();
+            IMoviesDataSource.DBSource.LoadDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPreLoad();
+            }
+
         }
 
         @Override
         protected Movie doInBackground(Integer... params) {
-            return this.movieDao.get().getMovieById(params[0]);
+            Movie res = this.movieDao.get().getMovieById(params[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return res;
         }
 
         @Override
         protected void onPostExecute(Movie liveData) {
             super.onPostExecute(liveData);
-            if(liveData == null ) {
-                Movie movie = new Movie(-1);
-                weakCallback.get().onLoadSuccess(movie);
-            }else{
-                weakCallback.get().onLoadSuccess(liveData);
+            IMoviesDataSource.DBSource.LoadDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                if(liveData == null ) {
+                    Movie movie = new Movie(-1);
+                    listener.onLoadSuccess(movie);
+                }else{
+                    listener.onLoadSuccess(liveData);
+                }
             }
+
 
 
         }
@@ -96,19 +123,32 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreExecute();
+            IMoviesDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPreExecute();
+            }
+
         }
 
         @Override
         protected String doInBackground(Movie... movies) {
             movieDao.get().updateMovie(movies[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return movies[0].getTags();
         }
 
         @Override
         protected void onPostExecute(String res) {
             super.onPostExecute(res);
-            weakCallback.get().onPostExecute(res);
+            IMoviesDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPostExecute(res);
+            }
+
         }
     }
     private static class InsertAsyncTask extends AsyncTask<Movie,Void, Integer>{
@@ -122,19 +162,33 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            this.callback.get().onPreExecute();
+            IMoviesDataSource.DBSource.UpdateDataCallback listener = callback.get();
+            if(listener!=null){
+                listener.onPreExecute();
+            }
+
         }
 
         @Override
         protected Integer doInBackground(final Movie... movies) {
+
             this.dao.get().insertMovie(movies[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return movies[0].getId();
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            this.callback.get().onPostExecute(integer);
+            IMoviesDataSource.DBSource.UpdateDataCallback listener = callback.get();
+            if(listener!=null){
+                listener.onPostExecute(integer);
+            }
+
         }
     }
     private static class DeleteAsyncTask extends AsyncTask<Movie, Void,Void>{
@@ -147,19 +201,32 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            this.callback.get().onPreExecute();
+            IMoviesDataSource.DBSource.UpdateDataCallback listener = callback.get();
+            if(listener!=null){
+                listener.onPreExecute();
+            }
+
         }
 
         @Override
         protected Void doInBackground(Movie... movies) {
             this.dao.get().deleteMovie(movies[0]);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void Voids) {
             super.onPostExecute(Voids);
-            this.callback.get().onPostExecute(null);
+            IMoviesDataSource.DBSource.UpdateDataCallback listener = callback.get();
+            if(listener!=null){
+                this.callback.get().onPostExecute(null);
+            }
+
         }
     }
     @Override
@@ -191,8 +258,8 @@ public class MovieLocalData implements IMoviesDataSource.DBSource {
         QueryByIdAsyncTask asyncTask;
         synchronized (MovieLocalData.class){
             asyncTask = new QueryByIdAsyncTask(movieDao,callback);
-            asyncTask.execute(id);
         }
+        asyncTask.execute(id);
 
     }
 

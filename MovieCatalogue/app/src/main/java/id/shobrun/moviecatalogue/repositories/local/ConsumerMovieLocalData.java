@@ -46,26 +46,40 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
             }else{
                 cursor = weakResolver.get().query(dataPairs[0].uri,null,null,null,null);
             }
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             ArrayList<Movie> movies = Helper.mappingCursorToMovies(cursor);
             Log.d(TAG, "doInBackground size: "+movies.size());
+
             return movies;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreLoad();
+            IConsumerMovieDataSource.DBSource.LoadDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPreLoad();
+            }
+
         }
 
 
         @Override
         protected void onPostExecute(List<Movie> listLiveData) {
             super.onPostExecute(listLiveData);
-            if(listLiveData == null){
-                weakCallback.get().onLoadSuccess(new ArrayList<>());
-            }else{
-                weakCallback.get().onLoadSuccess(listLiveData);
+            IConsumerMovieDataSource.DBSource.LoadDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                if(listLiveData == null){
+                    weakCallback.get().onLoadSuccess(new ArrayList<>());
+                }else{
+                    weakCallback.get().onLoadSuccess(listLiveData);
+                }
             }
+
         }
 
     }
@@ -82,32 +96,41 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
             Log.d(TAG, "doInBackground: "+uris[0]);
             Cursor cursor = weakResolver.get().query(uris[0],null,null,null,null);
             Movie movie = new Movie(-1);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             ArrayList<Movie> temp = Helper.mappingCursorToMovies(cursor);
             if(temp.size()>0){
                  movie= temp.get(0);
             }
+
             return movie;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreLoad();
+            IConsumerMovieDataSource.DBSource.LoadDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPreLoad();
+            }
         }
 
 
         @Override
         protected void onPostExecute(Movie liveData) {
             super.onPostExecute(liveData);
-            if(liveData == null ) {
-                Movie movie = new Movie(-1);
-                weakCallback.get().onLoadSuccess(movie);
-            }else{
-                weakCallback.get().onLoadSuccess(liveData);
-
+            IConsumerMovieDataSource.DBSource.LoadDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                if(liveData == null ) {
+                    Movie movie = new Movie(-1);
+                    weakCallback.get().onLoadSuccess(movie);
+                }else{
+                    weakCallback.get().onLoadSuccess(liveData);
+                }
             }
-
-
         }
 
     }
@@ -124,19 +147,30 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         @Override
         protected Integer doInBackground(DataPair... dataPairs) {
             Integer res = weakResolver.get().update(dataPairs[0].uri,dataPairs[0].values,null,null);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return res;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            weakCallback.get().onPreExecute();
+            IConsumerMovieDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPreExecute();
+            }
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            weakCallback.get().onPostExecute(integer);
+            IConsumerMovieDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPostExecute(integer);
+            }
         }
     }
     private static class InsertAsyncTask extends AsyncTask<DataPair,Void, Uri>{
@@ -150,6 +184,11 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         @Override
         protected Uri doInBackground(DataPair... dataPairs) {
             Uri res = weakResolver.get().insert(dataPairs[0].uri,dataPairs[0].values);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Log.d(TAG, "insertMovieLocal background: "+dataPairs[0].values.getAsString(Movie.TAGS));
             Log.d(TAG, "doInBackground URI: "+res);
             return res;
@@ -158,13 +197,19 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            this.weakCallback.get().onPreExecute();
+            IConsumerMovieDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPreExecute();
+            }
         }
 
         @Override
         protected void onPostExecute(Uri uri) {
             super.onPostExecute(uri);
-            weakCallback.get().onPostExecute(uri);
+            IConsumerMovieDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPostExecute(uri);
+            }
         }
     }
     private static class DeleteAsyncTask extends AsyncTask<Uri, Void,Integer>{
@@ -178,19 +223,30 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         @Override
         protected Integer doInBackground(Uri... uris) {
             Integer res = weakResolver.get().delete(uris[0],null,null);
+            try {
+                Thread.sleep(Constants.DELAY_BACKGROUND);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return res;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            this.weakCallback.get().onPreExecute();
+            IConsumerMovieDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener !=null){
+                listener.onPreExecute();
+            }
         }
 
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            weakCallback.get().onPostExecute(integer);
+            IConsumerMovieDataSource.DBSource.UpdateDataCallback listener = weakCallback.get();
+            if(listener!=null){
+                listener.onPostExecute(integer);
+            }
         }
     }
     @Override
@@ -200,8 +256,8 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         Log.d(TAG, "insertMovieLocal: "+dataPair.values.getAsString(Movie.TAGS));
         synchronized (ConsumerMovieLocalData.class){
             asyncTask = new InsertAsyncTask(mContentResolver,callback);
-            asyncTask.execute(dataPair);
         }
+        asyncTask.execute(dataPair);
     }
     @Override
     public void getMovieByTags(String tags, IConsumerMovieDataSource.DBSource.LoadDataCallback callback){
@@ -210,9 +266,8 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         DataPair dataPair = new DataPair(uri,Movie.TAGS+" = ?",new String[]{tags});
         synchronized (ConsumerMovieLocalData.class){
             asyncTask = new QueryAsyncTask(mContentResolver,callback);
-            asyncTask.execute(dataPair);
         }
-
+        asyncTask.execute(dataPair);
     }
 
     @Override
@@ -228,9 +283,8 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         Uri uri = ContentUris.withAppendedId(Movie.CONTENT_URI,id);
         synchronized (ConsumerMovieLocalData.class){
             asyncTask = new QueryByIdAsyncTask(mContentResolver,callback);
-            asyncTask.execute(uri);
         }
-
+        asyncTask.execute(uri);
     }
 
     @Override
@@ -254,7 +308,7 @@ public class ConsumerMovieLocalData implements IConsumerMovieDataSource.DBSource
         Uri uri = ContentUris.withAppendedId(Movie.CONTENT_URI,id);
         synchronized (ConsumerMovieLocalData.class){
             asyncTask = new DeleteAsyncTask(mContentResolver,callback);
-            asyncTask.execute(uri);
         }
+        asyncTask.execute(uri);
     }
 }

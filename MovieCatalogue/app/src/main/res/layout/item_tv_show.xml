@@ -9,7 +9,7 @@
     android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
     android:layout_marginStart="@dimen/activity_vertical_margin_small"
     android:paddingEnd="@dimen/activity_horizontal_margin_small"
-    android:paddingLeft="@dimen/activity_horizontal_margin_small"
+    android:paddingStart="@dimen/activity_horizontal_margin_small"
     android:paddingTop="@dimen/activity_vertical_margin_small"
     style="@style/CardView.Light"
     card_view:cardCornerRadius="4dp"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tool:src="@drawable/poster_avengerinfinity"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/dummy_content_description" />
         <ImageView
             android:id="@+id/image_notification"
             android:layout_width="30dp"

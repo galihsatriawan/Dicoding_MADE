@@ -19,7 +19,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 tool:src="@drawable/poster_avengerinfinity"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/dummy_content_description" />
 
         </RelativeLayout>
 
