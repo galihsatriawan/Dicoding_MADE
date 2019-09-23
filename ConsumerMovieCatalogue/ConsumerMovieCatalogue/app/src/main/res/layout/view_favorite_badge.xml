@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:layout_gravity="center">
+    <ImageView
+        android:id="@+id/ic_favorite"
+        android:layout_width="@dimen/menu_item_icon_size"
+        android:layout_height="@dimen/menu_item_icon_size"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_favorite_border_black_24dp"/>
+</FrameLayout>
